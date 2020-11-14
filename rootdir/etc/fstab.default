@@ -48,7 +48,7 @@ odm                                                     /odm                   e
 mi_ext                                                  /mnt/vendor/mi_ext     ext4    ro,barrier=1,discard                                 wait,slotselect,logical,first_stage_mount,nofail,readahead_size_kb=128
 mi_ext                                                  /mnt/vendor/mi_ext     erofs   ro                                                   wait,slotselect,logical,first_stage_mount,nofail
 /mnt/vendor/mi_ext                                      /mi_ext                erofs   ro,bind                                              wait,nofail
-/dev/block/by-name/metadata                             /metadata              ext4    noatime,nosuid,nodev,discard,sync                    wait,check,formattable,first_stage_mount,metadata_csum
+/dev/block/by-name/metadata                             /metadata              ext4    noatime,nosuid,nodev,discard,data=journal,commit=1   wait,check,formattable,first_stage_mount,metadata_csum
 /dev/block/bootdevice/by-name/persist                   /mnt/vendor/persist    ext4    noatime,nosuid,nodev,barrier=1                       wait,check
 /dev/block/bootdevice/by-name/userdata                  /data                  f2fs    noatime,nosuid,nodev,discard,inlinecrypt,reserve_root=32768,resgid=1065,fsync_mode=nobarrier,flush_merge,mode=adaptive    latemount,wait,check,formattable,quota,reservedsize=128M,checkpoint=fs,readahead_size_kb=128
 /dev/block/bootdevice/by-name/misc                      /misc                  emmc    defaults                                             defaults
