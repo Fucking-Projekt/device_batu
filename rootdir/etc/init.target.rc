@@ -88,10 +88,6 @@ on fs
     chown system system /mnt/rescue
     chmod 0771 /mnt/rescue
     
-on post-fs
-    # set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
-
 on late-fs
     wait_for_prop hwservicemanager.ready true
     #exec_start wait_for_keymaster
