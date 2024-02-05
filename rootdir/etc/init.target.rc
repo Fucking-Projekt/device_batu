@@ -310,6 +310,19 @@ on property:ro.vendor.display.svi=1 && property:sys.boot_completed=1
 on property:ro.boot.hwname=*
     setprop ro.boot.product.hardware.sku ${ro.boot.hwname}
 
+# NFC SKU detection
+on property:ro.boot.product.hardware.sku=moonstone_p_in
+    setprop ro.vendor.hardware.nfc 0
+
+on property:ro.boot.product.hardware.sku=sunstone_cn
+    setprop ro.vendor.hardware.nfc 0
+
+on property:ro.boot.product.hardware.sku=sunstone_in
+    setprop ro.vendor.hardware.nfc 0
+
+on property:ro.boot.product.hardware.sku=sunstone_x
+    setprop ro.vendor.hardware.nfc 0
+
 service solo_oslo /system/bin/sh -c " \
     device_config put app_cloning cloned_apps_enabled true; \
     device_config put app_cloning delete_all_app_clones_enabled true; \
