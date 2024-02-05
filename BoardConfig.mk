@@ -94,6 +94,18 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
 DEVICE_MANIFEST_FILE += \
     $(DEVICE_PATH)/vintf/manifest.xml
 
+# NFC SKU support
+TARGET_NFC_SUPPORTED_SKUS := moonstone_p_global sunstone_global
+TARGET_NFC_UNSUPPORTED_SKUS := moonstone_p_in sunstone_cn sunstone_in sunstone_x
+
+ODM_MANIFEST_SKUS += $(TARGET_NFC_SUPPORTED_SKUS) $(TARGET_NFC_UNSUPPORTED_SKUS)
+
+$(foreach nfc_sku, $(call to-upper, $(TARGET_NFC_SUPPORTED_SKUS)), \
+    $(eval ODM_MANIFEST_$(nfc_sku)_FILES += $(DEVICE_PATH)/vintf/manifest_nfc.xml))
+
+$(foreach no_nfc_sku, $(call to-upper, $(TARGET_NFC_UNSUPPORTED_SKUS)), \
+    $(eval ODM_MANIFEST_$(no_nfc_sku)_FILES += $(DEVICE_PATH)/vintf/manifest_no_nfc.xml))
+
 DEVICE_MATRIX_FILE := \
     hardware/qcom-caf/common/compatibility_matrix.xml
 
