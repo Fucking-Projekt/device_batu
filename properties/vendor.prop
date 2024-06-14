@@ -178,6 +178,9 @@ persist.vendor.dpmhalservice.enable=1
 # DRM
 drm.service.enabled=true
 
+# Enable DeviceAsWebcam support
+ro.usb.uvc.enabled=true
+
 # Fingerprint
 persist.vendor.fingerprint.sensor_location=1080|960|200|local:4630947218746568833
 persist.vendor.fingerprint.sensor_modules=fpc,goodix
