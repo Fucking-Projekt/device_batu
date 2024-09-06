@@ -33,6 +33,9 @@ TARGET_2ND_CPU_VARIANT := cortex-a55
 # Enable 64-bit for non-zygote.
 ZYGOTE_FORCE_64 := true
 
+# Include 64-bit mediaserver to support 64-bit only devices
+TARGET_DYNAMIC_64_32_MEDIASERVER := true
+
 # ART
 ART_BUILD_TARGET_NDEBUG := true
 ART_BUILD_TARGET_DEBUG := false
