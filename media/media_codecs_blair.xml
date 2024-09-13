@@ -132,7 +132,7 @@
             <Feature name="can-swap-width-height" required="true" />
             <Feature name="low-latency" />
             <Feature name="secure-playback" required="true" />
-            <Limit name="concurrent-instances" max="3" />
+            <Limit name="concurrent-instances" max="4" />
             <Limit name="concurrent-instances" max="3" />
             <Limit name="performance-point-1920x1080" value="30" />
         </MediaCodec>
@@ -177,7 +177,7 @@
             <Feature name="can-swap-width-height" required="true" />
             <Feature name="low-latency" />
             <Feature name="secure-playback" required="true" />
-            <Limit name="concurrent-instances" max="3" />
+            <Limit name="concurrent-instances" max="4" />
             <Limit name="performance-point-1920x1080" value="30" />
         </MediaCodec>
         <MediaCodec name="c2.qti.vp9.decoder" type="video/x-vnd.on2.vp9" >
@@ -204,7 +204,7 @@
             <Feature name="adaptive-playback" />
             <Feature name="can-swap-width-height" required="true" />
             <Feature name="secure-playback" required="true" />
-            <Limit name="concurrent-instances" max="3" />
+            <Limit name="concurrent-instances" max="4" />
             <Limit name="performance-point-1920x1080" value="30" />
         </MediaCodec>
         <MediaCodec name="c2.android.av1.decoder" type="video/av01" update="true" variant="slow-cpu">
