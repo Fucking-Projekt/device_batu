@@ -262,7 +262,7 @@
         </MediaCodec>
         <MediaCodec name="c2.qti.heic.encoder" type="image/vnd.android.heic">
             <Alias name="OMX.qcom.video.encoder.heic"/>
-            <Limit name="size" min="512x512" max="8192x8192" />
+            <Limit name="size" min="512x512" max="5120x2560" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
             <Limit name="blocks-per-second" min="64" max="786432" />
