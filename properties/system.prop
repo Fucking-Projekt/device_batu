@@ -35,6 +35,7 @@
 #
 
 # Audio
+audio.service.client_wait_ms=10000
 persist.audio.button_jack.profile=volume
 persist.audio.button_jack.switch=0
 persist.audio.fluence.speaker=true
