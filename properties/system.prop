@@ -124,6 +124,6 @@ persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
 ril.subscription.types=NV,RUIM
 rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
-ro.telephony.default_network=33,33
+ro.telephony.default_network=26,26
 telephony.lteOnCdmaDevice=1
 persist.vendor.radio.atfwd.start=true
