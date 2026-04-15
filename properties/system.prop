@@ -74,6 +74,7 @@ config.disable_rtt=true
 debug.cpurend.vsync=false
 debug.hwui.skia_atrace_enabled=false
 debug.hwui.skia_use_perfetto_track_events=false
+debug.graphics.game_default_frame_rate.disabled=true
 debug.sf.enable_hwc_vds=1
 ro.opengles.version=196610
 
