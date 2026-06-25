@@ -97,6 +97,7 @@ BOARD_KERNEL_CMDLINE := \
     firmware_class.path=/vendor/firmware \
     androidboot.init_fatal_reboot_target=recovery
 
+TARGET_KERNEL_CLANG_VERSION := r563880c
 TARGET_KERNEL_CONFIG := stone_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/stone
 TARGET_KERNEL_NO_GCC := true
