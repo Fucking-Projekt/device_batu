@@ -94,7 +94,8 @@ BOARD_KERNEL_CMDLINE := \
     loop.max_part=7 \
     iptable_raw.raw_before_defrag=1 \
     ip6table_raw.raw_before_defrag=1 \
-    firmware_class.path=/vendor/firmware
+    firmware_class.path=/vendor/firmware \
+    androidboot.init_fatal_reboot_target=recovery
 
 TARGET_KERNEL_CONFIG := stone_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/stone
