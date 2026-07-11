@@ -111,6 +111,7 @@ on post-fs-data
     setprop vendor.qti.qdma.oper.mode 3
     
 on early-boot
+    swapon_all /vendor/etc/fstab.default
     start vendor.sensors
     # M17-T code for HQ-267809 by dongshuai at 2022.12.8 start
      verity_update_state
