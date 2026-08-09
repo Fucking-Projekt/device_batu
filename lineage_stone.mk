@@ -10,9 +10,13 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from device.
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
+$(call inherit-product, $(LOCAL_PATH)/overrides.mk)
 
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+
+# Gamebar
+$(call inherit-product, packages/apps/GameBar/gamebar.mk)
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2400
@@ -29,6 +33,36 @@ PRODUCT_NAME := lineage_stone
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BuildDesc="sunstone_global-user 14 UKQ1.240624.001 OS2.0.5.0.UMQMIXM release-keys" \
-    BuildFingerprint=Redmi/sunstone_global/sunstone:14/UKQ1.240624.001/OS2.0.5.0.UMQMIXM:user/release-keys \
-    DeviceProduct=sunstone
+    BuildSystemFingerprint=$(SysBrand)/$(SysName)/$(SysDevice):$(PLATFORM_VERSION)/$(BUILD_ID)/$(BuildNumber):$(BuildVariant)/$(BuildKeys) \
+    DeviceProduct=stone \
+    DeviceName=stone \
+    VdrProductBrand=Xiaomi \
+    VdrDeviceName=mivendor \
+    VdrProductManufacturer=Xiaomi \
+    VdrProductModel="Xiaomi for ARM64" \
+    VdrDeviceProduct=mivendor_holi \
+    OdmProductBrand=Xiaomi \
+    OdmDeviceName=miodm \
+    OdmProductManufacturer=Xiaomi \
+    OdmProductModel="Xiaomi for ARM64" \
+    OdmDeviceProduct=miodm_holi \
+    SysBrand=Android \
+    SysName=generic_system \
+    SysManufacturer=Xiaomi \
+    SysModel="Generic System" \
+    SysDevice=generic \
+    PdtProductBrand=Xiaomi \
+    PdtDeviceName=miproduct \
+    PdtProductManufacturer=QUALCOMM \
+    PdtProductModel=miproduct \
+    PdtDeviceProduct=miproduct_stone \
+    SexProductBrand=Xiaomi \
+    SexDeviceName=missi \
+    SexProductManufacturer=QUALCOMM \
+    SexProductModel=missi \
+    SexDeviceProduct=missi \
+    BuildNumber=OS4.0.0.1.XMPMIXM \
+    BuildUsername=Rimaki \
+    BuildHostname=Corporate-Commisioner-of-Pertamina \
+    BuildVariant=user \
+    BuildKeys=release-keys
