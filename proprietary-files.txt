@@ -1376,10 +1376,10 @@ vendor/lib64/vendor.xiaomi.sensor.citsensorservice@2.0.so
 vendor/bin/hw/vendor.xiaomi.hardware.displayfeature@1.0-service
 vendor/bin/displayfeature
 vendor/etc/init/vendor.xiaomi.hardware.displayfeature@1.0-service.rc
-vendor/lib64/hw/displayfeature.default.so
+vendor/lib64/hw/displayfeature.default.so;DISABLE_CHECKELF
 vendor/lib64/hw/vendor.xiaomi.hardware.displayfeature@1.0-impl.so
-vendor/lib64/libdisplayfeature.so
-vendor/lib64/libdisplayfeatureservice.so
+vendor/lib64/libdisplayfeature.so;DISABLE_CHECKELF
+vendor/lib64/libdisplayfeatureservice.so;DISABLE_CHECKELF
 
 # Xiaomi Hardware Features & SKUs
 vendor/etc/permissions/xiaomi.cn.hardware.features.xml
@@ -1461,9 +1461,9 @@ vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.tidaservice.xml
 vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.vsimapp.xml
 vendor/lib/libGPTEE_vendor.so
 vendor/lib/libQSEEComAPI.so
-vendor/lib/libcheckpid.so
-vendor/lib/libgui_vendor.so
-vendor/lib/liblogwrap_vendor.so
+vendor/lib/libcheckpid.so;DISABLE_CHECKELF
+vendor/lib/libgui_vendor.so;DISABLE_CHECKELF
+vendor/lib/liblogwrap_vendor.so;DISABLE_CHECKELF
 vendor/lib/libmfido.so
 vendor/lib/libtinyxml.so
 vendor/lib/libvsim.so
@@ -1471,15 +1471,15 @@ vendor/lib/vendor.xiaomi.hardware.tidaservice@1.0.so
 vendor/lib/vendor.xiaomi.hardware.tidaservice@1.1.so
 vendor/lib/vendor.xiaomi.hardware.tidaservice@1.2.so
 vendor/lib/vendor.xiaomi.hardware.vsimapp@1.0.so
-vendor/lib64/libcheckpid.so
-vendor/lib64/libgui_vendor.so
-vendor/lib64/libgui_vendor_202604.so
-vendor/lib64/libjsoncpp_vendor.so
-vendor/lib64/liblogwrap_vendor.so
+vendor/lib64/libcheckpid.so;DISABLE_CHECKELF
+vendor/lib64/libgui_vendor.so;DISABLE_CHECKELF
+vendor/lib64/libgui_vendor_202604.so;DISABLE_CHECKELF
+vendor/lib64/libjsoncpp_vendor.so;DISABLE_CHECKELF
+vendor/lib64/liblogwrap_vendor.so;DISABLE_CHECKELF
 vendor/lib64/libmfido.so
-vendor/lib64/libmt.so
-vendor/lib64/libmt@1.3.so
-vendor/lib64/libsize_vendor.so
+vendor/lib64/libmt.so;DISABLE_CHECKELF
+vendor/lib64/libmt@1.3.so;DISABLE_CHECKELF
+vendor/lib64/libsize_vendor.so;DISABLE_CHECKELF
 vendor/lib64/libtida@1.2.so
 vendor/lib64/libtinyxml.so
 vendor/lib64/libwvkeybox.so
