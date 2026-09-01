@@ -89,3 +89,6 @@
 
 # Lineage Health
 /sys/class/power_supply/battery/battery_charging_enabled                       u:object_r:vendor_sysfs_battery_supply:s0
+
+# Touch
+/vendor/bin/hw/vendor\.lineage\.touch-service\.xiaomi                                               u:object_r:hal_lineage_touch_default_exec:s0
