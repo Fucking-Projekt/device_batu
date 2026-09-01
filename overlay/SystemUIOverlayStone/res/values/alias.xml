@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Alias used to reference framework configuration for screen rotation.  -->
+    <item name="config_enableLockScreenRotation" type="bool">true</item>
+</resources>

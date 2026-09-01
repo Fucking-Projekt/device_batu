@@ -283,14 +283,19 @@ PRODUCT_PACKAGES += \
     NcmTetheringOverlay \
     NfcOverlayStone \
     SettingsOverlayStone \
+    SettingsProviderOverlayMoonstone \
+    SettingsProviderOverlaySunstone \
+    SettingsProviderOverlaySunstoneX \
     SettingsProviderOverlayStone \
     SystemUIOverlayStone \
     TelephonyOverlayStone \
+    WifiOverlayMoonstone \
+    WifiOverlaySunstone \
+    WifiOverlaySunstoneX \
     WifiOverlayStone
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rro_overlays/config-odm.xml:$(TARGET_COPY_OUT_ODM)/overlay/config/config.xml \
-    $(LOCAL_PATH)/rro_overlays/config-vendor.xml:$(TARGET_COPY_OUT_VENDOR)/overlay/config/config.xml
+    $(LOCAL_PATH)/overlay/partition_order.xml:$(TARGET_COPY_OUT_PRODUCT)/overlay/partition_order.xml
 
 # Partitions
 PRODUCT_PACKAGES += \
