@@ -1,3 +1,5 @@
+binder_call(system_app, vendor_hal_xiaomi_css)
+
 # Parts
 allow system_app sysfs_thermal:file write;
 
