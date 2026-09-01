@@ -69,6 +69,8 @@ on init
     # Touchscreen
     chown system system /sys/devices/platform/soc/4c88000.i2c/i2c-2/2-0038/fts_gesture_mode
     chmod 0664 /sys/devices/platform/soc/4c88000.i2c/i2c-2/2-0038/fts_gesture_mode
+    chown system system /sys/devices/virtual/touch/touch_dev/bump_sample_rate
+    chmod 0664 /sys/devices/virtual/touch/touch_dev/bump_sample_rate
 
     copy_per_line /dev/cpuctl/tasks /dev/cpuctl/system/tasks
 
