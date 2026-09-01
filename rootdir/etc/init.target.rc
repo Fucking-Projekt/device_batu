@@ -215,8 +215,8 @@ on boot
     chmod 0664 /sys/class/touch/touch_dev/palm_sensor
 
     # Health
-    chown system system /sys/class/power_supply/battery/input_suspend
-    chmod 0660 /sys/class/power_supply/battery/input_suspend
+    chown system system /sys/class/power_supply/battery/battery_charging_enabled
+    chmod 0660 /sys/class/power_supply/battery/battery_charging_enabled
 
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1

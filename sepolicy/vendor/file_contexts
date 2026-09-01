@@ -86,3 +86,6 @@
 
 # Vibrator (RichTap)
 /(vendor|system/vendor)/bin/hw/vendor-aac-hardware-richtap-vibrator                            u:object_r:hal_vibrator_default_exec:s0
+
+# Lineage Health
+/sys/class/power_supply/battery/battery_charging_enabled                       u:object_r:vendor_sysfs_battery_supply:s0
