@@ -1,8 +1,0 @@
-<!--
-     SPDX-FileCopyrightText: The LineageOS Project
-     SPDX-License-Identifier: Apache-2.0
--->
-<config>
-    <overlay package="com.android.overlay.moonstone" mutable="false" enabled="true" />
-    <overlay package="com.android.overlay.sunstone" mutable="false" enabled="true" />
-</config>

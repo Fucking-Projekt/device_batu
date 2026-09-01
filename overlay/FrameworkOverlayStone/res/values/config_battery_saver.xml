@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Default for BatterySaverPolicy.DEFAULT_FULL_POLICY.disableVibration -->
+    <bool name="config_batterySaver_full_disableVibration">true</bool>
+
+    <!-- Default for BatterySaverPolicy.DEFAULT_FULL_POLICY.enableAdjustBrightness -->
+    <bool name="config_batterySaver_full_enableAdjustBrightness">true</bool>
+
+    <!-- Default for BatterySaverPolicy.DEFAULT_FULL_POLICY.enableDataSaver -->
+    <bool name="config_batterySaver_full_enableDataSaver">true</bool>
+</resources>
