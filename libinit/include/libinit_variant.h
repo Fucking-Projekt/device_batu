@@ -11,11 +11,11 @@
 
 typedef struct variant_info {
     std::string sku_value;
-
     std::string brand;
     std::string device;
-    std::string model;
+    std::string marketname;
     std::string media;
+    std::string model;
     std::string build_fingerprint;
 
 } variant_info_t;

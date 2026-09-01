@@ -23,17 +23,18 @@ void search_variant(const std::vector<variant_info_t>& variants) {
 }
 
 void set_variant_props(const variant_info_t variant) {
-    
+
     set_ro_build_prop("brand", variant.brand, true);
     set_ro_build_prop("device", variant.device, true);
-    set_ro_build_prop("marketname", variant.model, true);
+    set_ro_build_prop("marketname", variant.marketname, true);
     set_ro_build_prop("model", variant.model, true);
     set_ro_build_prop("name", variant.sku_value, true);
     property_override("ro.boot.hardware.sku", variant.sku_value);
-    property_override("vendor.usb.product_string", variant.model, true);
+    property_override("vendor.usb.product_string", variant.marketname, true);
+    property_override("ro.product.board", variant.device, true);
 
     if (access("/system/bin/recovery", F_OK) != 0) {
-        property_override("bluetooth.device.default_name", variant.model, true);
+        property_override("bluetooth.device.default_name", variant.marketname, true);
         property_override("vendor.media.target_variant", variant.media, true);
         set_ro_build_prop("fingerprint", variant.build_fingerprint);
         property_override("ro.bootimage.build.fingerprint", variant.build_fingerprint);
