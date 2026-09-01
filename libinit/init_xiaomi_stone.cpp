@@ -9,7 +9,7 @@
 #include "vendor_init.h"
 
 void vendor_load_properties() {
-    
+
     const std::vector<variant_info_t> variants = {
         { //MOONSTONE_GLOBAL
             "moonstone_p_global",
@@ -17,6 +17,7 @@ void vendor_load_properties() {
             "moonstone",
             "POCO X5 5G",
             "_blair",
+            "22111317PG",
             "POCO/moonstone_p_global/moonstone:14/UKQ1.231003.002/V816.0.26.0.UMPMIXM:user/release-keys"
         },
         { //MOONSTONE_IN
@@ -25,14 +26,16 @@ void vendor_load_properties() {
             "moonstone",
             "POCO X5 5G",
             "_blair",
+            "22111317PI",
             "POCO/moonstone_p_in/moonstone:14/UKQ1.231003.002/V816.0.22.0.UMPINXM:user/release-keys"
         },
         { //SUNSTONE_CN
-            "sunstone_cn",
+            "sunstone",
             "Redmi",
             "sunstone",
             "Redmi Note 12 5G",
             "_blair_lite",
+            "22111317C",
             "Redmi/sunstone/sunstone:14/UKQ1.230917.001/OS2.0.6.0.UMQCNXM:user/release-keys"
         },
         { //SUNSTONE_GLOBAL
@@ -41,6 +44,7 @@ void vendor_load_properties() {
             "sunstone",
             "Redmi Note 12 5G",
             "_blair_lite",
+            "22111317G",
             "Redmi/sunstone_global/sunstone:14/UKQ1.240624.001/OS2.0.5.0.UMQMIXM:user/release-keys"
         },
         { //SUNSTONE_IN
@@ -49,18 +53,20 @@ void vendor_load_properties() {
             "sunstone",
             "Redmi Note 12 5G",
             "_blair_lite",
+            "22111317I",
             "Redmi/sunstone_in/sunstone:14/UKQ1.230917.001/OS2.0.6.0.UMQINXM:user/release-keys"
         },
         { //SUNSTONE_X
-            "sunstone_x",
+            "sunstone",
             "Redmi",
             "sunstone",
             "Redmi Note 12R Pro",
             "_blair_lite",
+            "22111317C",
             "Redmi/sunstone/sunstone:14/UKQ1.230917.001/OS2.0.6.0.UMQCNXM:user/release-keys"
         }
     };
-    
+
     search_variant(variants);
     set_dalvik_heap();
 }
