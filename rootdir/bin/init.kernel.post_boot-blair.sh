@@ -31,79 +31,11 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #=============================================================================
 
-function configure_zram_parameters() {
-	MemTotalStr=`cat /proc/meminfo | grep MemTotal`
-	MemTotal=${MemTotalStr:16:8}
-
-	# Zram disk - 75% for < 2GB devices .
-	# For >2GB devices, size = 50% of RAM size. Limit the size to 4GB.
-
-	let RamSizeGB="( $MemTotal / 1048576 ) + 1"
-	diskSizeUnit=M
-	if [ $RamSizeGB -le 2 ]; then
-		let zRamSizeMB="( $RamSizeGB * 1024 ) * 3 / 4"
-	else
-		let zRamSizeMB="( $RamSizeGB * 1024 ) / 2"
-	fi
-
-	# use MB avoid 32 bit overflow
-	if [ $zRamSizeMB -gt 4096 ]; then
-		let zRamSizeMB=4096
-	fi
-
-	if [ -f /sys/block/zram0/disksize ]; then
-		if [ -f /sys/block/zram0/use_dedup ]; then
-			echo 1 > /sys/block/zram0/use_dedup
-		fi
-		echo "$zRamSizeMB""$diskSizeUnit" > /sys/block/zram0/disksize
-
-		# ZRAM may use more memory than it saves if SLAB_STORE_USER
-		# debug option is enabled.
-		if [ -e /sys/kernel/slab/zs_handle ]; then
-			echo 0 > /sys/kernel/slab/zs_handle/store_user
-		fi
-		if [ -e /sys/kernel/slab/zspage ]; then
-			echo 0 > /sys/kernel/slab/zspage/store_user
-		fi
-
-		mkswap /dev/block/zram0
-		swapon /dev/block/zram0 -p 32758
-	fi
-}
-
-function configure_memory_parameters() {
-	# Set swappiness to 120 for all targets
-	echo 120 > /proc/sys/vm/swappiness
-
-	# Set zstd algorithm for zRAM compression
-	echo zstd > /sys/block/zram0/comp_algorithm
-
-	# Disable ZRAM read-ahead to save CPU
-	echo 0 > /proc/sys/vm/page-cluster
-
-	configure_zram_parameters
-
-	#Spawn 1 kswapd threads which can help in fast reclaiming of pages
-	echo 1 > /proc/sys/vm/kswapd_threads
-
-    echo 10 > /proc/sys/vm/dirty_ratio
-    echo 5  > /proc/sys/vm/dirty_background_ratio
-    echo 50 > /proc/sys/vm/vfs_cache_pressure
-}
-
-# configure governor settings for silver cluster
-echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
-
-# configure governor settings for gold cluster
-echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy6/scaling_governor
-
 echo N > /sys/module/lpm_levels/parameters/sleep_disabled
 
 echo 35 > /proc/sys/kernel/sched_min_task_util_for_boost
 echo 35 > /proc/sys/kernel/sched_min_task_util_for_colocation
 echo 1000000 > /proc/sys/kernel/sched_migration_cost_ns
-
-configure_memory_parameters
 
 echo 0 > /proc/sys/kernel/sched_boost
 

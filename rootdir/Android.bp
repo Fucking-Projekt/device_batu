@@ -71,6 +71,12 @@ sh_binary {
 }
 
 sh_binary {
+    name: "init.pcba.sh",
+    src: "bin/init.pcba.sh",
+    vendor: true,
+}
+
+sh_binary {
     name: "init.qcom.early_boot.sh",
     src: "bin/init.qcom.early_boot.sh",
     vendor: true,

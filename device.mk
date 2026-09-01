@@ -407,6 +407,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.class_main.sh \
     init.kernel.post_boot.sh \
+    init.pcba.sh \
     init.qcom.early_boot.sh \
     init.qcom.sh \
     init.qti.display_boot.sh \

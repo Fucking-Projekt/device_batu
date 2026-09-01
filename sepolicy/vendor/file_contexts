@@ -57,3 +57,6 @@
 
 # Xiaomi MAC
 /data/vendor/mac_addr(/.*)?                                                    u:object_r:vendor_wifi_vendor_data_file:s0
+
+# Pcba
+/vendor/bin/init\.pcba\.sh                                                     u:object_r:vendor_qti_init_shell_exec:s0
