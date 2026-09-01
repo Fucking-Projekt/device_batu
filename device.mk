@@ -291,6 +291,9 @@ PRODUCT_PACKAGES += \
     WifiOverlaySunstoneX \
     WifiOverlayStone
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/overlay/partition_order.xml:$(TARGET_COPY_OUT_PRODUCT)/overlay/partition_order.xml
+
 # Partitions
 PRODUCT_PACKAGES += \
     vendor_bt_firmware_mountpoint \
