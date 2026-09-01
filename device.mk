@@ -198,6 +198,9 @@ $(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,fal
 
 # HIDL
 PRODUCT_PACKAGES += \
+    android.hidl.memory.block@1.0.vendor \
+    android.hidl.token@1.0.vendor \
+    android.hidl.token@1.0-utils.vendor \
     libhidltransport.vendor \
     libhwbinder.vendor
 

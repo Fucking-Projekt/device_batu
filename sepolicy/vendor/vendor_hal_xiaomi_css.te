@@ -1,0 +1,6 @@
+type vendor_hal_xiaomi_css, domain;
+type vendor_hal_xiaomi_css_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(vendor_hal_xiaomi_css)
+
+permissive vendor_hal_xiaomi_css;
