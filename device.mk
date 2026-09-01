@@ -100,10 +100,6 @@ PRODUCT_PACKAGES += \
 
 $(call soong_config_set_bool,camera,override_format_from_reserved,true)
 
-# Circle to Search support
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/c2s/contextual_search.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/contextual_search.xml
-
 # Datura
 PRODUCT_PACKAGES += Datura
 
@@ -360,6 +356,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/privapp-permissions-qti-system-ext.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-qti-system-ext.xml \
     $(LOCAL_PATH)/permissions/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/qti_whitelist.xml \
     $(LOCAL_PATH)/permissions/qti_whitelist_system_ext.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/sysconfig/qti_whitelist_system_ext.xml
+
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/permissions/odm/,$(TARGET_COPY_OUT_ODM)/etc/permissions)
 
 # Power
 PRODUCT_PACKAGES += \

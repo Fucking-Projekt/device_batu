@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- These are configurations that should exist on Google's 2016 and newer Nexus devices. -->
+<permissions>
+    <!-- This is meant to be the canonical feature identifying 2016 and newer Nexus devices. -->
+    <feature name="com.google.android.feature.PIXEL_EXPERIENCE" />
+
+    <!-- The feature identifying devices which are able to use the Turbo app -->
+    <feature name="com.google.android.feature.TURBO_PRELOAD" />
+
+    <!-- The feature identifying devices which are able to use the Android Wellbeing app. -->
+    <feature name="com.google.android.feature.WELLBEING" />
+
+    <!-- The feature identifying devices which are able to use the device-to-device migration
+        over cable provided by the Pixelmigrate app. -->
+    <feature name="com.google.android.feature.D2D_CABLE_MIGRATION_FEATURE" />
+
+    <!-- Explicitly disable features that are unavailable on handheld Nexus devices. -->
+    <unavailable-feature name="android.hardware.type.automotive" />
+    <unavailable-feature name="android.hardware.type.embedded" />
+    <unavailable-feature name="android.hardware.type.pc" />
+    <unavailable-feature name="android.hardware.type.television" />
+    <unavailable-feature name="android.hardware.type.watch" />
+    <unavailable-feature name="android.software.leanback" />
+    <unavailable-feature name="android.software.leanback_only" />
+
+    <!-- Pre-installed carrier apps which should be disabled until a matching SIM is inserted. -->
+    <disabled-until-used-preinstalled-carrier-app package="com.google.android.apps.tycho" />
+</permissions>
