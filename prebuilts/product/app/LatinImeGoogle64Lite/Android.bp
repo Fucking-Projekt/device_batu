@@ -1,0 +1,12 @@
+android_app_import {
+	name: "LatinImeGoogle64Lite",
+	owner: "gms",
+	apk: "LatinImeGoogle64Lite.apk",
+	overrides: ["LatinIME", "LatinIMEGooglePrebuilt"],
+	preprocessed: true,
+	presigned: true,
+	dex_preopt: {
+		enabled: false, 
+	},
+	product_specific: true,
+}

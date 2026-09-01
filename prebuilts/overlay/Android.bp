@@ -1,0 +1,34 @@
+//
+// Prebuilt overlay APKs
+//
+
+android_app_import {
+    name: "SystemUIThemeOverlayMiHoli",
+    apk: "SystemUIThemeOverlayMiHoli.apk",
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    soc_specific: true,
+}
+
+android_app_import {
+    name: "OplusPermissionControllerOverlay",
+    apk: "OplusPermissionControllerOverlay.apk",
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    soc_specific: true,
+}
+
+android_app_import {
+    name: "Launcher3QuickStepThemeOverlayMiHoli",
+    apk: "Launcher3QuickStepThemeOverlayMiHoli.apk",
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    soc_specific: true,
+}
+

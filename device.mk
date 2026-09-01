@@ -369,6 +369,47 @@ PRODUCT_COPY_FILES += \
     system/core/libprocessgroup/profiles/cgroups.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json \
     system/core/libprocessgroup/profiles/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
 
+# Prebuilts
+PRODUCT_PACKAGES += \
+    LatinImeGoogle64Lite \
+    Launcher3QuickStepThemeOverlayMiHoli \
+    OplusPermissionControllerOverlay \
+    SystemUIThemeOverlayMiHoli
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.config.ringtone=into_the_night.ogg \
+    ro.config.alarm_alert=Homecoming.ogg
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/media/audio/alarms/OPPO.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/OPPO.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/alarms/OPPO2.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/OPPO2.ogg
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/into_the_night.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/into_the_night.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/iOS.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/iOS.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/Marimba.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Marimba.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/Mi.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Mi.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/MiJazz.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/MiJazz.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/MiMix2.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/MiMix2.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/MiRemix.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/MiRemix.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/MiRemix2.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/MiRemix2.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/Nokia.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Nokia.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/OPPO.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/OPPO.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/OPPO2.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/OPPO2.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/OPPO3.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/OPPO3.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/OPPO4.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/OPPO4.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/OPPO5.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/OPPO5.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/Realme.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Realme.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/Silver.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Silver.ogg
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/Homecoming.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Homecoming.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/Homecoming.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Homecoming.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/Homecoming_16bit.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Homecoming_16bit.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/Homecoming_16bit.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Homecoming_16bit.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/OvertheHorizon.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/OvertheHorizon.ogg \
+    $(LOCAL_PATH)/prebuilts/media/audio/ringtones/OvertheHorizon.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/OvertheHorizon.ogg
+
 # Protobuf
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-3.9.1-vendorcompat \
