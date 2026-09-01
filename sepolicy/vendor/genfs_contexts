@@ -44,3 +44,6 @@ genfscon sysfs /devices/platform/soc/soc:maxim_ds28e16/power_supply/batt_verify/
 genfscon sysfs /sys/kernel/fast_charge/force_fast_charge u:object_r:vendor_sysfs_fastcharge:s0
 genfscon sysfs /sys/kernel/fastchgtoggle/mode u:object_r:vendor_sysfs_fastcharge:s0
 genfscon sysfs /sys/kernel/fastchgtoggle/thermals u:object_r:vendor_sysfs_fastcharge:s0
+
+# Touch
+genfscon sysfs /devices/virtual/touch/touch_dev/bump_sample_rate                                    u:object_r:vendor_sysfs_touch:s0
