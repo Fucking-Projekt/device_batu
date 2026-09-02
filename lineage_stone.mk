@@ -19,11 +19,20 @@ $(call inherit-product, $(LOCAL_PATH)/device.mk)
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
+# Sign keys
+include vendor/lineage-priv/keys/keys.mk
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2400
 TARGET_SCREEN_WIDTH := 1080
 
+# Flags
 TARGET_EXCLUDES_AUDIOFX := true
+PERF_ANIM_OVERRIDE := true
+PRODUCT_NO_CAMERA := false
+TARGET_DISABLE_EPPE := true
+TARGET_ENABLE_FP_OVERRIDE := false
+WITH_GMS := false
 
 PRODUCT_BRAND := Redmi
 PRODUCT_DEVICE := stone
