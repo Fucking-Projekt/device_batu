@@ -5,3 +5,7 @@ binder_call(platform_app_36, vendor_hal_xiaomi_css)
 
 # FPS
 allow platform_app vendor_sysfs_graphics:file { getattr open read };
+
+# Kcal
+allow platform_app vendor_sysfs_kcal:dir search;
+allow platform_app vendor_sysfs_kcal:file rw_file_perms;

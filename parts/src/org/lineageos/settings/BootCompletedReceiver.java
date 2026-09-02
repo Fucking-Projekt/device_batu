@@ -20,14 +20,20 @@ package org.lineageos.settings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.provider.Settings;
 import android.util.Log;
 
+import androidx.preference.PreferenceManager;
+
+import org.lineageos.settings.fps.FPSInfoService;
 import org.lineageos.settings.thermal.ThermalUtils;
 import org.lineageos.settings.resolution.ResolutionUtils;
 import org.lineageos.settings.refreshrate.RefreshUtils;
 import org.lineageos.settings.dirac.DiracUtils;
+import org.lineageos.settings.utils.FileUtils;
 
-public class BootCompletedReceiver extends BroadcastReceiver {
+public class BootCompletedReceiver extends BroadcastReceiver implements Controller {
     private static final boolean DEBUG = false;
     private static final String TAG = "XiaomiParts";
 
@@ -35,6 +41,26 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         if (DEBUG)
             Log.d(TAG, "Received boot completed intent");
+
+        // KCAL
+        if (Settings.Secure.getInt(context.getContentResolver(), PREF_SETONBOOT, 0) == 1) {
+            FileUtils.setValue(KCAL_RED, Settings.Secure.getInt(context.getContentResolver(),
+                    PREF_RED, RED_DEFAULT));
+            FileUtils.setValue(KCAL_GREEN, Settings.Secure.getInt(context.getContentResolver(),
+                    PREF_GREEN, GREEN_DEFAULT));
+            FileUtils.setValue(KCAL_BLUE, Settings.Secure.getInt(context.getContentResolver(),
+                    PREF_BLUE, BLUE_DEFAULT));
+            FileUtils.setValue(KCAL_SAT, Settings.Secure.getInt(context.getContentResolver(),
+                    PREF_GRAYSCALE, 0) == 1 ? 0 :
+                    Settings.Secure.getInt(context.getContentResolver(),
+                            PREF_SATURATION, SATURATION_DEFAULT));
+            FileUtils.setValue(KCAL_VAL, Settings.Secure.getInt(context.getContentResolver(),
+                    PREF_VALUE, VALUE_DEFAULT));
+            FileUtils.setValue(KCAL_CONT, Settings.Secure.getInt(context.getContentResolver(),
+                    PREF_CONTRAST, CONTRAST_DEFAULT));
+            FileUtils.setValue(KCAL_HUE, Settings.Secure.getInt(context.getContentResolver(),
+                    PREF_HUE, HUE_DEFAULT));
+        }
 
         // Dirac
         try {
@@ -51,5 +77,11 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         // Per-App-Resolution
         ResolutionUtils.startService(context);
+
+        // FPS Info
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (prefs.getBoolean("fps_info", false)) {
+            context.startService(new Intent(context, FPSInfoService.class));
+        }
     }
 }

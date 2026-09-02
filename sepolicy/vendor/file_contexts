@@ -91,4 +91,14 @@
 /sys/class/power_supply/battery/battery_charging_enabled                       u:object_r:vendor_sysfs_battery_supply:s0
 
 # Touch
+/sys/devices/virtual/touch/touch_dev/bump_sample_rate        u:object_r:vendor_sysfs_touch:s0
 /vendor/bin/hw/vendor\.lineage\.touch-service\.xiaomi                                               u:object_r:hal_lineage_touch_default_exec:s0
+
+# Kcal
+/sys/module/msm_drm/parameters/kcal_red                      u:object_r:vendor_sysfs_kcal:s0
+/sys/module/msm_drm/parameters/kcal_green                    u:object_r:vendor_sysfs_kcal:s0
+/sys/module/msm_drm/parameters/kcal_blue                     u:object_r:vendor_sysfs_kcal:s0
+/sys/module/msm_drm/parameters/kcal_cont                     u:object_r:vendor_sysfs_kcal:s0
+/sys/module/msm_drm/parameters/kcal_sat                      u:object_r:vendor_sysfs_kcal:s0
+/sys/module/msm_drm/parameters/kcal_hue                      u:object_r:vendor_sysfs_kcal:s0
+/sys/module/msm_drm/parameters/kcal_val                      u:object_r:vendor_sysfs_kcal:s0

@@ -2,22 +2,73 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/kamis_stuff_title">
 
-    <Preference
-        android:key="fast_charge"
-        android:title="@string/fastcharge_title"
-        android:summary="@string/fastcharge_summary"
-        android:icon="@drawable/ic_fast_charge" />
+    <PreferenceCategory android:title="Display">
+        <Preference
+            android:key="refresh_rate"
+            android:title="@string/refresh_title"
+            android:summary="@string/refresh_summary" />
 
-    <Preference
-    	android:key="useless"
-    	android:title="@string/useless_mode_title"
-    	android:summary="@string/useless_mode_summary"
-    	android:icon="@drawable/ic_useless" />
+        <Preference
+            android:key="resolution"
+            android:title="@string/upscale_title"
+            android:summary="@string/upscale_summary" />
 
-    <Preference
-        android:key="kernel_manager"
-        android:title="@string/kernel_manager_title"
-        android:summary="@string/kernel_manager_summary"
-        android:icon="@drawable/ic_kernel_manager" />
+        <Preference
+            android:key="kcal"
+            android:title="@string/advanced_settings_kcal"
+            android:summary="@string/kcal_summary" />
+
+        <Preference
+            android:key="system_resolution"
+            android:title="@string/system_resolution_title"
+            android:summary="@string/system_resolution_summary_setting" />
+
+        <SwitchPreference
+            android:key="fps_info"
+            android:title="@string/fps_info_title"
+            android:summary="@string/fps_info_summary"
+            android:persistent="true" />
+
+        <SwitchPreference
+            android:key="high_touch_polling"
+            android:title="@string/high_touch_polling_title"
+            android:summary="@string/high_touch_polling_summary"
+            android:persistent="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Audio">
+        <Preference
+            android:key="dirac"
+            android:title="@string/dirac_title"
+            android:summary="@string/dirac_summary" />
+
+        <Preference
+            android:key="clear_speaker"
+            android:title="@string/clear_speaker_title"
+            android:summary="@string/clear_speaker_summary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="System">
+        <Preference
+            android:key="thermal"
+            android:title="@string/thermal_title"
+            android:summary="@string/thermal_summary" />
+
+        <SwitchPreference
+            android:key="bypass_charge"
+            android:title="@string/fastcharge_bypass_title"
+            android:summary="@string/fastcharge_bypass_summary"
+            android:persistent="false" />
+
+        <Preference
+            android:key="kernel_manager"
+            android:title="@string/kernel_manager_title"
+            android:summary="@string/kernel_manager_summary" />
+
+        <Preference
+            android:key="useless"
+            android:title="@string/useless_mode_title"
+            android:summary="@string/useless_mode_summary" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

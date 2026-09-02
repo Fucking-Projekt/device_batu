@@ -26,12 +26,14 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" />
 
     <uses-sdk
         android:minSdkVersion="24"
         android:targetSdkVersion="30"/>
 
     <application
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/device_settings_app_name"
         android:persistent="true"
         android:defaultToDeviceProtectedStorage="true"
@@ -47,44 +49,33 @@
 
         <activity
             android:name=".kamisstuff.KamisStuffActivity"
-            android:label="@string/kamis_stuff_title">
+            android:label="@string/kamis_stuff_title"
+            android:launchMode="singleTask"
+            android:exported="false" />
+
+        <activity-alias
+            android:name=".Settings"
+            android:label="@string/device_settings_app_name"
+            android:taskAffinity="org.lineageos.settings.root"
+            android:exported="true"
+            android:targetActivity=".kamisstuff.KamisStuffActivity">
             <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.system" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/kamis_stuff_summary" />
-            <meta-data
-        	android:name="com.android.settings.icon"
-        	android:resource="@drawable/ic_kami" />
-        </activity>
+        </activity-alias>
+
 
         <activity
             android:name=".thermal.ThermalActivity"
             android:label="@string/thermal_title">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.battery" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/thermal_summary" />
-        </activity>
+            </activity>
 
         <service
             android:name=".thermal.ThermalService"
             android:permission="ThermalService">
         </service>
-
-        <activity
-            android:name=".fastcharge.FastChargeActivity"
-            android:label="@string/fastcharge_title"
-            android:exported="false" />
 
         <activity
     	    android:name=".useless.UselessActivity"
@@ -99,31 +90,13 @@
         <activity
             android:name=".speaker.ClearSpeakerActivity"
             android:label="@string/clear_speaker_title">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.sound" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/clear_speaker_summary" />
-        </activity>
+            </activity>
 
         <activity
             android:name=".refreshrate.RefreshActivity"
             android:label="@string/refresh_title"
             android:exported="false">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.display" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/refresh_summary" />
-        </activity>
+            </activity>
 
         <service
             android:name=".refreshrate.RefreshService"
@@ -135,16 +108,7 @@
             android:name=".resolution.ResolutionActivity"
             android:label="@string/upscale_title"
             android:exported="false">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.display" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/upscale_summary" />
-        </activity>
+            </activity>
 
         <service
             android:name=".resolution.ResolutionService"
@@ -156,16 +120,7 @@
             android:name=".resolution.SystemResolutionActivity"
             android:label="@string/system_resolution_title"
             android:exported="false">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.display" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/system_resolution_summary_setting" />
-        </activity>
+            </activity>
 
         <service
             android:name=".thermal.ThermalTileService"
@@ -183,21 +138,44 @@
             android:name=".dirac.DiracActivity"
             android:label="@string/dirac_title"
             android:exported="true">
+            </activity>
+
+        <activity
+            android:name=".kcal.KcalSettingsActivity"
+            android:label="@string/advanced_settings_kcal"
+            android:exported="true">
+            </activity>
+
+        <service
+            android:name=".kcal.KcalTileService"
+            android:icon="@drawable/ic_kcal"
+            android:label="@string/advanced_settings_kcal"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.ia.sound" />
-            <meta-data
-                android:name="com.android.settings.summary"
-                android:resource="@string/dirac_summary" />
-        </activity>
+        </service>
 
         <service
             android:name=".dirac.DiracTileService"
             android:icon="@drawable/ic_qs_dirac"
             android:label="@string/dirac_title"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".fps.FPSInfoService"
+            android:exported="false" />
+
+        <service
+            android:name=".fps.FPSTileService"
+            android:icon="@drawable/ic_fps_tile"
+            android:label="@string/fps_info_title"
             android:exported="true"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>

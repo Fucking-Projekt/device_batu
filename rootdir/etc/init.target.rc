@@ -140,6 +140,22 @@ on boot
     chown system system /sys/class/drm/card0-DSI-1/panel_info
     chmod 0444 /sys/class/drm/card0-DSI-1/panel_info
 
+# Kcal
+    chown system system /sys/module/msm_drm/parameters/kcal_red
+    chown system system /sys/module/msm_drm/parameters/kcal_green
+    chown system system /sys/module/msm_drm/parameters/kcal_blue
+    chown system system /sys/module/msm_drm/parameters/kcal_cont
+    chown system system /sys/module/msm_drm/parameters/kcal_sat
+    chown system system /sys/module/msm_drm/parameters/kcal_hue
+    chown system system /sys/module/msm_drm/parameters/kcal_val
+    chmod 0660 /sys/module/msm_drm/parameters/kcal_red
+    chmod 0660 /sys/module/msm_drm/parameters/kcal_green
+    chmod 0660 /sys/module/msm_drm/parameters/kcal_val
+    chmod 0660 /sys/module/msm_drm/parameters/kcal_blue
+    chmod 0660 /sys/module/msm_drm/parameters/kcal_cont
+    chmod 0660 /sys/module/msm_drm/parameters/kcal_sat
+    chmod 0660 /sys/module/msm_drm/parameters/kcal_hue
+
     write /dev/cpuset/audio-app/cpus 1-2
     # Add a cpuset for the camera daemon
     # We want all cores for camera
