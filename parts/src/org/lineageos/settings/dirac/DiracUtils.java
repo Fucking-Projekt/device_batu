@@ -17,8 +17,8 @@
 package org.lineageos.settings.dirac;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.UserHandle;
 import android.os.SystemClock;
 import android.view.KeyEvent;
@@ -33,7 +33,7 @@ public class DiracUtils {
     private static DiracUtils mInstance;
     private DiracSound mDiracSound;
     private MediaSessionManager mMediaSessionManager;
-    private Handler mHandler = new Handler();
+    private Handler mHandler = new Handler(Looper.getMainLooper());
     private Context mContext;
 
     public DiracUtils(Context context) {
@@ -44,7 +44,7 @@ public class DiracUtils {
 
     public static synchronized DiracUtils getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new DiracUtils(context);
+            mInstance = new DiracUtils(context.getApplicationContext());
         }
 
         return mInstance;

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 The LineageOS Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <!-- FPSInfoService FPS node file path -->
+    <string name="config_fpsInfoSysNode" translatable="false">/sys/devices/platform/soc/5e00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps</string>
+
+    <!-- KCAL sysfs nodes -->
+    <string name="config_kcalRedSysNode" translatable="false">/sys/module/msm_drm/parameters/kcal_red</string>
+    <string name="config_kcalGreenSysNode" translatable="false">/sys/module/msm_drm/parameters/kcal_green</string>
+    <string name="config_kcalBlueSysNode" translatable="false">/sys/module/msm_drm/parameters/kcal_blue</string>
+    <string name="config_kcalSatSysNode" translatable="false">/sys/module/msm_drm/parameters/kcal_sat</string>
+    <string name="config_kcalValSysNode" translatable="false">/sys/module/msm_drm/parameters/kcal_val</string>
+    <string name="config_kcalContSysNode" translatable="false">/sys/module/msm_drm/parameters/kcal_cont</string>
+    <string name="config_kcalHueSysNode" translatable="false">/sys/module/msm_drm/parameters/kcal_hue</string>
+
+    <!-- Bypass charge sysfs node -->
+    <string name="config_bypassChargeSysNode" translatable="false">/sys/class/power_supply/battery/battery_charging_enabled</string>
+
+    <!-- High touch polling rate sysfs node -->
+    <string name="config_touchPollingSysNode" translatable="false">/sys/devices/virtual/touch/touch_dev/bump_sample_rate</string>
+</resources>

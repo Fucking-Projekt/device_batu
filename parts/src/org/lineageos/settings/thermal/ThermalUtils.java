@@ -23,14 +23,8 @@ import android.os.UserHandle;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.os.RemoteException;
-import android.os.SystemProperties;
-import android.os.UserHandle;
 import android.provider.MediaStore;
 import android.telecom.TelecomManager;
-import android.view.Display;
-import android.view.Surface;
-import android.view.WindowManager;
 
 import androidx.preference.PreferenceManager;
 
@@ -83,12 +77,11 @@ public final class ThermalUtils {
     private static final String GMEET_PACKAGE = "com.google.android.apps.tachyon";
 
     private Context mContext;
-    private Display mDisplay;
     private SharedPreferences mSharedPrefs;
 
     protected ThermalUtils(Context context) {
-        mContext = context;
-        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        mContext = context.getApplicationContext();
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
 
     public static void startService(Context context) {

@@ -24,14 +24,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -57,7 +55,8 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
     private ApplicationsState mApplicationsState;
     private ApplicationsState.Session mSession;
     private ActivityFilter mActivityFilter;
-    private Map<String, ApplicationsState.AppEntry> mEntryMap = new HashMap<String, ApplicationsState.AppEntry>();
+    private Map<String, ApplicationsState.AppEntry> mEntryMap =
+            new HashMap<String, ApplicationsState.AppEntry>();
     private ResolutionUtils mResolutionUtils;
     private RecyclerView mAppsRecyclerView;
 
@@ -74,7 +73,8 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
         return inflater.inflate(R.layout.resolution_layout, container, false);
     }
 
@@ -148,7 +148,7 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
             final String sectionIndex;
 
             if (!info.enabled) {
-                sectionIndex = "--"; /* XXX */
+                sectionIndex = "--";
             } else if (TextUtils.isEmpty(label)) {
                 sectionIndex = "";
             } else {
@@ -182,6 +182,9 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
                 return R.drawable.ic_resolution_540;
             case ResolutionUtils.STATE_720P:
                 return R.drawable.ic_resolution_720;
+            case ResolutionUtils.STATE_1080P:
+            case ResolutionUtils.STATE_1_5K:
+                return R.drawable.ic_resolution_720;
             case ResolutionUtils.STATE_DEFAULT:
             default:
                 return R.drawable.ic_resolution_default;
@@ -208,7 +211,14 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
 
     private class ModeAdapter extends BaseAdapter {
         private final LayoutInflater inflater;
-        private final int[] items = {R.string.upscale_default, R.string.upscale_480p, R.string.upscale_540p, R.string.upscale_720p};
+        private final int[] items = {
+                R.string.upscale_default,
+                R.string.upscale_480p,
+                R.string.upscale_540p,
+                R.string.upscale_720p,
+                R.string.upscale_1080p,
+                R.string.upscale_1_5k
+        };
 
         private ModeAdapter(Context context) {
             inflater = LayoutInflater.from(context);
@@ -235,7 +245,8 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
             if (convertView != null) {
                 view = (TextView) convertView;
             } else {
-                view = (TextView) inflater.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+                view = (TextView) inflater.inflate(
+                        android.R.layout.simple_spinner_dropdown_item, parent, false);
             }
             view.setText(items[position]);
             view.setTextSize(14f);
@@ -243,7 +254,8 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
         }
     }
 
-    private class AllPackagesAdapter extends RecyclerView.Adapter<ViewHolder> implements AdapterView.OnItemSelectedListener, SectionIndexer {
+    private class AllPackagesAdapter extends RecyclerView.Adapter<ViewHolder>
+            implements AdapterView.OnItemSelectedListener, SectionIndexer {
         private List<ApplicationsState.AppEntry> mEntries = new ArrayList<>();
         private String[] mSections;
         private int[] mPositions;
@@ -265,19 +277,20 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext())
+            ViewHolder holder = new ViewHolder(LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.resolution_list_item, parent, false));
+            Context context = holder.itemView.getContext();
+            holder.mode.setAdapter(new ModeAdapter(context));
+            holder.mode.setOnItemSelectedListener(this);
+            return holder;
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            Context context = holder.itemView.getContext();
             ApplicationsState.AppEntry entry = mEntries.get(position);
 
             if (entry == null) return;
 
-            holder.mode.setAdapter(new ModeAdapter(context));
-            holder.mode.setOnItemSelectedListener(this);
             holder.title.setText(entry.label);
             holder.title.setOnClickListener(v -> holder.mode.performClick());
 
@@ -290,7 +303,8 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
             holder.stateIcon.setImageResource(getStateDrawable(packageState));
         }
 
-        private void setEntries(List<ApplicationsState.AppEntry> entries, List<String> sections, List<Integer> positions) {
+        private void setEntries(List<ApplicationsState.AppEntry> entries,
+                List<String> sections, List<Integer> positions) {
             mEntries = entries;
             mSections = sections.toArray(new String[sections.size()]);
             mPositions = new int[positions.size()];
@@ -364,13 +378,9 @@ public class ResolutionSettingsFragment extends Fragment implements Applications
 
         @Override
         public boolean filterApp(ApplicationsState.AppEntry entry) {
-            boolean show = !mAllPackagesAdapter.mEntries.contains(entry.info.packageName);
-            if (show) {
-                synchronized (mLauncherResolveInfoList) {
-                    show = mLauncherResolveInfoList.contains(entry.info.packageName);
-                }
+            synchronized (mLauncherResolveInfoList) {
+                return mLauncherResolveInfoList.contains(entry.info.packageName);
             }
-            return show;
         }
     }
 }

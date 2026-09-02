@@ -14,7 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Thermal profiles -->
     <string name="thermal_title">Thermal profiles</string>
@@ -43,21 +43,6 @@
    <string name="clear_speaker_description">Run this feature once or twice if you find that your speaker is lightly blocked by dust. Set media volume to maximum.\n\nIf the speaker is blocked heavily, run this feature 2-5 times while shaking your device with the speaker facing downwards.</string>
 
     <!-- Fastcharge settings -->
-    <string name="fastcharge_title">Fastcharging</string>
-    <string name="fastcharge_summary">Configure fastcharge options</string>
-    <string name="fastcharge_category_title">Fastcharge options</string>
-    <string name="fastcharge_normal_title">Charging speed</string>
-    <string name="fastcharge_normal_summary">Select charging speed for wall chargers</string>
-    <string name="fastcharge_normal_30w_summary">Fast charging (30W)</string>
-    <string name="fastcharge_normal_15w_summary">Medium charging (15W)</string>
-    <string name="fastcharge_normal_8w_summary">Slow charging (8W)</string>
-    <string name="fastcharge_usb_title">Enable for USB</string>
-    <string name="fastcharge_usb_summary">Enable fastcharging when using USB ports</string>
-    <string name="fastcharge_normal_unavailable">Fast charging not supported on this device</string>
-    <string name="fastcharge_usb_unavailable">USB fast charging not supported on this device</string>
-    <string name="fastcharge_thermal_title">Thermal boost</string>
-    <string name="fastcharge_thermal_summary">Increase thermal limits for faster charging (not recommended)</string>
-    <string name="fastcharge_thermal_warning">Warning: Increasing thermal limits may reduce battery lifespan and cause higher temperatures. Use at your own risk!</string>
     <string name="fastcharge_bypass_title">Bypass charging</string>
     <string name="fastcharge_bypass_summary">Directly power device from charger (may reduce battery wear)</string>
     <string name="fastcharge_bypass_warning">Warning: Bypass charging may cause unstable power delivery in some cases. Use at your own risk!</string>
@@ -166,21 +151,89 @@
     <string name="music_headset_scenario_vocal">Voice</string>
 
     <!-- Per-app upscale -->
-    <string name="upscale_title">Per-app Upscaling</string>
-    <string name="upscale_summary">Set upscaling for specific applications</string>
+    <string name="upscale_title">Per-app Resolution</string>
+    <string name="upscale_summary">Set resolution for specific applications</string>
     <string name="upscale_default">Native</string>
-    <string name="upscale_480p">Performance</string>
-    <string name="upscale_540p">Balanced</string>
-    <string name="upscale_720p">Quality</string>
+    <string name="upscale_480p">480p</string>
+    <string name="upscale_540p">540p</string>
+    <string name="upscale_720p">720p</string>
+    <string name="upscale_1080p">1080p</string>
+    <string name="upscale_1_5k">1.5K</string>
+
+    <!-- FPS Info -->
+    <string name="fps_info_title">FPS Info</string>
+    <string name="fps_info_summary">Show overlay with current frames per second</string>
+    <string name="fps_text_placeholder">FPS: <xliff:g id="fps" example="90">%1$d</xliff:g></string>
+
+    <!-- High touch polling rate -->
+    <string name="high_touch_polling_title">High touch polling rate</string>
+    <string name="high_touch_polling_summary">Increase touch screen polling rate for faster response</string>
 
     <!-- System-wide resolution -->
     <string name="system_resolution_title">System resolution</string>
     <string name="system_resolution_summary">Baseline applied system-wide: %1$s</string>
     <string name="system_resolution_summary_setting">Baseline applied system-wide</string>
-    <string name="system_resolution_note">Per-app rules upscaling override the baseline while those apps are in the foreground</string>
-    <string name="resolution_default">Default</string>
+    <string name="system_resolution_note">Per-app resolution rules override the baseline while those apps are in the foreground</string>
+    <string name="resolution_default">1080p</string>
     <string name="resolution_480p">480p</string>
     <string name="resolution_540p">540p</string>
     <string name="resolution_720p">720p</string>
+    <string name="resolution_1_5k">1.5K</string>
+
+    <!-- kcal -->
+    <string name="device_kcal_title">Display Calibration</string>
+    <string name="device_kcal_summary">Display color calibration using KCAL</string>
+    <string name="advanced_settings_kcal">Display Color Calibration</string>
+    <string name="kcal_summary">Control display color temperature, saturation, contrast and hue</string>
+    <string name="cat_colormanagement">Color Settings</string>
+    <string name="cat_calibration">Display Calibration</string>
+
+    <string name="set_on_boot">Set On Boot</string>
+    <string name="color_red">Red</string>
+    <string name="color_green">Green</string>
+    <string name="color_blue">Blue</string>
+    <string name="saturation">Saturation</string>
+    <string name="value">Value</string>
+    <string name="contrast">Contrast</string>
+    <string name="hue">Hue</string>
+    <string name="grayscale">Grayscale Display</string>
+
+    <string name="presets_dialog_title">Select Preset</string>
+
+    <!-- Presets -->
+    <string name="preset_default">Default</string>
+    <string name="preset_version_1">Version 1</string>
+    <string name="preset_version_2">Version 2</string>
+    <string name="preset_version_3">Version 3</string>
+    <string name="preset_triluminous">Triluminous</string>
+    <string name="preset_deep_black_white">Deep Black and White</string>
+    <string name="preset_deep_natural">Deep Natural</string>
+    <string name="preset_cool_amoled">Cool Amoled</string>
+    <string name="preset_extreme_amoled">Extreme Amoled</string>
+    <string name="preset_warm_amoled">Warm Amoled</string>
+    <string name="preset_hybrid_mamba">Hybrid Mamba</string>
+    <string name="preset_burn_in">Burn in Shit</string>
+    <string name="preset_retention">Retention Fix</string>
+    <string name="preset_gerard_extrem_cool">Gerard Extreme Cool</string>
+    <string name="preset_yoyoz808">Yoyoz808</string>
+    <string name="preset_purian">Purian</string>
+    <string name="preset_deep_black_colorful">Deep Black Colorful</string>
+    <string name="preset_vomer_deep_rich">Vomer Deep Rich</string>
+    <string name="preset_franco">Franco</string>
+    <string name="preset_wrinklefree_cool">WrinkleFree Cool</string>
+    <string name="preset_harley_tech">Harley-Tech</string>
+    <string name="preset_perfection">Perfection</string>
+    <string name="preset_banged_up">Banged up</string>
+    <string name="preset_sim_cooler">SimCooler</string>
+    <string name="preset_obsanity">Obsanity</string>
+    <string name="preset_obsanity_ips">Obsanity IPS</string>
+    <string name="preset_sir_banger">Sir Banger</string>
+
+    <!-- menu -->
+    <string name="kcal_presets">@string/presets_dialog_title</string>
+    <string name="kcal_reset">Reset</string>
+
+    <!-- SysfsSwitchPreference -->
+    <string name="sysfs_node_unavailable">Not supported on this device</string>
 
 </resources>

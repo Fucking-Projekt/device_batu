@@ -1,1 +1,4 @@
 type vendor_sysfs_fastcharge, fs_type, sysfs_type;
+
+# Kcal
+type vendor_sysfs_kcal, sysfs_type, fs_type;

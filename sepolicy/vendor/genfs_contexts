@@ -41,9 +41,18 @@ genfscon sysfs /devices/platform/soc/soc:goodix_fp/wakeup u:object_r:sysfs_wakeu
 genfscon sysfs /devices/platform/soc/soc:maxim_ds28e16/power_supply/batt_verify/wakeup u:object_r:sysfs_wakeup:s0
 
 # Fastcharge
-genfscon sysfs /sys/kernel/fast_charge/force_fast_charge u:object_r:vendor_sysfs_fastcharge:s0
-genfscon sysfs /sys/kernel/fastchgtoggle/mode u:object_r:vendor_sysfs_fastcharge:s0
-genfscon sysfs /sys/kernel/fastchgtoggle/thermals u:object_r:vendor_sysfs_fastcharge:s0
+genfscon sysfs /kernel/fast_charge/force_fast_charge u:object_r:vendor_sysfs_fastcharge:s0
+genfscon sysfs /kernel/fastchgtoggle/mode u:object_r:vendor_sysfs_fastcharge:s0
+genfscon sysfs /kernel/fastchgtoggle/thermals u:object_r:vendor_sysfs_fastcharge:s0
+
+# KCAL
+genfscon sysfs /module/msm_drm/parameters/kcal_red     u:object_r:vendor_sysfs_kcal:s0
+genfscon sysfs /module/msm_drm/parameters/kcal_green   u:object_r:vendor_sysfs_kcal:s0
+genfscon sysfs /module/msm_drm/parameters/kcal_blue    u:object_r:vendor_sysfs_kcal:s0
+genfscon sysfs /module/msm_drm/parameters/kcal_cont    u:object_r:vendor_sysfs_kcal:s0
+genfscon sysfs /module/msm_drm/parameters/kcal_sat     u:object_r:vendor_sysfs_kcal:s0
+genfscon sysfs /module/msm_drm/parameters/kcal_hue     u:object_r:vendor_sysfs_kcal:s0
+genfscon sysfs /module/msm_drm/parameters/kcal_val     u:object_r:vendor_sysfs_kcal:s0
 
 # Touch
-genfscon sysfs /devices/virtual/touch/touch_dev/bump_sample_rate                                    u:object_r:vendor_sysfs_touch:s0
+genfscon sysfs /devices/virtual/touch/touch_dev/bump_sample_rate u:object_r:vendor_sysfs_touch:s0

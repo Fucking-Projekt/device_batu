@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -157,5 +158,59 @@ public final class FileUtils {
         }
         return ok;
    }
+
+    public static void setValue(String path, int value) {
+        if (path == null || !isFileWritable(path)) {
+            return;
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(new File(path));
+            fos.write(Integer.toString(value).getBytes());
+            fos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try { fos.close(); } catch (IOException ignored) {}
+            }
+        }
+    }
+
+    public static void setValue(String path, boolean value) {
+        if (path == null || !isFileWritable(path)) {
+            return;
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(new File(path));
+            fos.write((value ? "1" : "0").getBytes());
+            fos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try { fos.close(); } catch (IOException ignored) {}
+            }
+        }
+    }
+
+    public static void setValue(String path, String value) {
+        if (path == null || !isFileWritable(path)) {
+            return;
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(new File(path));
+            fos.write(value.getBytes());
+            fos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try { fos.close(); } catch (IOException ignored) {}
+            }
+        }
+    }
 
 }
