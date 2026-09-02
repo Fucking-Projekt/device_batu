@@ -1,1 +1,17 @@
 hal_client_domain(system_app, hal_mlipay)
+
+# XiaomiParts service access
+allow system_app {
+    audio_service
+    activity_service
+    activity_task_service
+    audioserver_service
+    autofill_service
+    gpu_service
+    media_session_service
+    mediaserver_service
+    storagestats_service
+    surfaceflinger_service
+}:service_manager find;
+
+binder_call(system_app, gpuservice)

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base attributes available to CustomSeekBarPreference. -->
+    <declare-styleable name="CustomSeekBarPreference">
+        <attr name="interval" format="integer" />
+        <attr name="showSign" format="boolean" />
+        <attr name="units" format="string|reference" />
+        <attr name="continuousUpdates" format="boolean" />
+    </declare-styleable>
+
+    <!-- Attributes available to SysfsSwitchPreference. -->
+    <declare-styleable name="SysfsSwitchPreference">
+        <attr name="sysfsPath" format="string" />
+        <attr name="invertValue" format="boolean" />
+    </declare-styleable>
+
+    <color name="disabled_text_color">#808080</color>
+</resources>

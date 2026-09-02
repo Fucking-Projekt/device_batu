@@ -6,12 +6,15 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 import androidx.preference.TwoStatePreference;
 import org.lineageos.settings.R;
@@ -29,6 +32,7 @@ public class UselessFragment extends SettingsBasePreferenceFragment
     private Vibrator mVibrator;
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
+    private Handler mMainHandler;
     private int mOriginalVolume;
 
     // Vibration patterns (delay, vibrate, pause, vibrate...)
@@ -81,6 +85,7 @@ public class UselessFragment extends SettingsBasePreferenceFragment
         mRandom = new Random();
         mVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         mAudioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+        mMainHandler = new Handler(Looper.getMainLooper());
 
         mUselessModePreference = (TwoStatePreference) findPreference(KEY_USELESS_MODE);
         if (mUselessModePreference != null) {
@@ -113,6 +118,16 @@ public class UselessFragment extends SettingsBasePreferenceFragment
             }
         }
         return false;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mMainHandler.removeCallbacksAndMessages(null);
+        cleanupMediaPlayer();
+        if (mAudioManager != null) {
+            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mOriginalVolume, 0);
+        }
     }
 
     private void performRandomEffects() {
@@ -181,7 +196,7 @@ public class UselessFragment extends SettingsBasePreferenceFragment
 
     private void performRandomVibration() {
         long[] pattern = mVibrationPatterns[mRandom.nextInt(mVibrationPatterns.length)];
-        mVibrator.vibrate(pattern, -1); // -1 means don't repeat
+        mVibrator.vibrate(VibrationEffect.createWaveform(pattern, -1));
     }
 
     private void performScreenFlicker() {
@@ -191,39 +206,29 @@ public class UselessFragment extends SettingsBasePreferenceFragment
         WindowManager.LayoutParams params = window.getAttributes();
         float originalBrightness = params.screenBrightness;
 
-        // Create flicker effect
-        new Thread(() -> {
-            try {
-                for (int i = 0; i < 3; i++) {
-                    // Dim screen
-                    getActivity().runOnUiThread(() -> {
-                        params.screenBrightness = 0.1f;
-                        window.setAttributes(params);
-                    });
-                    Thread.sleep(100);
+        Runnable dim = () -> {
+            if (getActivity() == null) return;
+            params.screenBrightness = 0.1f;
+            window.setAttributes(params);
+        };
+        Runnable bright = () -> {
+            if (getActivity() == null) return;
+            params.screenBrightness = 1.0f;
+            window.setAttributes(params);
+        };
+        Runnable restore = () -> {
+            if (getActivity() == null) return;
+            params.screenBrightness = originalBrightness;
+            window.setAttributes(params);
+        };
 
-                    // Brighten screen
-                    getActivity().runOnUiThread(() -> {
-                        params.screenBrightness = 1.0f;
-                        window.setAttributes(params);
-                    });
-                    Thread.sleep(100);
-                }
-
-                // Restore original brightness
-                getActivity().runOnUiThread(() -> {
-                    params.screenBrightness = originalBrightness;
-                    window.setAttributes(params);
-                });
-
-            } catch (InterruptedException e) {
-                // Restore brightness if interrupted
-                getActivity().runOnUiThread(() -> {
-                    params.screenBrightness = originalBrightness;
-                    window.setAttributes(params);
-                });
-            }
-        }).start();
+        mMainHandler.post(dim);
+        mMainHandler.postDelayed(bright, 100);
+        mMainHandler.postDelayed(dim, 200);
+        mMainHandler.postDelayed(bright, 300);
+        mMainHandler.postDelayed(dim, 400);
+        mMainHandler.postDelayed(bright, 500);
+        mMainHandler.postDelayed(restore, 600);
     }
 
     private void showWarningDialog(Runnable onConfirm) {
@@ -231,7 +236,7 @@ public class UselessFragment extends SettingsBasePreferenceFragment
 
         // Vibrate when showing warning
         if (mVibrator != null && mVibrator.hasVibrator()) {
-            mVibrator.vibrate(200);
+            mVibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
         }
 
         new AlertDialog.Builder(getContext())
@@ -241,7 +246,7 @@ public class UselessFragment extends SettingsBasePreferenceFragment
                 // Celebration vibration
                 if (mVibrator != null && mVibrator.hasVibrator()) {
                     long[] celebrationPattern = {0, 100, 50, 100, 50, 300};
-                    mVibrator.vibrate(celebrationPattern, -1);
+                    mVibrator.vibrate(VibrationEffect.createWaveform(celebrationPattern, -1));
                 }
                 onConfirm.run();
                 mUselessModePreference.setChecked(true);
@@ -250,7 +255,7 @@ public class UselessFragment extends SettingsBasePreferenceFragment
             .setNegativeButton(getString(R.string.useless_mode_cancel), (dialog, which) -> {
                 // Sad vibration
                 if (mVibrator != null && mVibrator.hasVibrator()) {
-                    mVibrator.vibrate(500);
+                    mVibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 }
             })
             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -269,7 +274,7 @@ public class UselessFragment extends SettingsBasePreferenceFragment
             .setPositiveButton(getString(R.string.useless_mode_amazing), (dialog, which) -> {
                 // Final celebration effect
                 if (mRandom.nextBoolean() && mVibrator != null && mVibrator.hasVibrator()) {
-                    mVibrator.vibrate(100);
+                    mVibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
                 }
             })
             .setIcon(android.R.drawable.ic_dialog_info)
@@ -279,25 +284,16 @@ public class UselessFragment extends SettingsBasePreferenceFragment
     private void enableUselessMode(boolean enabled) {
         mSharedPrefs.edit().putBoolean(KEY_USELESS_MODE, enabled).apply();
 
-        // Extra effects when enabling/disabling
         if (enabled) {
-            // Enabling effects
             performScreenFlicker();
             if (mVibrator != null && mVibrator.hasVibrator()) {
                 long[] enablePattern = {0, 50, 50, 50, 50, 200};
-                mVibrator.vibrate(enablePattern, -1);
+                mVibrator.vibrate(VibrationEffect.createWaveform(enablePattern, -1));
             }
         } else {
-            // Disabling effects
             if (mVibrator != null && mVibrator.hasVibrator()) {
-                mVibrator.vibrate(300);
+                mVibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
             }
-        }
-
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            // Even our fake processing failed!
         }
     }
 

@@ -19,6 +19,7 @@ package org.lineageos.settings.resolution;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.hardware.display.DisplayManager;
@@ -36,6 +37,9 @@ public final class ResolutionUtils {
     private static final String RESOLUTION_480P = "resolution.480p";
     private static final String RESOLUTION_540P = "resolution.540p";
     private static final String RESOLUTION_720P = "resolution.720p";
+    private static final String RESOLUTION_1080P = "resolution.1080p";
+    private static final String RESOLUTION_1_5K = "resolution.1.5k";
+    private static final int BUCKET_COUNT = 5;
 
     // System-wide baseline state
     private static final String RESOLUTION_GLOBAL_STATE = "resolution.global_state";
@@ -45,8 +49,19 @@ public final class ResolutionUtils {
     protected static final int STATE_480P = 1;
     protected static final int STATE_540P = 2;
     protected static final int STATE_720P = 3;
+    protected static final int STATE_1080P = 4;
+    protected static final int STATE_1_5K = 5;
 
-    protected static boolean isAppInList = false;
+    // System resolution spinner: Default, 480p, 540p, 720p, 1.5K (no 1080p — same as Default)
+    protected static final int[] SYSTEM_STATE_MAP = {
+            STATE_DEFAULT,
+            STATE_480P,
+            STATE_540P,
+            STATE_720P,
+            STATE_1_5K
+    };
+
+    protected boolean isAppInList = false;
 
     // State tracking to prevent aggressive resets
     private int mCurrentState = STATE_DEFAULT;
@@ -64,7 +79,7 @@ public final class ResolutionUtils {
         }
     }
 
-    private static ResolutionConfig[] RESOLUTION_CONFIGS = new ResolutionConfig[4];
+    private static ResolutionConfig[] RESOLUTION_CONFIGS = new ResolutionConfig[6];
 
     private final SharedPreferences mSharedPrefs;
     private final Context mContext;
@@ -79,10 +94,10 @@ public final class ResolutionUtils {
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         initializeStockBaselines();
         calculateResolutionConfigs();
+        mCurrentState = getCurrentActualState();
     }
 
     public static void startService(Context context) {
-        // Apply the baseline early at boot so home/lock honor it before the first app focus event
         new ResolutionUtils(context).applyBaselineFromGlobal();
         context.startServiceAsUser(new Intent(context, ResolutionService.class), UserHandle.CURRENT);
     }
@@ -90,7 +105,7 @@ public final class ResolutionUtils {
     private void initializeStockBaselines() {
         DisplayManager dm = mContext.getSystemService(DisplayManager.class);
         Display d = dm.getDisplay(Display.DEFAULT_DISPLAY);
-        Display.Mode mode = d.getMode(); // physical/native mode
+        Display.Mode mode = d.getMode();
         mStockWidth = mode.getPhysicalWidth();
         mStockHeight = mode.getPhysicalHeight();
 
@@ -98,14 +113,12 @@ public final class ResolutionUtils {
             IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
             mInitialDensity = wm.getInitialDisplayDensity(Display.DEFAULT_DISPLAY);
         } catch (RemoteException e) {
-            mInitialDensity = 440; // sane fallback; overwritten on success path
+            mInitialDensity = 440;
         }
     }
 
     private void calculateResolutionConfigs() {
         // Scale by target WIDTH; keep native aspect ratio and scale DPI proportionally
-        // scale = targetW / stockW; targetH = round(stockH * scale); dpi = round(initialDPI * scale)
-
         RESOLUTION_CONFIGS[STATE_DEFAULT] =
                 new ResolutionConfig(mStockWidth, mStockHeight, mInitialDensity);
 
@@ -126,6 +139,17 @@ public final class ResolutionUtils {
         int h720 = Math.max(1, Math.round(mStockHeight * s720));
         int d720 = Math.max(120, Math.round(mInitialDensity * s720));
         RESOLUTION_CONFIGS[STATE_720P] = new ResolutionConfig(w720, h720, d720);
+
+        // 1080p = native resolution (force regardless of global)
+        RESOLUTION_CONFIGS[STATE_1080P] =
+                new ResolutionConfig(mStockWidth, mStockHeight, mInitialDensity);
+
+        // 1.5K = 1215x2700@495dpi (1.125x native)
+        int w1_5k = 1215;
+        float s1_5k = (float) w1_5k / (float) mStockWidth;
+        int h1_5k = Math.max(1, Math.round(mStockHeight * s1_5k));
+        int d1_5k = Math.max(120, Math.round(mInitialDensity * s1_5k));
+        RESOLUTION_CONFIGS[STATE_1_5K] = new ResolutionConfig(w1_5k, h1_5k, d1_5k);
     }
 
     // ----- System-wide baseline -----
@@ -135,7 +159,7 @@ public final class ResolutionUtils {
     }
 
     public void setGlobalState(int state) {
-        if (state < STATE_DEFAULT || state > STATE_720P) state = STATE_DEFAULT;
+        if (state < STATE_DEFAULT || state > STATE_1_5K) state = STATE_DEFAULT;
         mSharedPrefs.edit().putInt(RESOLUTION_GLOBAL_STATE, state).apply();
         applyBaselineFromGlobal();
     }
@@ -146,7 +170,6 @@ public final class ResolutionUtils {
         applyResolution(cfg, s);
     }
 
-    // service compatibility
     public void restoreDefaultResolution() {
         applyBaselineFromGlobal();
     }
@@ -160,16 +183,20 @@ public final class ResolutionUtils {
     private String getValue() {
         String value = mSharedPrefs.getString(RESOLUTION_CONTROL, null);
         if (value == null || value.isEmpty()) {
-            value = RESOLUTION_480P + ";" + RESOLUTION_540P + ";" + RESOLUTION_720P;
+            value = String.join(";", RESOLUTION_480P, RESOLUTION_540P,
+                    RESOLUTION_720P, RESOLUTION_1080P, RESOLUTION_1_5K);
             writeValue(value);
         }
         String[] modes = value.split(";");
-        if (modes.length < 3) {
-            String[] fixed = new String[]{
-                    modes.length > 0 ? modes[0] : RESOLUTION_480P,
-                    modes.length > 1 ? modes[1] : RESOLUTION_540P,
-                    modes.length > 2 ? modes[2] : RESOLUTION_720P
+        if (modes.length < BUCKET_COUNT) {
+            String[] defaults = {
+                    RESOLUTION_480P, RESOLUTION_540P, RESOLUTION_720P,
+                    RESOLUTION_1080P, RESOLUTION_1_5K
             };
+            String[] fixed = new String[BUCKET_COUNT];
+            for (int i = 0; i < BUCKET_COUNT; i++) {
+                fixed[i] = modes.length > i ? modes[i] : defaults[i];
+            }
             value = String.join(";", fixed);
             writeValue(value);
         }
@@ -181,27 +208,19 @@ public final class ResolutionUtils {
         value = value.replace(packageName + ",", "");
         String[] modes = value.split(";");
 
-        switch (mode) {
-            case STATE_480P:
-                modes[0] = modes[0] + packageName + ",";
-                break;
-            case STATE_540P:
-                modes[1] = modes[1] + packageName + ",";
-                break;
-            case STATE_720P:
-                modes[2] = modes[2] + packageName + ",";
-                break;
-            default:
-                break;
+        if (mode >= STATE_480P && mode < BUCKET_COUNT) {
+            modes[mode - 1] = modes[mode - 1] + packageName + ",";
         }
-        writeValue(modes[0] + ";" + modes[1] + ";" + modes[2]);
+        writeValue(String.join(";", modes));
     }
 
     protected int getStateForPackage(String packageName) {
         String[] modes = getValue().split(";");
-        if (modes[0].contains(packageName + ",")) return STATE_480P;
-        if (modes[1].contains(packageName + ",")) return STATE_540P;
-        if (modes[2].contains(packageName + ",")) return STATE_720P;
+        for (int i = 0; i < Math.min(modes.length, BUCKET_COUNT); i++) {
+            if (modes[i].contains(packageName + ",")) {
+                return i + 1; // bucket 0 → STATE_480P(1), bucket 1 → STATE_540P(2), etc.
+            }
+        }
         return STATE_DEFAULT;
     }
 
@@ -210,17 +229,13 @@ public final class ResolutionUtils {
         int globalState = getGlobalState();
         int newState = globalState;
 
-        // Start from the system baseline; override if app is listed
         isAppInList = false;
-        if (modes[0].contains(packageName + ",")) {
-            newState = STATE_540P;
-            isAppInList = true;
-        } else if (modes[1].contains(packageName + ",")) {
-            newState = STATE_480P;
-            isAppInList = true;
-        } else if (modes[2].contains(packageName + ",")) {
-            newState = STATE_720P;
-            isAppInList = true;
+        for (int i = 0; i < Math.min(modes.length, BUCKET_COUNT); i++) {
+            if (modes[i].contains(packageName + ",")) {
+                newState = i + 1; // bucket index → state
+                isAppInList = true;
+                break;
+            }
         }
 
         ResolutionConfig cfg = RESOLUTION_CONFIGS[newState];
@@ -231,36 +246,41 @@ public final class ResolutionUtils {
 
     private void applyResolution(ResolutionConfig cfg, int newState) {
         if (newState == mCurrentState) {
-            return; // No change, do nothing
+            return;
         }
 
         try {
             IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
             if (newState != STATE_DEFAULT) {
-                // Entering a custom resolution state
                 if (mCurrentState == STATE_DEFAULT) {
-                    // Save the user's current density before changing it
-                    // NOTE: getBaseDisplayDensity returns the density stored in persistent settings
                     mSavedUserDensity = wm.getBaseDisplayDensity(Display.DEFAULT_DISPLAY);
                 }
                 wm.setForcedDisplaySize(Display.DEFAULT_DISPLAY, cfg.width, cfg.height);
                 wm.setForcedDisplayDensityForUser(Display.DEFAULT_DISPLAY, cfg.density, UserHandle.USER_CURRENT);
             } else {
-                // Returning to the default state
                 wm.clearForcedDisplaySize(Display.DEFAULT_DISPLAY);
-                if (mSavedUserDensity != -1) {
-                    // Restore the saved user density
-                    wm.setForcedDisplayDensityForUser(Display.DEFAULT_DISPLAY, mSavedUserDensity, UserHandle.USER_CURRENT);
-                    mSavedUserDensity = -1; // Clear the saved value
-                } else {
-                    // Fallback if no density was saved
-                    wm.clearForcedDisplayDensityForUser(Display.DEFAULT_DISPLAY, UserHandle.USER_CURRENT);
-                }
+                wm.clearForcedDisplayDensityForUser(Display.DEFAULT_DISPLAY, UserHandle.USER_CURRENT);
+                mSavedUserDensity = -1;
             }
             mCurrentState = newState;
         } catch (RemoteException e) {
             // Swallow to avoid crashes
         }
+    }
+
+    public int getCurrentActualState() {
+        DisplayManager dm = mContext.getSystemService(DisplayManager.class);
+        Display display = dm.getDisplay(Display.DEFAULT_DISPLAY);
+        Point realSize = new Point();
+        display.getRealSize(realSize);
+
+        int currentWidth = Math.min(realSize.x, realSize.y);
+        for (int i = 0; i < RESOLUTION_CONFIGS.length; i++) {
+            if (RESOLUTION_CONFIGS[i] != null && RESOLUTION_CONFIGS[i].width == currentWidth) {
+                return i;
+            }
+        }
+        return STATE_DEFAULT;
     }
 
     public String getResolutionString(int state) {
