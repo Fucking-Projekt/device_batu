@@ -1,0 +1,4 @@
+allow untrusted_app ntsync_device:chr_file { getattr open read write ioctl };
+allow untrusted_app_25 ntsync_device:chr_file { getattr open read write ioctl };
+allow untrusted_app_27 ntsync_device:chr_file { getattr open read write ioctl };
+allowxperm untrusted_app ntsync_device:chr_file ioctl { 0x4e80-0x4e8d };
