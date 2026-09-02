@@ -1,0 +1,1 @@
+allow hwservicemanager vendor_hal_xiaomi_css:binder { call transfer };
