@@ -18,6 +18,10 @@ typedef struct variant_info {
     std::string media;
     std::string model;
     std::string build_fingerprint;
+    std::string cpu;
+    std::string pltfrm;
+    std::string camfront;
+    std::string camrear;
 
 } variant_info_t;
 

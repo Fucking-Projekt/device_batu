@@ -127,3 +127,13 @@ rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
 ro.telephony.default_network=26,26
 telephony.lteOnCdmaDevice=1
 persist.vendor.radio.atfwd.start=true
+
+# Mitos
+ro.mist.display=1080 x 2400, 120 hz
+ro.mist.battery=5000mah
+ro.mist.screen=6.67' AMOLED
+ro.mist.soc=Snapdragon® 8 Elite Gen 6 Pro
+ro.mist.camera=67MP + 67MP + 69MP
+ro.mist.front=67MP
+ro.mist.platform=SM8975
+ro.mist.device.name=Android Mobile Example
