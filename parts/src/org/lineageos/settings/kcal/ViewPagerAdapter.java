@@ -17,7 +17,6 @@
 */
 package org.lineageos.settings.kcal;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,17 +29,12 @@ import org.lineageos.settings.R;
 
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewHolder> {
 
-    private Context context;
     private Integer[] images = {R.drawable.kcal_image_one, R.drawable.kcal_image_two};
-
-    public ViewPagerAdapter(Context context) {
-        this.context = context;
-    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.image_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_layout, parent, false);
         return new ViewHolder(view);
     }
 

@@ -27,10 +27,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" />
-
-    <uses-sdk
-        android:minSdkVersion="24"
-        android:targetSdkVersion="30"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -40,7 +37,8 @@
         android:directBootAware="true"
         android:theme="@style/Theme.SubSettingsBase">
 
-        <receiver android:name=".BootCompletedReceiver">
+        <receiver android:name=".BootCompletedReceiver"
+            android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -147,6 +145,10 @@
             </activity>
 
         <service
+            android:name=".kcal.KcalService"
+            android:exported="false" />
+
+        <service
             android:name=".kcal.KcalTileService"
             android:icon="@drawable/ic_kcal"
             android:label="@string/advanced_settings_kcal"
@@ -182,6 +184,27 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
+
+        <service
+            android:name=".fastcharge.BypassChargeTileService"
+            android:icon="@drawable/ic_qs_bypass_charge"
+            android:label="@string/fastcharge_bypass_title"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".TilePreferencesActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 </manifest>

@@ -29,7 +29,7 @@ public class KcalPreviewPreference extends Preference {
         super.onBindViewHolder(holder);
         mKcalPreview = (ViewPager2) holder.findViewById(R.id.kcal_preview);
         if (mKcalPreview != null && mKcalPreview.getAdapter() == null) {
-            mKcalPreview.setAdapter(new ViewPagerAdapter(getContext()));
+            mKcalPreview.setAdapter(new ViewPagerAdapter());
             mKcalPreview.setPageTransformer(new FadeOutTransformation());
         }
     }

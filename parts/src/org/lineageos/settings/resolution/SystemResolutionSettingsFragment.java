@@ -35,13 +35,6 @@ public class SystemResolutionSettingsFragment extends Fragment implements Adapte
     private Spinner mModeSpinner;
     private TextView mSummaryView;
 
-    private static final int[] ENTRY_LABELS = new int[] {
-            R.string.resolution_default,
-            R.string.resolution_480p,
-            R.string.resolution_540p,
-            R.string.resolution_720p
-    };
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.system_resolution_layout, container, false);
@@ -64,16 +57,18 @@ public class SystemResolutionSettingsFragment extends Fragment implements Adapte
         mModeSpinner.setAdapter(adapter);
         mModeSpinner.setOnItemSelectedListener(this);
 
-        int current = mResolutionUtils.getGlobalState();
-        if (current < 0 || current >= ENTRY_LABELS.length) current = 0;
-        mModeSpinner.setSelection(current, false);
-        updateSummary(current);
+        int state = mResolutionUtils.getGlobalState();
+        mModeSpinner.setSelection(stateToPosition(state), false);
+        updateSummary(state);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getActivity().setTitle(getResources().getString(R.string.system_resolution_title));
+        int actual = mResolutionUtils.getCurrentActualState();
+        mModeSpinner.setSelection(stateToPosition(actual), false);
+        updateSummary(actual);
     }
 
     private void updateSummary(int state) {
@@ -83,13 +78,22 @@ public class SystemResolutionSettingsFragment extends Fragment implements Adapte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        int state = ResolutionUtils.SYSTEM_STATE_MAP[position];
         int current = mResolutionUtils.getGlobalState();
-        if (current != position) {
-            mResolutionUtils.setGlobalState(position);
-            updateSummary(position);
+        if (current != state) {
+            mResolutionUtils.setGlobalState(state);
+            updateSummary(state);
         }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) { /* no-op */ }
+
+    private int stateToPosition(int state) {
+        int[] map = ResolutionUtils.SYSTEM_STATE_MAP;
+        for (int i = 0; i < map.length; i++) {
+            if (map[i] == state) return i;
+        }
+        return 0;
+    }
 }

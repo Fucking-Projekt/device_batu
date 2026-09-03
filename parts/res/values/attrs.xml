@@ -8,5 +8,11 @@
         <attr name="continuousUpdates" format="boolean" />
     </declare-styleable>
 
+    <!-- Attributes available to SysfsSwitchPreference. -->
+    <declare-styleable name="SysfsSwitchPreference">
+        <attr name="sysfsPath" format="string" />
+        <attr name="invertValue" format="boolean" />
+    </declare-styleable>
+
     <color name="disabled_text_color">#808080</color>
 </resources>

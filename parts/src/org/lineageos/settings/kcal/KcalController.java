@@ -1,8 +1,7 @@
-package org.lineageos.settings;
+package org.lineageos.settings.kcal;
 
-public interface Controller {
+public interface KcalController {
 
-    // Kcal
     String PREF_SETONBOOT = "set_on_boot";
     String PREF_RED = "color_red";
     String PREF_GREEN = "color_green";
@@ -22,12 +21,4 @@ public interface Controller {
     int CONTRAST_DEFAULT = 255;
     int HUE_DEFAULT = 0;
     boolean GRAYSCALE_DEFAULT = false;
-
-    String KCAL_CONT = "/sys/module/msm_drm/parameters/kcal_cont";
-    String KCAL_HUE = "/sys/module/msm_drm/parameters/kcal_hue";
-    String KCAL_RED = "/sys/module/msm_drm/parameters/kcal_red";
-    String KCAL_GREEN = "/sys/module/msm_drm/parameters/kcal_green";
-    String KCAL_BLUE = "/sys/module/msm_drm/parameters/kcal_blue";
-    String KCAL_SAT = "/sys/module/msm_drm/parameters/kcal_sat";
-    String KCAL_VAL = "/sys/module/msm_drm/parameters/kcal_val";
 }

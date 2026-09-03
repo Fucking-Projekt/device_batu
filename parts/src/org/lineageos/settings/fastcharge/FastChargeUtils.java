@@ -19,17 +19,21 @@ package org.lineageos.settings.fastcharge;
 import android.content.Context;
 import android.util.Log;
 
+import org.lineageos.settings.R;
 import org.lineageos.settings.utils.FileUtils;
 
 public class FastChargeUtils {
 
     private static final String TAG = "FastChargeUtils";
-    public static final String BYPASS_CHARGE_NODE =
-            "/sys/class/power_supply/battery/battery_charging_enabled";
+    private final String mBypassChargeNode;
+
+    public FastChargeUtils(Context context) {
+        mBypassChargeNode = context.getString(R.string.config_bypassChargeSysNode);
+    }
 
     public boolean isBypassChargeEnabled() {
         try {
-            String value = FileUtils.readOneLine(BYPASS_CHARGE_NODE);
+            String value = FileUtils.readOneLine(mBypassChargeNode);
             return value != null && value.equals("0");
         } catch (Exception e) {
             Log.e(TAG, "Failed to read bypass charge status", e);
@@ -39,14 +43,13 @@ public class FastChargeUtils {
 
     public void enableBypassCharge(boolean enable) {
         try {
-            // 0 = bypass (charging disabled), 1 = normal charging
-            FileUtils.writeLine(BYPASS_CHARGE_NODE, enable ? "0" : "1");
+            FileUtils.writeLine(mBypassChargeNode, enable ? "0" : "1");
         } catch (Exception e) {
             Log.e(TAG, "Failed to write bypass charge status", e);
         }
     }
 
     public boolean isBypassChargeSupported() {
-        return FileUtils.isFileReadable(BYPASS_CHARGE_NODE);
+        return mBypassChargeNode != null && FileUtils.isFileReadable(mBypassChargeNode);
     }
 }

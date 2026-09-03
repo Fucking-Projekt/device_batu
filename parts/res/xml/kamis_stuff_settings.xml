@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sysfs="http://schemas.android.com/apk/res-auto"
     android:title="@string/kamis_stuff_title">
 
     <PreferenceCategory android:title="Display">
@@ -29,11 +30,11 @@
             android:summary="@string/fps_info_summary"
             android:persistent="true" />
 
-        <SwitchPreference
+        <org.lineageos.settings.preferences.SysfsSwitchPreference
             android:key="high_touch_polling"
             android:title="@string/high_touch_polling_title"
             android:summary="@string/high_touch_polling_summary"
-            android:persistent="true" />
+            sysfs:sysfsPath="@string/config_touchPollingSysNode" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Audio">
@@ -54,11 +55,12 @@
             android:title="@string/thermal_title"
             android:summary="@string/thermal_summary" />
 
-        <SwitchPreference
+        <org.lineageos.settings.preferences.SysfsSwitchPreference
             android:key="bypass_charge"
             android:title="@string/fastcharge_bypass_title"
             android:summary="@string/fastcharge_bypass_summary"
-            android:persistent="false" />
+            sysfs:sysfsPath="@string/config_bypassChargeSysNode"
+            sysfs:invertValue="true" />
 
         <Preference
             android:key="kernel_manager"

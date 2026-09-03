@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    
+    <string name="thermal_title">Profil Termal</string>
+    <string name="thermal_summary">Sesuaikan profil termal per aplikasi untuk performa optimal</string>
+    <string name="thermal_default">Tanpa optimisasi</string>
+    <string name="thermal_benchmark">Performa</string>
+    <string name="thermal_browser">Browser</string>
+    <string name="thermal_camera">Kamera</string>
+    <string name="thermal_dialer">Telepon</string>
+    <string name="thermal_gaming">Game</string>
+    <string name="thermal_navigation">Navigasi</string>
+    <string name="thermal_streaming">Streaming</string>
+    <string name="thermal_video">Video</string>
+
+    
+    <string name="refresh_title">Refresh rate per aplikasi</string>
+    <string name="refresh_summary">Atur batas maksimal refresh rate untuk aplikasi tertentu</string>
+    <string name="refresh_default">Bawaan</string>
+    <string name="refresh_standard">60Hz</string>
+    <string name="refresh_extreme">120Hz</string>
+    <string name="refresh_land">60Hz saat Lanskap</string>
+
+    
+   <string name="clear_speaker_title">Pembersih speaker</string>
+   <string name="clear_speaker_summary">Putar audio 30 detik untuk membersihkan debu pada speaker</string>
+   <string name="clear_speaker_description">Jalankan fitur ini satu atau dua kali jika speaker tertutup debu ringan. Atur volume media ke maksimal.
+
+Jika speaker tersumbat parah, jalankan fitur ini 2-5 kali sambil menggoyangkan perangkat dengan posisi speaker menghadap ke bawah.</string>
+
+    
+    <string name="fastcharge_bypass_title">Bypass pengisian daya</string>
+    <string name="fastcharge_bypass_summary">Beri daya perangkat langsung dari charger (mengurangi keausan baterai)</string>
+    <string name="fastcharge_bypass_warning">Peringatan: Bypass pengisian daya dapat menyebabkan pasokan listrik tidak stabil pada beberapa kasus. Risiko ditanggung sendiri!</string>
+    <string name="fastcharge_bypass_unavailable">Bypass pengisian daya tidak didukung di perangkat ini</string>
+
+    
+    <string name="kamis_stuff_title">Kamis Stuff</string>
+    <string name="kamis_stuff_summary">Bricking Time!</string>
+
+    
+    <string name="useless_mode_title">Mode Tidak Berguna</string>
+    <string name="useless_mode_summary">Aktifkan ini tanpa alasan yang jelas</string>
+    <string name="useless_mode_enabled_summary">Mode tidak berguna AKTIF - Bersiaplah untuk getaran dan kedipan layar acak!</string>
+    <string name="useless_mode_disabled_summary">Mode tidak berguna NONAKTIF - Perangkat Anda kembali normal dan membosankan</string>
+    <string name="useless_info_category">Informasi</string>
+    <string name="useless_info_title">Tentang Mode Tidak Berguna</string>
+    <string name="useless_info_summary">Toggle ini sama sekali tidak ada gunanya. Hanya untuk hiburan dan bisa menyebabkan getaran acak, kedipan layar, serta kebingungan eksistensial. Tidak ada fungsi perangkat yang benar-benar terpengaruh.</string>
+    <string name="useless_mode_warning_title">⚠️ Peringatan Mode Tidak Berguna</string>
+    <string name="useless_mode_status_title">🎉 Status Mode Tidak Berguna</string>
+    <string name="useless_mode_accept">Saya Menerima Ketidakbergunaan Ini</string>
+    <string name="useless_mode_cancel">Batal</string>
+    <string name="useless_mode_amazing">Luar Biasa!</string>
+
+    
+    <string name="kernel_manager_title">Manajer Kernel</string>
+    <string name="kernel_manager_summary">Kelola frekuensi CPU dan governor</string>
+    <string name="cpu_governor_title">Governor CPU</string>
+    <string name="cpu_governor_summary">Saat ini: %s</string>
+    <string name="cpu_min_freq_title">Frekuensi Minimum</string>
+    <string name="cpu_max_freq_title">Frekuensi Maksimum</string>
+    <string name="efficiency_cluster_title">Klaster Efisiensi</string>
+    <string name="performance_cluster_title">Klaster Performa</string>
+    <string name="kernel_info_category">Informasi</string>
+    <string name="kernel_info_title">Tentang Manajer Kernel</string>
+    <string name="kernel_info_summary">Kelola pengaturan governor CPU dan skala frekuensi untuk semua klaster CPU. Perubahan dapat memengaruhi performa dan daya tahan baterai.</string>
+    <string name="apply_settings">Terapkan Pengaturan</string>
+    <string name="reset_settings">Kembalikan ke Bawaan</string>
+    <string name="settings_applied">Pengaturan berhasil diterapkan</string>
+    <string name="settings_reset">Pengaturan dikembalikan ke bawaan</string>
+
+    
+    <string name="dirac_enable">Aktifkan Dirac</string>
+    <string name="dirac_title">Suara Dirac™</string>
+    <string name="dirac_summary">Optimalkan kualitas audio</string>
+    <string name="dirac_headset_title">Pilih jenis headphone</string>
+    <string name="dirac_preset_title">Pilih preset</string>
+    <string name="dirac_hifi_enable_title">Aktifkan Hi-fi</string>
+    <string name="dirac_hifi_title">Hi-Fi</string>
+    <string name="dirac_hifi_summary">Mengurangi distorsi &amp; kebisingan, meningkatkan kualitas audio</string>
+
+    
+    <string name="dirac_headset_default">Bawaan</string>
+    <string name="dirac_headset_earbuds">Mi Earbuds</string>
+    <string name="dirac_headset_in_ear_2013">Mi In-Ear (2013)</string>
+    <string name="dirac_headset_piston_1">Mi Piston-1</string>
+    <string name="dirac_headset_general">Umum</string>
+    <string name="dirac_headset_general_inear">In-Ear Umum</string>
+    <string name="dirac_headset_piston_basic">Edisi Basic</string>
+    <string name="dirac_headset_piston_2">Mi Piston-2</string>
+    <string name="dirac_headset_piston_standard">Edisi Standar</string>
+    <string name="dirac_headset_headphone">Mi Headphones</string>
+    <string name="dirac_headset_piston_youth">Edisi Youth</string>
+    <string name="dirac_headset_piston_color">Edisi Color</string>
+    <string name="dirac_headset_in_ear">Mi In-Ear</string>
+    <string name="dirac_headset_capsule">Mi Capsule</string>
+    <string name="dirac_headset_in_ear_pro">Mi In-Ear Pro</string>
+    <string name="dirac_headset_comfort">Mi Comfort</string>
+    <string name="dirac_headset_reduction_noise">Mi Noise Cancelling Type-C</string>
+    <string name="dirac_headset_cancelling">Mi Noise Cancelling 3.5mm</string>
+    <string name="dirac_headset_half_in_ear">Mi Half In-Ear</string>
+    <string name="dirac_headset_in_ear2">Mi In-Ear 2</string>
+    <string name="dirac_headset_earphone_basic">Mi Earphones Basic</string>
+    <string name="dirac_headset_earphone">Mi Earphones</string>
+    <string name="dirac_headset_ear_four">Mi Quadruple Driver Earphones</string>
+    <string name="dirac_headset_piston_typec">Mi In-Ear Headphones (Type-C)</string>
+    <string name="dirac_headset_bluetooth_collar">Mi Bluetooth Neckband</string>
+    <string name="dirac_headset_bluetooth_linefree">Mi Bluetooth Earphones</string>
+    <string name="dirac_headset_redmi_earphones">Redmi Earphones</string>
+    <string name="dirac_headset_dual_driver_in_ear">Mi Dual Driver In-ear Earphones</string>
+
+    
+    <string name="dirac_preset_default">Default</string>
+    <string name="dirac_preset_rock">Rock</string>
+    <string name="dirac_preset_jazz">Jazz</string>
+    <string name="dirac_preset_pop">Pop</string>
+    <string name="dirac_preset_classical">Klasik</string>
+    <string name="dirac_preset_hiphop">Hip Hop</string>
+    <string name="dirac_preset_blues">Blues</string>
+    <string name="dirac_preset_electronic">Elektronik</string>
+    <string name="dirac_preset_country">Country</string>
+    <string name="dirac_preset_dance">Dance</string>
+    <string name="dirac_preset_metal">Metal</string>
+    <string name="dirac_preset_bass_booster">Peningkat Bass</string>
+    <string name="dirac_preset_live">Live</string>
+    <string name="dirac_preset_balanced">Seimbang</string>
+    <string name="dirac_preset_bass_reduction">Pengurang Bass</string>
+    <string name="dirac_preset_treble_reduction">Pengurang Treble</string>
+    <string name="dirac_preset_soft_bass">Bass Lembut</string>
+    <string name="dirac_preset_soft_treble">Treble Lembut</string>
+
+    
+    <string name="music_headset_scenario_select">Pilih skenario</string>
+    <string name="music_headset_scenario_intelligent">Cerdas</string>
+    <string name="music_headset_scenario_music">Musik</string>
+    <string name="music_headset_scenario_video">Video</string>
+    <string name="music_headset_scenario_vocal">Suara</string>
+
+    
+    <string name="upscale_title">Upscaling per aplikasi</string>
+    <string name="upscale_summary">Tingkatkan resolusi untuk aplikasi tertentu</string>
+    <string name="upscale_default">Bawaan Layar</string>
+    <string name="upscale_480p">480p</string>
+    <string name="upscale_540p">540p</string>
+    <string name="upscale_720p">720p</string>
+    <string name="upscale_1080p">1080p</string>
+    <string name="upscale_1_5k">1.5K</string>
+
+    
+    <string name="fps_info_title">Info FPS</string>
+    <string name="fps_info_summary">Tampilkan overlay dengan frame per detik saat ini</string>
+
+    
+    <string name="high_touch_polling_title">Polling Rate Sentuhan Tinggi</string>
+    <string name="high_touch_polling_summary">Tingkatkan polling rate layar sentuh agar lebih responsif</string>
+
+    
+    <string name="system_resolution_title">Resolusi Sistem</string>
+    <string name="system_resolution_summary">Dasar yang diterapkan pada sistem: %1$s</string>
+    <string name="system_resolution_summary_setting">Dasar yang diterapkan pada sistem</string>
+    <string name="system_resolution_note">Aturan upscaling per aplikasi akan menimpa resolusi dasar saat aplikasi tersebut berada di depan</string>
+    <string name="resolution_default">1080p</string>
+    <string name="resolution_480p">480p</string>
+    <string name="resolution_540p">540p</string>
+    <string name="resolution_720p">720p</string>
+    <string name="resolution_1_5k">1.5K</string>
+
+    
+    <string name="device_kcal_title">Kalibrasi Layar</string>
+    <string name="device_kcal_summary">Kalibrasi warna layar menggunakan KCAL</string>
+    <string name="advanced_settings_kcal">Kalibrasi Warna Layar</string>
+    <string name="kcal_summary">Kontrol suhu warna layar, saturasi, kontras, dan hue</string>
+    <string name="cat_colormanagement">Pengaturan Warna</string>
+    <string name="cat_calibration">Kalibrasi Layar</string>
+
+    <string name="set_on_boot">Terapkan saat Boot</string>
+    <string name="color_red">Merah</string>
+    <string name="color_green">Hijau</string>
+    <string name="color_blue">Biru</string>
+    <string name="saturation">Saturasi</string>
+    <string name="value">Nilai</string>
+    <string name="contrast">Kontras</string>
+    <string name="hue">Hue</string>
+    <string name="grayscale">Layar Hitam Putih</string>
+
+    <string name="presets_dialog_title">Pilih Preset</string>
+
+    
+    <string name="preset_default">Default</string>
+    <string name="preset_version_1">Version 1</string>
+    <string name="preset_version_2">Version 2</string>
+    <string name="preset_version_3">Version 3</string>
+    <string name="preset_triluminous">Triluminous</string>
+    <string name="preset_deep_black_white">Deep Black and White</string>
+    <string name="preset_deep_natural">Deep Natural</string>
+    <string name="preset_cool_amoled">Cool Amoled</string>
+    <string name="preset_extreme_amoled">Extreme Amoled</string>
+    <string name="preset_warm_amoled">Warm Amoled</string>
+    <string name="preset_hybrid_mamba">Hybrid Mamba</string>
+    <string name="preset_burn_in">Burn in Shit</string>
+    <string name="preset_retention">Retention Fix</string>
+    <string name="preset_gerard_extrem_cool">Gerard Extreme Cool</string>
+    <string name="preset_yoyoz808">Yoyoz808</string>
+    <string name="preset_purian">Purian</string>
+    <string name="preset_deep_black_colorful">Deep Black Colorful</string>
+    <string name="preset_vomer_deep_rich">Vomer Deep Rich</string>
+    <string name="preset_franco">Franco</string>
+    <string name="preset_wrinklefree_cool">WrinkleFree Cool</string>
+    <string name="preset_harley_tech">Harley-Tech</string>
+    <string name="preset_perfection">Perfection</string>
+    <string name="preset_banged_up">Banged up</string>
+    <string name="preset_sim_cooler">SimCooler</string>
+    <string name="preset_obsanity">Obsanity</string>
+    <string name="preset_obsanity_ips">Obsanity IPS</string>
+    <string name="preset_sir_banger">Sir Banger</string>
+
+    
+    <string name="kcal_presets">@string/presets_dialog_title</string>
+    <string name="kcal_reset">Reset</string>
+
+    
+    <string name="sysfs_node_unavailable">Tidak didukung di perangkat ini</string>
+
+</resources>

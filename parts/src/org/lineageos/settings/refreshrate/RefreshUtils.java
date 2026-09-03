@@ -20,10 +20,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.UserHandle;
-import android.view.Display;
 
 import android.provider.Settings;
-import android.util.Log;
 import android.view.OrientationEventListener;
 import android.content.res.Configuration;
 import androidx.preference.PreferenceManager;
@@ -32,12 +30,14 @@ public final class RefreshUtils {
 
     private static final String REFRESH_CONTROL = "refresh_control";
 
-    private static float defaultMaxRate;
-    private static float defaultMinRate;
+    private float defaultMaxRate;
+    private float defaultMinRate;
     private static final String KEY_PEAK_REFRESH_RATE = "peak_refresh_rate";
     private static final String KEY_MIN_REFRESH_RATE = "min_refresh_rate";
+    private static final String KEY_MIUI_REFRESH_RATE = "miui_refresh_rate";
+    private static final String KEY_USER_REFRESH_RATE = "user_refresh_rate";
     private Context mContext;
-    protected static boolean isAppInList = false;
+    protected boolean isAppInList = false;
 
     protected static final int STATE_DEFAULT = 0;
     protected static final int STATE_STANDARD = 1;
@@ -60,7 +60,8 @@ public final class RefreshUtils {
 
     protected RefreshUtils(Context context) {
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        mContext = context;
+        mContext = context.getApplicationContext();
+        getOldRate();
     }
 
     public static void startService(Context context) {
@@ -82,6 +83,22 @@ public final class RefreshUtils {
     protected void getOldRate(){
         defaultMaxRate = Settings.System.getFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, REFRESH_STATE_DEFAULT);
         defaultMinRate = Settings.System.getFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, REFRESH_STATE_DEFAULT);
+        if (defaultMaxRate == 0.0f) {
+            int miuiRate = Settings.Secure.getInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, 0);
+            if (miuiRate > 0) {
+                defaultMaxRate = (float) miuiRate;
+            } else {
+                defaultMaxRate = REFRESH_STATE_DEFAULT;
+            }
+        }
+        if (defaultMinRate == 0.0f) {
+            int userRate = Settings.Secure.getInt(mContext.getContentResolver(), KEY_USER_REFRESH_RATE, 0);
+            if (userRate > 0) {
+                defaultMinRate = (float) userRate;
+            } else {
+                defaultMinRate = REFRESH_STATE_DEFAULT;
+            }
+        }
     }
 
     private float getUserMaxRefreshRate() {
@@ -141,11 +158,15 @@ public final class RefreshUtils {
     private void setLandscapeModeRefreshRate() {
         Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, REFRESH_STATE_LAND);
         Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, REFRESH_STATE_LAND);
+        Settings.Secure.putInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, (int) REFRESH_STATE_LAND);
+        Settings.Secure.putInt(mContext.getContentResolver(), KEY_USER_REFRESH_RATE, (int) REFRESH_STATE_LAND);
     }
 
     private void setPortraitModeRefreshRate() {
         Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, REFRESH_STATE_EXTREME);
         Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, REFRESH_STATE_EXTREME);
+        Settings.Secure.putInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, (int) REFRESH_STATE_EXTREME);
+        Settings.Secure.putInt(mContext.getContentResolver(), KEY_USER_REFRESH_RATE, (int) REFRESH_STATE_EXTREME);
     }
 
     private void setRefreshRate(float minRate, float maxRate) {
@@ -154,6 +175,8 @@ public final class RefreshUtils {
         }
         Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, minRate);
         Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, maxRate);
+        Settings.Secure.putInt(mContext.getContentResolver(), KEY_USER_REFRESH_RATE, (int) maxRate);
+        Settings.Secure.putInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, (int) maxRate);
     }
 
 
@@ -238,7 +261,9 @@ public final class RefreshUtils {
                 return;
             }
         }
-	    Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, minRate);
+        Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, minRate);
         Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, maxRate);
+        Settings.Secure.putInt(mContext.getContentResolver(), KEY_USER_REFRESH_RATE, (int) maxRate);
+        Settings.Secure.putInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, (int) maxRate);
     }
 }

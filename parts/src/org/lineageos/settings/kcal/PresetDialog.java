@@ -10,11 +10,13 @@ import androidx.fragment.app.FragmentManager;
 
 import org.lineageos.settings.R;
 
+import java.lang.ref.WeakReference;
+
 public class PresetDialog extends DialogFragment {
     private CharSequence[] mEntries;
     private CharSequence[] mEntryValues;
     private String mValue;
-    private KcalSettings mKcalSettingsFragment;
+    private WeakReference<KcalSettings> mKcalSettingsRef;
     private int mClickedDialogEntryIndex;
     private final DialogInterface.OnClickListener selectItemListener =
             new DialogInterface.OnClickListener() {
@@ -23,7 +25,10 @@ public class PresetDialog extends DialogFragment {
                 public void onClick(DialogInterface dialog, int which) {
                     if (mClickedDialogEntryIndex != which) {
                         mValue = mEntryValues[which].toString();
-                        mKcalSettingsFragment.applyValues(mValue);
+                        KcalSettings kcalSettings = mKcalSettingsRef.get();
+                        if (kcalSettings != null) {
+                            kcalSettings.applyValues(mValue);
+                        }
                         mClickedDialogEntryIndex = which;
                     }
                     dialog.dismiss();
@@ -62,7 +67,7 @@ public class PresetDialog extends DialogFragment {
     }
 
     public void show(FragmentManager manager, String tag, KcalSettings kcalSettingsFragment) {
-        this.mKcalSettingsFragment = kcalSettingsFragment;
+        this.mKcalSettingsRef = new WeakReference<>(kcalSettingsFragment);
         super.show(manager, tag);
     }
 }

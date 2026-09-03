@@ -146,6 +146,7 @@
         <item>@string/resolution_480p</item>
         <item>@string/resolution_540p</item>
         <item>@string/resolution_720p</item>
+        <item>@string/resolution_1_5k</item>
     </string-array>
 
     <!-- kcal -->

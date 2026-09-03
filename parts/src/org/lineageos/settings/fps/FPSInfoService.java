@@ -30,6 +30,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -45,18 +46,26 @@ import java.io.RandomAccessFile;
 public class FPSInfoService extends Service {
 
     private static final String TAG = "FPSInfoService";
-    private static final String FPS_SYSFS_NODE =
-            "/sys/devices/platform/soc/5e00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps";
     private static final long UPDATE_INTERVAL_MS = 1000;
     private static final int BACKGROUND_ALPHA = 120;
+
+    // Burn-in protection — zigzag pattern matching SystemUI BurnInHelper
+    private static final long BURN_IN_UPDATE_INTERVAL_MS = 1000;
+    private static final int BURN_IN_AMPLITUDE_X = 6;   // pixels
+    private static final int BURN_IN_AMPLITUDE_Y = 14;  // pixels
+    private static final float BURN_IN_PERIOD_X = 43f;   // minutes
+    private static final float BURN_IN_PERIOD_Y = 271f;  // minutes
+    private static final long BURN_IN_RAMP_UP_MS = 240_000L; // 4 minutes
 
     private WindowManager mWindowManager;
     private TextView mFpsView;
     private Configuration mConfiguration;
     private Handler mMainHandler;
     private Runnable mFpsRunnable;
+    private Runnable mBurnInRunnable;
     private RandomAccessFile mFpsNode;
     private boolean mRunning = false;
+    private long mBurnInStartTimeMs;
 
     private WindowManager.LayoutParams mLayoutParams;
 
@@ -75,6 +84,8 @@ public class FPSInfoService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        final String fpsSysfsNode = getString(R.string.config_fpsInfoSysNode);
+
         mMainHandler = new Handler(Looper.getMainLooper());
         mWindowManager = getSystemService(WindowManager.class);
         mConfiguration = getResources().getConfiguration();
@@ -91,14 +102,14 @@ public class FPSInfoService extends Service {
         mLayoutParams.gravity = Gravity.TOP | Gravity.START;
         mLayoutParams.y = getTopInset();
 
-        File file = new File(FPS_SYSFS_NODE);
+        File file = new File(fpsSysfsNode);
         if (!file.exists() || !file.canRead()) {
-            Log.e(TAG, "FPS sysfs node not available: " + FPS_SYSFS_NODE);
+            Log.e(TAG, "FPS sysfs node not available: " + fpsSysfsNode);
             stopSelf();
             return;
         }
         try {
-            mFpsNode = new RandomAccessFile(FPS_SYSFS_NODE, "r");
+            mFpsNode = new RandomAccessFile(fpsSysfsNode, "r");
         } catch (IOException e) {
             Log.e(TAG, "Failed to open FPS node: " + e.getMessage());
             stopSelf();
@@ -118,14 +129,24 @@ public class FPSInfoService extends Service {
                 int fps = measureFps();
                 if (mFpsView != null) {
                     mFpsView.setText(getString(R.string.fps_text_placeholder, fps));
+                    mFpsView.setVisibility(View.VISIBLE);
                 }
                 mMainHandler.postDelayed(this, UPDATE_INTERVAL_MS);
             }
         };
 
+        mBurnInRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (!mRunning || mFpsView == null) return;
+                updateBurnInOffset();
+                mMainHandler.postDelayed(this, BURN_IN_UPDATE_INTERVAL_MS);
+            }
+        };
+
         IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(mScreenStateReceiver, screenStateFilter);
+        registerReceiver(mScreenStateReceiver, screenStateFilter, Context.RECEIVER_NOT_EXPORTED);
     }
 
     @Override
@@ -161,7 +182,7 @@ public class FPSInfoService extends Service {
             }
             mFpsNode = null;
         }
-        removeView();
+        removeFpsViewIfNeeded();
         super.onDestroy();
     }
 
@@ -178,16 +199,24 @@ public class FPSInfoService extends Service {
     }
 
     private void startReading() {
-        if (mRunning) return;
+        stopReading();
         mRunning = true;
+        mBurnInStartTimeMs = System.currentTimeMillis();
         addView();
         mMainHandler.post(mFpsRunnable);
+        mMainHandler.post(mBurnInRunnable);
     }
 
     private void stopReading() {
         mRunning = false;
         mMainHandler.removeCallbacks(mFpsRunnable);
-        removeView();
+        mMainHandler.removeCallbacks(mBurnInRunnable);
+        // Reset translation so view doesn't stay offset
+        if (mFpsView != null) {
+            mFpsView.setTranslationX(0f);
+            mFpsView.setTranslationY(0f);
+        }
+        removeFpsViewIfNeeded();
     }
 
     private void addView() {
@@ -196,25 +225,62 @@ public class FPSInfoService extends Service {
         }
     }
 
-    private void removeView() {
+    private void removeFpsViewIfNeeded() {
         if (mFpsView != null && mFpsView.getParent() != null) {
             mWindowManager.removeViewImmediate(mFpsView);
         }
     }
 
+    // ----- Burn-in protection -----
+
+    private void updateBurnInOffset() {
+        long elapsed = System.currentTimeMillis() - mBurnInStartTimeMs;
+        float rampFraction = Math.min(1f, (float) elapsed / (float) BURN_IN_RAMP_UP_MS);
+
+        int ampX = Math.round(BURN_IN_AMPLITUDE_X * rampFraction);
+        int ampY = Math.round(BURN_IN_AMPLITUDE_Y * rampFraction);
+
+        int offsetX = getBurnInOffset(ampX, true) - ampX / 2;
+        int offsetY = getBurnInOffset(ampY, false) - ampY / 2;
+
+        mFpsView.setTranslationX(offsetX);
+        mFpsView.setTranslationY(offsetY);
+    }
+
+    /**
+     * Zigzag (triangle wave) based on wall-clock time.
+     * Matches SystemUI BurnInHelper algorithm: periods are coprime so (x,y) rarely repeats.
+     * Returns value in [0, amplitude].
+     */
+    private static int getBurnInOffset(int amplitude, boolean xAxis) {
+        if (amplitude == 0) return 0;
+        float minutes = System.currentTimeMillis() / 60_000f;
+        float period = xAxis ? BURN_IN_PERIOD_X : BURN_IN_PERIOD_Y;
+        float xprime = (minutes % period) / (period / 2f);
+        float interp = (xprime <= 1f) ? xprime : 2f - xprime;
+        return Math.round(interp * amplitude);
+    }
+
+    // ----- FPS measurement -----
+
     private int measureFps() {
         if (mFpsNode == null) return -1;
+        String measuredFps;
         try {
             mFpsNode.seek(0L);
-            String measuredFps = mFpsNode.readLine();
-            if (measuredFps == null) return -1;
-            String trimmed = measuredFps.trim();
-            // Handle "X: Y" format (some kernels output "crtc: fps_value")
-            String fpsStr = trimmed.contains(": ")
-                    ? trimmed.split("\\s+")[1] : trimmed;
-            return Math.round(Float.parseFloat(fpsStr));
+            measuredFps = mFpsNode.readLine();
         } catch (IOException e) {
-            Log.e(TAG, "IOException reading FPS node: " + e.getMessage());
+            Log.e(TAG, "IOException accessing FPS node: " + e.getMessage());
+            return -1;
+        }
+        if (measuredFps == null) return -1;
+        String fpsStr = measuredFps.trim();
+        if (fpsStr.contains(": ")) {
+            String[] parts = fpsStr.split("\\s+");
+            fpsStr = parts.length > 1 ? parts[1] : fpsStr;
+        }
+        try {
+            return Math.round(Float.parseFloat(fpsStr));
         } catch (NumberFormatException e) {
             Log.e(TAG, "NumberFormatException parsing FPS: " + e.getMessage());
         }

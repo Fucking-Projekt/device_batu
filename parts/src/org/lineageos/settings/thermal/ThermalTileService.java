@@ -18,6 +18,7 @@
 
 package org.lineageos.settings.thermal;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.drawable.Icon;
 import android.service.quicksettings.Tile;
@@ -34,21 +35,17 @@ public class ThermalTileService extends TileService {
         if (tile != null) {
             tile.setIcon(Icon.createWithResource(this, R.drawable.ic_thermal));
             tile.setLabel(getString(R.string.thermal_title));
-            tile.setState(Tile.STATE_ACTIVE);
+            tile.setState(Tile.STATE_INACTIVE);
             tile.updateTile();
         }
     }
 
     @Override
-    public void onStopListening() {
-        super.onStopListening();
-    }
-
-    @Override
     public void onClick() {
-        super.onClick();
-        Intent thermalProfiles = new Intent(this, ThermalActivity.class);
-        thermalProfiles.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivityAndCollapse(thermalProfiles);
+        Intent intent = new Intent(this, ThermalActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        startActivityAndCollapse(pendingIntent);
     }
 }

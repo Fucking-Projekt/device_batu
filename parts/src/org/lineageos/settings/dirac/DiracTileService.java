@@ -30,17 +30,13 @@ public class DiracTileService extends TileService {
 
     @Override
     public void onClick() {
+        if (mDiracUtils == null) return;
         Tile tile = getQsTile();
         if (tile != null) {
-            if (mDiracUtils.isDiracEnabled()) {
-                mDiracUtils.setEnabled(false);
-                tile.setState(Tile.STATE_INACTIVE);
-            } else {
-                mDiracUtils.setEnabled(true);
-                tile.setState(Tile.STATE_ACTIVE);
-            }
+            boolean enabled = mDiracUtils.isDiracEnabled();
+            mDiracUtils.setEnabled(!enabled);
+            tile.setState(!enabled ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
             tile.updateTile();
         }
-        super.onClick();
     }
 }

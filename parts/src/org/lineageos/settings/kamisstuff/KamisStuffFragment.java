@@ -19,27 +19,26 @@ package org.lineageos.settings.kamisstuff;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
-import androidx.preference.TwoStatePreference;
+
 import com.android.settingslib.widget.SettingsBasePreferenceFragment;
+
 import org.lineageos.settings.R;
-import org.lineageos.settings.fastcharge.FastChargeUtils;
 import org.lineageos.settings.fps.FPSInfoService;
-import org.lineageos.settings.useless.UselessActivity;
 import org.lineageos.settings.kernelmanager.KernelManagerActivity;
-import org.lineageos.settings.thermal.ThermalActivity;
+import org.lineageos.settings.kcal.KcalSettingsActivity;
+import org.lineageos.settings.preferences.SysfsSwitchPreference;
 import org.lineageos.settings.speaker.ClearSpeakerActivity;
 import org.lineageos.settings.refreshrate.RefreshActivity;
 import org.lineageos.settings.resolution.ResolutionActivity;
 import org.lineageos.settings.resolution.SystemResolutionActivity;
 import org.lineageos.settings.dirac.DiracActivity;
-import org.lineageos.settings.kcal.KcalSettingsActivity;
-import org.lineageos.settings.utils.FileUtils;
+import org.lineageos.settings.thermal.ThermalActivity;
+import org.lineageos.settings.useless.UselessActivity;
 
 public class KamisStuffFragment extends SettingsBasePreferenceFragment {
 
@@ -56,11 +55,6 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
     private static final String KEY_HIGH_TOUCH_POLLING = "high_touch_polling";
     private static final String KEY_BYPASS_CHARGE = "bypass_charge";
 
-    private static final String TOUCH_POLLING_NODE =
-            "/sys/devices/virtual/touch/touch_dev/bump_sample_rate";
-
-    private FastChargeUtils mFastChargeUtils;
-
     private boolean isFPSInfoServiceRunning() {
         ActivityManager manager = (ActivityManager) getContext().getSystemService(
                 Context.ACTIVITY_SERVICE);
@@ -74,9 +68,22 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        SysfsSwitchPreference bypassChargePref = findPreference(KEY_BYPASS_CHARGE);
+        if (bypassChargePref != null && bypassChargePref.isSupported()) {
+            bypassChargePref.readFromSysfs();
+        }
+
+        SysfsSwitchPreference highTouchPref = findPreference(KEY_HIGH_TOUCH_POLLING);
+        if (highTouchPref != null && highTouchPref.isSupported()) {
+            highTouchPref.readFromSysfs();
+        }
+    }
+
+    @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.kamis_stuff_settings, rootKey);
-        mFastChargeUtils = new FastChargeUtils();
 
         // Display
         Preference refreshRatePref = findPreference(KEY_REFRESH_RATE);
@@ -126,19 +133,7 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
             });
         }
 
-        SwitchPreference highTouchPref = findPreference(KEY_HIGH_TOUCH_POLLING);
-        if (highTouchPref != null) {
-            boolean supported = FileUtils.isFileReadable(TOUCH_POLLING_NODE);
-            highTouchPref.setEnabled(supported);
-            if (supported) {
-                String curVal = FileUtils.readOneLine(TOUCH_POLLING_NODE);
-                highTouchPref.setChecked(curVal != null && curVal.equals("1"));
-                highTouchPref.setOnPreferenceChangeListener((preference, value) -> {
-                    FileUtils.writeLine(TOUCH_POLLING_NODE, (Boolean) value ? "1" : "0");
-                    return true;
-                });
-            }
-        }
+        // SysfsSwitchPreference handles high touch polling automatically via XML
 
         // Audio
         Preference diracPref = findPreference(KEY_DIRAC);
@@ -166,35 +161,27 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
             });
         }
 
-        TwoStatePreference bypassChargePref = findPreference(KEY_BYPASS_CHARGE);
-        if (bypassChargePref != null) {
-            boolean supported = mFastChargeUtils.isBypassChargeSupported();
-            bypassChargePref.setEnabled(supported);
-            if (supported) {
-                bypassChargePref.setChecked(mFastChargeUtils.isBypassChargeEnabled());
-                bypassChargePref.setOnPreferenceChangeListener((preference, newValue) -> {
-                    boolean enabled = (Boolean) newValue;
-                    if (enabled) {
-                        new AlertDialog.Builder(getActivity())
-                            .setTitle(R.string.fastcharge_bypass_title)
-                            .setMessage(R.string.fastcharge_bypass_warning)
-                            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                                mFastChargeUtils.enableBypassCharge(true);
-                                bypassChargePref.setChecked(true);
-                            })
-                            .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                                bypassChargePref.setChecked(false);
-                            })
-                            .show();
-                        return false;
-                    } else {
-                        mFastChargeUtils.enableBypassCharge(false);
-                        return true;
-                    }
-                });
-            } else {
-                bypassChargePref.setSummary(R.string.fastcharge_bypass_unavailable);
-            }
+        SysfsSwitchPreference bypassChargePref = findPreference(KEY_BYPASS_CHARGE);
+        if (bypassChargePref != null && bypassChargePref.isSupported()) {
+            bypassChargePref.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean enabled = (Boolean) newValue;
+                if (enabled) {
+                    new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.fastcharge_bypass_title)
+                        .setMessage(R.string.fastcharge_bypass_warning)
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            bypassChargePref.writeToSysfs(true);
+                            bypassChargePref.setChecked(true);
+                        })
+                        .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                            bypassChargePref.setChecked(false);
+                        })
+                        .show();
+                    return false;
+                } else {
+                    return true;
+                }
+            });
         }
 
         Preference kernelManagerPref = findPreference(KEY_KERNEL_MANAGER);

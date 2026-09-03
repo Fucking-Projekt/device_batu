@@ -10,12 +10,18 @@ import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 import org.lineageos.settings.R;
 import org.lineageos.settings.preferences.SecureSettingSeekBarPreference;
 import org.lineageos.settings.preferences.SecureSettingSwitchPreference;
-import org.lineageos.settings.Controller;
+import org.lineageos.settings.utils.FileUtils;
 
 public class KcalSettings extends SettingsBasePreferenceFragment implements
-        Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener, Controller {
+        Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener, KcalController {
 
-    private final FileUtils mFileUtils = new FileUtils();
+    private String mKcalRed;
+    private String mKcalGreen;
+    private String mKcalBlue;
+    private String mKcalSat;
+    private String mKcalVal;
+    private String mKcalCont;
+    private String mKcalHue;
 
     private SecureSettingSwitchPreference mSetOnBoot;
     private SecureSettingSeekBarPreference mRed;
@@ -31,6 +37,14 @@ public class KcalSettings extends SettingsBasePreferenceFragment implements
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.kcal_preferences, rootKey);
 
+        mKcalRed = getString(R.string.config_kcalRedSysNode);
+        mKcalGreen = getString(R.string.config_kcalGreenSysNode);
+        mKcalBlue = getString(R.string.config_kcalBlueSysNode);
+        mKcalSat = getString(R.string.config_kcalSatSysNode);
+        mKcalVal = getString(R.string.config_kcalValSysNode);
+        mKcalCont = getString(R.string.config_kcalContSysNode);
+        mKcalHue = getString(R.string.config_kcalHueSysNode);
+
         mSetOnBoot = (SecureSettingSwitchPreference) findPreference(PREF_SETONBOOT);
         mSetOnBoot.setOnPreferenceChangeListener(this);
 
@@ -44,8 +58,6 @@ public class KcalSettings extends SettingsBasePreferenceFragment implements
         mBlue.setOnPreferenceChangeListener(this);
 
         mSaturation = (SecureSettingSeekBarPreference) findPreference(PREF_SATURATION);
-        mSaturation.setEnabled((Settings.Secure.getInt(getContext().getContentResolver(),
-                PREF_GRAYSCALE, 0) == 0));
         mSaturation.setOnPreferenceChangeListener(this);
 
         mValue = (SecureSettingSeekBarPreference) findPreference(PREF_VALUE);
@@ -65,6 +77,54 @@ public class KcalSettings extends SettingsBasePreferenceFragment implements
 
         Preference mReset = findPreference("kcal_reset");
         mReset.setOnPreferenceClickListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        syncFromSysfs();
+    }
+
+    private void syncFromSysfs() {
+        int red = readSysfsInt(mKcalRed, PREF_RED, RED_DEFAULT);
+        int green = readSysfsInt(mKcalGreen, PREF_GREEN, GREEN_DEFAULT);
+        int blue = readSysfsInt(mKcalBlue, PREF_BLUE, BLUE_DEFAULT);
+        int sat = readSysfsInt(mKcalSat, PREF_SATURATION, SATURATION_DEFAULT);
+        int value = readSysfsInt(mKcalVal, PREF_VALUE, VALUE_DEFAULT);
+        int contrast = readSysfsInt(mKcalCont, PREF_CONTRAST, CONTRAST_DEFAULT);
+        int hue = readSysfsInt(mKcalHue, PREF_HUE, HUE_DEFAULT);
+        boolean grayscale = sat == 0 && Settings.Secure.getInt(
+                getContext().getContentResolver(), PREF_GRAYSCALE, 0) == 1;
+
+        Settings.Secure.putInt(getContext().getContentResolver(), PREF_RED, red);
+        Settings.Secure.putInt(getContext().getContentResolver(), PREF_GREEN, green);
+        Settings.Secure.putInt(getContext().getContentResolver(), PREF_BLUE, blue);
+        Settings.Secure.putInt(getContext().getContentResolver(), PREF_SATURATION, sat);
+        Settings.Secure.putInt(getContext().getContentResolver(), PREF_VALUE, value);
+        Settings.Secure.putInt(getContext().getContentResolver(), PREF_CONTRAST, contrast);
+        Settings.Secure.putInt(getContext().getContentResolver(), PREF_HUE, hue);
+
+        mRed.refresh(red);
+        mGreen.refresh(green);
+        mBlue.refresh(blue);
+        mSaturation.refresh(sat);
+        mValue.refresh(value);
+        mContrast.refresh(contrast);
+        mHue.refresh(hue);
+        mGrayscale.setChecked(grayscale);
+        mSaturation.setEnabled(!grayscale);
+    }
+
+    private int readSysfsInt(String sysfsPath, String prefKey, int defaultValue) {
+        String line = FileUtils.readOneLine(sysfsPath);
+        if (line != null) {
+            try {
+                return Integer.parseInt(line.trim());
+            } catch (NumberFormatException e) {
+                // Fall through to Settings.Secure
+            }
+        }
+        return Settings.Secure.getInt(getContext().getContentResolver(), prefKey, defaultValue);
     }
 
     @Override
@@ -95,33 +155,33 @@ public class KcalSettings extends SettingsBasePreferenceFragment implements
 
         switch (key) {
             case PREF_RED:
-                mFileUtils.setValue(KCAL_RED, (int) value);
+                FileUtils.setValue(mKcalRed, (int) value);
                 break;
 
             case PREF_GREEN:
-                mFileUtils.setValue(KCAL_GREEN, (int) value);
+                FileUtils.setValue(mKcalGreen, (int) value);
                 break;
 
             case PREF_BLUE:
-                mFileUtils.setValue(KCAL_BLUE, (int) value);
+                FileUtils.setValue(mKcalBlue, (int) value);
                 break;
 
             case PREF_SATURATION:
                 if (!(Settings.Secure.getInt(getContext().getContentResolver(), PREF_GRAYSCALE, 0) == 1)) {
-                    mFileUtils.setValue(KCAL_SAT, (int) value);
+                    FileUtils.setValue(mKcalSat, (int) value);
                 }
                 break;
 
             case PREF_VALUE:
-                mFileUtils.setValue(KCAL_VAL, (int) value);
+                FileUtils.setValue(mKcalVal, (int) value);
                 break;
 
             case PREF_CONTRAST:
-                mFileUtils.setValue(KCAL_CONT, (int) value);
+                FileUtils.setValue(mKcalCont, (int) value);
                 break;
 
             case PREF_HUE:
-                mFileUtils.setValue(KCAL_HUE, (int) value);
+                FileUtils.setValue(mKcalHue, (int) value);
                 break;
 
             case PREF_GRAYSCALE:
@@ -160,7 +220,7 @@ public class KcalSettings extends SettingsBasePreferenceFragment implements
     void setmGrayscale(boolean checked) {
         mGrayscale.setChecked(checked);
         mSaturation.setEnabled(!checked);
-        mFileUtils.setValue(KCAL_SAT, checked ? 0 :
+        FileUtils.setValue(mKcalSat, checked ? 0 :
                 Settings.Secure.getInt(getContext().getContentResolver(), PREF_SATURATION,
                         SATURATION_DEFAULT));
     }

@@ -19,12 +19,10 @@ package org.lineageos.settings.speaker;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
-import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 
 import androidx.preference.Preference;
@@ -54,7 +52,7 @@ public class ClearSpeakerFragment extends SettingsBasePreferenceFragment impleme
         mClearSpeakerPref = (TwoStatePreference) findPreference(PREF_CLEAR_SPEAKER);
         mClearSpeakerPref.setOnPreferenceChangeListener(this);
 
-        mHandler = new Handler();
+        mHandler = new Handler(Looper.getMainLooper());
         mAudioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
     }
 
@@ -110,12 +108,14 @@ public class ClearSpeakerFragment extends SettingsBasePreferenceFragment impleme
 
     public void stopPlaying() {
         if (mMediaPlayer != null) {
-            if (mMediaPlayer.isPlaying()) {
-                mMediaPlayer.stop();
-                mMediaPlayer.reset();
-                mMediaPlayer.release();
-                mMediaPlayer=null;
-            }
+            try {
+                if (mMediaPlayer.isPlaying()) {
+                    mMediaPlayer.stop();
+                }
+            } catch (IllegalStateException ignored) {}
+            mMediaPlayer.reset();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
         }
         mAudioManager.setParameters("status_earpiece_clean=off");
         mClearSpeakerPref.setEnabled(true);
