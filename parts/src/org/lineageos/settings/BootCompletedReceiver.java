@@ -28,7 +28,9 @@ import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.R;
 import org.lineageos.settings.dirac.DiracUtils;
+import org.lineageos.settings.display.DcDimmingUtils;
 import org.lineageos.settings.fps.FPSInfoService;
+import org.lineageos.settings.hbm.HBMUtils;
 import org.lineageos.settings.kcal.KcalController;
 import org.lineageos.settings.kcal.KcalService;
 import org.lineageos.settings.refreshrate.RefreshUtils;
@@ -93,8 +95,16 @@ public class BootCompletedReceiver extends BroadcastReceiver implements KcalCont
         // Per-App-Resolution
         ResolutionUtils.startService(context);
 
-        // FPS Info
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        // DC Dimming
+        boolean dcDimmingEnabled = prefs.getBoolean(DcDimmingUtils.DC_DIMMING_ENABLE_KEY, false);
+        FileUtils.writeLine(DcDimmingUtils.DC_DIMMING_NODE, dcDimmingEnabled ? "1" : "0");
+
+        // Auto HBM
+        HBMUtils.enableService(context);
+
+        // FPS Info
         if (prefs.getBoolean("fps_info", false)) {
             context.startService(new Intent(context, FPSInfoService.class));
         }

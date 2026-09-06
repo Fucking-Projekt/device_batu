@@ -48,6 +48,10 @@ public class TilePreferencesActivity extends Activity {
                 target = new Intent(this, ThermalActivity.class);
             } else if (className.contains("KcalTileService")) {
                 target = new Intent(this, KcalSettingsActivity.class);
+            } else if (className.contains("DcDimmingTileService")) {
+                target = new Intent(this, org.lineageos.settings.display.DcDimmingSettingsActivity.class);
+            } else if (className.contains("HBMModeTileService")) {
+                target = new Intent(this, org.lineageos.settings.hbm.HBMActivity.class);
             } else {
                 target = new Intent(this, KamisStuffActivity.class);
             }

@@ -213,4 +213,19 @@ public final class FileUtils {
         }
     }
 
+    public static boolean getFileValueAsBoolean(String filename, boolean defValue) {
+        String fileValue = readOneLine(filename);
+        if (fileValue != null) {
+            return !fileValue.trim().equals("0");
+        }
+        return defValue;
+    }
+
+    public static String getFileValue(String filename, String defValue) {
+        String fileValue = readOneLine(filename);
+        if (fileValue != null) {
+            return fileValue.trim();
+        }
+        return defValue;
+    }
 }

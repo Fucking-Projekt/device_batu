@@ -1,7 +1,13 @@
 -keep class org.lineageos.settings.dirac.* {
   *;
 }
+-keep class org.lineageos.settings.display.* {
+  *;
+}
 -keep class org.lineageos.settings.fps.* {
+  *;
+}
+-keep class org.lineageos.settings.hbm.* {
   *;
 }
 -keep class org.lineageos.settings.kcal.* {

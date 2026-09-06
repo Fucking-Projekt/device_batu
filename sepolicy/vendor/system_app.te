@@ -16,9 +16,9 @@ allow system_app sysfs_devices_system_cpu:dir search;
 allow system_app vendor_sysfs_kcal:dir search;
 allow system_app vendor_sysfs_kcal:file rw_file_perms;
 
-# FPS Info
+# DC Dimming, HBM & FPS Info
 allow system_app vendor_sysfs_graphics:dir search;
-allow system_app vendor_sysfs_graphics:file { getattr open read };
+allow system_app vendor_sysfs_graphics:file rw_file_perms;
 
 # Touch
 allow system_app vendor_sysfs_touch:dir search;

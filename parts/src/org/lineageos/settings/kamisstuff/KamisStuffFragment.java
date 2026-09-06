@@ -28,7 +28,9 @@ import androidx.preference.SwitchPreference;
 import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 
 import org.lineageos.settings.R;
+import org.lineageos.settings.display.DcDimmingSettingsActivity;
 import org.lineageos.settings.fps.FPSInfoService;
+import org.lineageos.settings.hbm.HBMActivity;
 import org.lineageos.settings.kernelmanager.KernelManagerActivity;
 import org.lineageos.settings.kcal.KcalSettingsActivity;
 import org.lineageos.settings.preferences.SysfsSwitchPreference;
@@ -54,6 +56,8 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
     private static final String KEY_FPS_INFO = "fps_info";
     private static final String KEY_HIGH_TOUCH_POLLING = "high_touch_polling";
     private static final String KEY_BYPASS_CHARGE = "bypass_charge";
+    private static final String KEY_DC_DIMMING = "dc_dimming";
+    private static final String KEY_HBM = "hbm";
 
     private boolean isFPSInfoServiceRunning() {
         ActivityManager manager = (ActivityManager) getContext().getSystemService(
@@ -134,6 +138,22 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
         }
 
         // SysfsSwitchPreference handles high touch polling automatically via XML
+
+        Preference dcDimmingPref = findPreference(KEY_DC_DIMMING);
+        if (dcDimmingPref != null) {
+            dcDimmingPref.setOnPreferenceClickListener(preference -> {
+                startActivity(new Intent(getActivity(), DcDimmingSettingsActivity.class));
+                return true;
+            });
+        }
+
+        Preference hbmPref = findPreference(KEY_HBM);
+        if (hbmPref != null) {
+            hbmPref.setOnPreferenceClickListener(preference -> {
+                startActivity(new Intent(getActivity(), HBMActivity.class));
+                return true;
+            });
+        }
 
         // Audio
         Preference diracPref = findPreference(KEY_DIRAC);
