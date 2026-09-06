@@ -38,8 +38,8 @@ public class HBMFragment extends SettingsBasePreferenceFragment
     public static final String KEY_AUTO_HBM_THRESHOLD = HBMUtils.KEY_AUTO_HBM_THRESHOLD;
     public static final String KEY_HBM_DISABLE_TIME = HBMUtils.KEY_HBM_DISABLE_TIME;
 
-    private static TwoStatePreference mHBMModeSwitch;
-    private static TwoStatePreference mAutoHBMSwitch;
+    private TwoStatePreference mHBMModeSwitch;
+    private TwoStatePreference mAutoHBMSwitch;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
