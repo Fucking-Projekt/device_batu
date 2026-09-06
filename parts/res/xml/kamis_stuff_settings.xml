@@ -35,6 +35,16 @@
             android:title="@string/high_touch_polling_title"
             android:summary="@string/high_touch_polling_summary"
             sysfs:sysfsPath="@string/config_touchPollingSysNode" />
+
+        <Preference
+            android:key="dc_dimming"
+            android:title="@string/dc_dimming_enable_title"
+            android:summary="@string/dc_dimming_enable_summary" />
+
+        <Preference
+            android:key="hbm"
+            android:title="@string/hbm_fragment_title"
+            android:summary="@string/hbm_fragment_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Audio">
