@@ -111,8 +111,16 @@ on post-fs-data
 
    #QCC mode configuration
     setprop vendor.qti.qdma.oper.mode 3
+
+service deltmpdir /system/bin/sh -c " \
+    rm -rf /data/tombstones/* /data/system/dropbox/* /data/system/package_cache/* /data/anr/* /data/resource-cache/*"
+    seclabel u:r:vendor_qti_init_shell:s0
+    user root
+    oneshot
+    disabled
     
 on early-boot
+    start deltmpdir
     swapon_all /vendor/etc/fstab.default
     start vendor.sensors
     # M17-T code for HQ-267809 by dongshuai at 2022.12.8 start
@@ -565,12 +573,6 @@ service phntm /system/bin/sh -c "settings put global settings_enable_monitor_pha
     oneshot
     disabled
     
-service hiderror /system/bin/sh -c "settings put global hide_error_dialogs 1"
-    seclabel u:r:vendor_qti_init_shell:s0
-    user root
-    oneshot
-    disabled
-
 service gms1 /system/bin/sh -c "pm disable com.google.android.gms/com.google.android.gms.auth.managed.admin.DeviceAdminReceiver"
     seclabel u:r:vendor_qti_init_shell:s0
     user root
@@ -607,12 +609,6 @@ service phntmm /system/bin/sh -c "device_config put activity_manager max_phantom
     oneshot
     disabled
 
-service nonfcyo /system/bin/sh -c "pm disable com.android.nfc"
-    seclabel u:r:vendor_qti_init_shell:s0
-    user root
-    oneshot
-    disabled
-
 on property:sys.boot_completed=1
     copy_per_line /dev/cpuctl/tasks /dev/cpuctl/system/tasks
     start dvcsync
@@ -640,16 +636,3 @@ on property:sys.boot_completed=1
     write /dev/cpuctl/nnapi-hal/cpu.shares 20480
     write /dev/cpuctl/rt/cpu.shares 20480
     write /dev/cpuctl/top-app/cpu.shares 20480
-    write /sys/block/sda/queue/read_ahead_kb 256
-    write /sys/block/sdb/queue/read_ahead_kb 256
-    write /sys/block/sdc/queue/read_ahead_kb 256
-    write /sys/block/sdd/queue/read_ahead_kb 256
-    write /sys/block/sde/queue/read_ahead_kb 256
-    write /sys/block/sdf/queue/read_ahead_kb 256
-
-# NFC
-on property:sys.boot_completed=1 && property:ro.vendor.hardware.nfc=0
-    start nonfcyo
-    stop vendor.st_nfc_hal_service
-    stop nqnfcinfo
-    stop esepmdaemon
