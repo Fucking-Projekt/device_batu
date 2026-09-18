@@ -97,6 +97,22 @@
 /sys/devices/virtual/touch/touch_dev/bump_sample_rate        u:object_r:vendor_sysfs_touch:s0
 /vendor/bin/hw/vendor\.lineage\.touch-service\.xiaomi                                               u:object_r:hal_lineage_touch_default_exec:s0
 
+# Vulkan SP-HAL dependencies
+/vendor/lib64/egl/eglSubDriverAndroid_202604\.so                                u:object_r:same_process_hal_file:s0
+/vendor/lib64/egl/libEGL_adreno_202604\.so                                      u:object_r:same_process_hal_file:s0
+/vendor/lib64/egl/libGLESv1_CM_adreno_202604\.so                                u:object_r:same_process_hal_file:s0
+/vendor/lib64/egl/libGLESv2_adreno_202604\.so                                   u:object_r:same_process_hal_file:s0
+/vendor/lib64/egl/libVkLayer_ADRENO_qprofiler\.so                               u:object_r:same_process_hal_file:s0
+/vendor/lib64/egl/libq3dtools_adreno_202604\.so                                 u:object_r:same_process_hal_file:s0
+/vendor/lib64/egl/libq3dtools_esx_202604\.so                                    u:object_r:same_process_hal_file:s0
+/vendor/lib64/libadreno_app_profiles_202604\.so                                 u:object_r:same_process_hal_file:s0
+/vendor/lib64/libadreno_utils_202604\.so                                        u:object_r:same_process_hal_file:s0
+/vendor/lib64/libdrm_202604\.so                                                 u:object_r:same_process_hal_file:s0
+/vendor/lib64/libgpudataproducer_202604\.so                                     u:object_r:same_process_hal_file:s0
+/vendor/lib64/libgsl_202604\.so                                                 u:object_r:same_process_hal_file:s0
+/vendor/lib64/libllvm-glnext_202604\.so                                         u:object_r:same_process_hal_file:s0
+/vendor/lib64/libllvm-qgl\.so                                                   u:object_r:same_process_hal_file:s0
+
 # Kcal
 /sys/module/msm_drm/parameters/kcal_red                      u:object_r:vendor_sysfs_kcal:s0
 /sys/module/msm_drm/parameters/kcal_green                    u:object_r:vendor_sysfs_kcal:s0
