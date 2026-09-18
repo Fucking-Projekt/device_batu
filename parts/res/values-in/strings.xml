@@ -29,6 +29,24 @@
 
 Jika speaker tersumbat parah, jalankan fitur ini 2-5 kali sambil menggoyangkan perangkat dengan posisi speaker menghadap ke bawah.</string>
 
+    <!-- HBM settings -->
+    <string name="hbm_fragment_title">Mode kecerahan tinggi</string>
+    <string name="hbm_fragment_summary">Pengaturan untuk HBM</string>
+    <string name="hbm_mode_title">HBM</string>
+    <string name="hbm_mode_summary">Aktifkan kecerahan puncak</string>
+    <string name="auto_hbm_title">HBM Otomatis</string>
+    <string name="auto_hbm_summary">Aktifkan kecerahan puncak berdasarkan sinar matahari</string>
+    <string name="auto_hbm_threshold_title">Ambang batas</string>
+    <string name="auto_hbm_threshold_summary">ambang batas (lux)</string>
+    <string name="hbm_disable_time_title">Jeda penonaktifan</string>
+    <string name="hbm_disable_time_summary">jeda penonaktifan (detik)</string>
+    <string name="hbm_mode_warning">Penggunaan mode kecerahan tinggi dalam waktu lama dapat merusak layar Anda</string>
+
+    <!-- DC dimming settings -->
+    <string name="dc_dimming_enable_title">DC Dimming</string>
+    <string name="dc_dimming_enable_summary">Mengurangi ketegangan mata dalam kondisi minim cahaya</string>
+    <string name="dc_dimming_enable_summary_not_supported">DC Dimming saat ini tidak didukung oleh kernel</string>
+
     
     <string name="fastcharge_bypass_title">Bypass pengisian daya</string>
     <string name="fastcharge_bypass_summary">Beri daya perangkat langsung dari charger (mengurangi keausan baterai)</string>
@@ -138,8 +156,8 @@ Jika speaker tersumbat parah, jalankan fitur ini 2-5 kali sambil menggoyangkan p
     <string name="music_headset_scenario_vocal">Suara</string>
 
     
-    <string name="upscale_title">Upscaling per aplikasi</string>
-    <string name="upscale_summary">Tingkatkan resolusi untuk aplikasi tertentu</string>
+    <string name="upscale_title">Resolusi per aplikasi</string>
+    <string name="upscale_summary">Atur resolusi untuk aplikasi tertentu</string>
     <string name="upscale_default">Bawaan Layar</string>
     <string name="upscale_480p">480p</string>
     <string name="upscale_540p">540p</string>
@@ -159,7 +177,7 @@ Jika speaker tersumbat parah, jalankan fitur ini 2-5 kali sambil menggoyangkan p
     <string name="system_resolution_title">Resolusi Sistem</string>
     <string name="system_resolution_summary">Dasar yang diterapkan pada sistem: %1$s</string>
     <string name="system_resolution_summary_setting">Dasar yang diterapkan pada sistem</string>
-    <string name="system_resolution_note">Aturan upscaling per aplikasi akan menimpa resolusi dasar saat aplikasi tersebut berada di depan</string>
+    <string name="system_resolution_note">Aturan resolusi per aplikasi akan menimpa resolusi dasar saat aplikasi tersebut berada di depan</string>
     <string name="resolution_default">1080p</string>
     <string name="resolution_480p">480p</string>
     <string name="resolution_540p">540p</string>
