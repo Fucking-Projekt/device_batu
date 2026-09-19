@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="charging_control_reset_time_entries">
+        <item>30分</item>
+        <item>1時間</item>
+        <item>2時間</item>
+        <item>3時間</item>
+        <item>4時間</item>
+    </string-array>
+</resources>

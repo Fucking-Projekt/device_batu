@@ -1,7 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
-    <!-- Thermal profiles -->
     <string name="thermal_title">サーマルプロファイル</string>
     <string name="thermal_summary">最適なパフォーマンスのためにアプリごとのプロファイルを調整します</string>
     <string name="thermal_default">最適化なし</string>
@@ -13,24 +11,15 @@
     <string name="thermal_navigation">ナビゲーション</string>
     <string name="thermal_streaming">ストリーミング</string>
     <string name="thermal_video">動画</string>
-
-    <!-- Per-app refresh rate -->
     <string name="refresh_title">アプリごとのリフレッシュレート</string>
     <string name="refresh_summary">特定のアプリの最大リフレッシュレートを設定します</string>
     <string name="refresh_default">デフォルト</string>
-    <string name="refresh_standard">60Hz</string>
-    <string name="refresh_extreme">120Hz</string>
     <string name="refresh_land">横向き時に60Hz</string>
-
-    <!-- Clear Speaker -->
     <string name="clear_speaker_title">スピーカーのクリーニング</string>
     <string name="clear_speaker_summary">30秒間のオーディオを再生してスピーカーを清掃します</string>
     <string name="clear_speaker_description">スピーカーがほこりで軽く詰まっている場合は、この機能を1、2回実行してください。メディアの音量を最大に設定してください。\n\nスピーカーがひどく詰まっている場合は、スピーカーを下に向けてデバイスを振りながら、この機能を2〜5回実行してください。</string>
-
-    <!-- HBM settings -->
     <string name="hbm_fragment_title">高輝度モード</string>
     <string name="hbm_fragment_summary">HBM の設定</string>
-    <string name="hbm_mode_title">HBM</string>
     <string name="hbm_mode_summary">ピーク輝度を有効にする</string>
     <string name="auto_hbm_title">自動 HBM</string>
     <string name="auto_hbm_summary">太陽光に基づいてピーク輝度を有効にする</string>
@@ -39,23 +28,14 @@
     <string name="hbm_disable_time_title">無効化の遅延</string>
     <string name="hbm_disable_time_summary">無効化の遅延 (秒)</string>
     <string name="hbm_mode_warning">高輝度モードを長時間使用するとディスプレイが損傷する可能性があります</string>
-
-    <!-- DC dimming settings -->
     <string name="dc_dimming_enable_title">DC 調光</string>
     <string name="dc_dimming_enable_summary">低照度環境での目の疲れを軽減します</string>
     <string name="dc_dimming_enable_summary_not_supported">DC 調光は現在カーネルによってサポートされていません</string>
-
-    <!-- Fastcharge settings -->
     <string name="fastcharge_bypass_title">バイパス充電</string>
     <string name="fastcharge_bypass_summary">充電器からデバイスに直接給電します (バッテリーの劣化を抑えます)</string>
     <string name="fastcharge_bypass_warning">警告: バイパス充電により、場合によっては電力供給が不安定になることがあります。自己責任で使用してください！</string>
     <string name="fastcharge_bypass_unavailable">このデバイスではバイパス充電はサポートされていません</string>
-
-    <!-- Kamis Stuff -->
-    <string name="kamis_stuff_title">Kamis Stuff</string>
     <string name="kamis_stuff_summary">文鎮化の時間だ！</string>
-
-    <!-- Useless Mode -->
     <string name="useless_mode_title">無駄モード</string>
     <string name="useless_mode_summary">理由もなくこれを切り替えます</string>
     <string name="useless_mode_enabled_summary">無駄モードが有効です - ランダムな振動と画面のちらつきをお楽しみください！</string>
@@ -68,8 +48,6 @@
     <string name="useless_mode_accept">無駄を受け入れます</string>
     <string name="useless_mode_cancel">キャンセル</string>
     <string name="useless_mode_amazing">素晴らしい！</string>
-
-    <!-- Kernel Manager -->
     <string name="kernel_manager_title">カーネルマネージャー</string>
     <string name="kernel_manager_summary">CPU周波数とガバナーを管理します</string>
     <string name="cpu_governor_title">CPUガバナー</string>
@@ -85,59 +63,23 @@
     <string name="reset_settings">デフォルトにリセット</string>
     <string name="settings_applied">設定が正常に適用されました</string>
     <string name="settings_reset">設定をデフォルトに戻しました</string>
-
-    <!-- Dirac -->
     <string name="dirac_enable">Diracを有効化</string>
     <string name="dirac_title">Dirac™ サウンド</string>
     <string name="dirac_summary">音質を最適化します</string>
     <string name="dirac_headset_title">ヘッドホンの種類を選択</string>
     <string name="dirac_preset_title">プリセットを選択</string>
     <string name="dirac_hifi_enable_title">Hi-Fiを有効化</string>
-    <string name="dirac_hifi_title">Hi-Fi</string>
     <string name="dirac_hifi_summary">ノイズと歪みを抑え、音質を向上させます</string>
-
-    <!-- Headset type -->
     <string name="dirac_headset_default">デフォルト</string>
-    <string name="dirac_headset_earbuds">Mi Earbuds</string>
-    <string name="dirac_headset_in_ear_2013">Mi In-Ear (2013)</string>
-    <string name="dirac_headset_piston_1">Mi Piston-1</string>
     <string name="dirac_headset_general">一般</string>
     <string name="dirac_headset_general_inear">一般的なインイヤー</string>
     <string name="dirac_headset_piston_basic">ベーシック版</string>
-    <string name="dirac_headset_piston_2">Mi Piston-2</string>
     <string name="dirac_headset_piston_standard">スタンダード版</string>
-    <string name="dirac_headset_headphone">Mi Headphones</string>
     <string name="dirac_headset_piston_youth">ユース版</string>
     <string name="dirac_headset_piston_color">カラー版</string>
-    <string name="dirac_headset_in_ear">Mi In-Ear</string>
-    <string name="dirac_headset_capsule">Mi Capsule</string>
-    <string name="dirac_headset_in_ear_pro">Mi In-Ear Pro</string>
-    <string name="dirac_headset_comfort">Mi Comfort</string>
-    <string name="dirac_headset_reduction_noise">Mi Noise Cancelling Type-C</string>
-    <string name="dirac_headset_cancelling">Mi Noise Cancelling 3.5mm</string>
-    <string name="dirac_headset_half_in_ear">Mi Half In-Ear</string>
-    <string name="dirac_headset_in_ear2">Mi In-Ear 2</string>
-    <string name="dirac_headset_earphone_basic">Mi Earphones Basic</string>
-    <string name="dirac_headset_earphone">Mi Earphones</string>
-    <string name="dirac_headset_ear_four">Mi Quadruple Driver Earphones</string>
-    <string name="dirac_headset_piston_typec">Mi In-Ear Headphones (Type-C)</string>
-    <string name="dirac_headset_bluetooth_collar">Mi Bluetooth Neckband</string>
-    <string name="dirac_headset_bluetooth_linefree">Mi Bluetooth Earphones</string>
-    <string name="dirac_headset_redmi_earphones">Redmi Earphones</string>
-    <string name="dirac_headset_dual_driver_in_ear">Mi Dual Driver In-ear Earphones</string>
-
-    <!-- Dirac preset -->
     <string name="dirac_preset_default">デフォルト</string>
-    <string name="dirac_preset_rock">Rock</string>
-    <string name="dirac_preset_jazz">Jazz</string>
-    <string name="dirac_preset_pop">Pop</string>
     <string name="dirac_preset_classical">クラシック</string>
-    <string name="dirac_preset_hiphop">Hip Hop</string>
-    <string name="dirac_preset_blues">Blues</string>
     <string name="dirac_preset_electronic">エレクトロニック</string>
-    <string name="dirac_preset_country">Country</string>
-    <string name="dirac_preset_dance">Dance</string>
-    <string name="dirac_preset_metal">Metal</string>
     <string name="dirac_preset_bass_booster">低音強調</string>
     <string name="dirac_preset_live">ライブ</string>
     <string name="dirac_preset_balanced">バランス</string>
@@ -145,51 +87,28 @@
     <string name="dirac_preset_treble_reduction">高音抑制</string>
     <string name="dirac_preset_soft_bass">ソフトベース</string>
     <string name="dirac_preset_soft_treble">ソフトトレブル</string>
-
-    <!-- Music Scenario -->
     <string name="music_headset_scenario_select">シーンを選択</string>
     <string name="music_headset_scenario_intelligent">スマート</string>
     <string name="music_headset_scenario_music">音楽</string>
     <string name="music_headset_scenario_video">動画</string>
     <string name="music_headset_scenario_vocal">音声</string>
-
-    <!-- Per-app upscale -->
     <string name="upscale_title">アプリごとの解像度</string>
     <string name="upscale_summary">特定のアプリの解像度を設定します</string>
     <string name="upscale_default">ネイティブ解像度</string>
-    <string name="upscale_480p">480p</string>
-    <string name="upscale_540p">540p</string>
-    <string name="upscale_720p">720p</string>
-    <string name="upscale_1080p">1080p</string>
-    <string name="upscale_1_5k">1.5K</string>
-
-    <!-- FPS Info -->
     <string name="fps_info_title">FPS情報</string>
     <string name="fps_info_summary">現在のFPSをオーバーレイ表示します</string>
-
-    <!-- High touch polling rate -->
     <string name="high_touch_polling_title">高タッチポーリングレート</string>
     <string name="high_touch_polling_summary">タッチスクリーンのポーリングレートを上げて応答性を高めます</string>
-
-    <!-- System-wide resolution -->
     <string name="system_resolution_title">システム解像度</string>
     <string name="system_resolution_summary">システム全体に適用される基準: %1$s</string>
     <string name="system_resolution_summary_setting">システム全体に適用される基準</string>
     <string name="system_resolution_note">アプリごとの解像度ルールは、そのアプリがフォアグラウンドにある間、システム基準を上書きします</string>
-    <string name="resolution_default">1080p</string>
-    <string name="resolution_480p">480p</string>
-    <string name="resolution_540p">540p</string>
-    <string name="resolution_720p">720p</string>
-    <string name="resolution_1_5k">1.5K</string>
-
-    <!-- kcal -->
     <string name="device_kcal_title">ディスプレイキャリブレーション</string>
     <string name="device_kcal_summary">KCALを使用したディスプレイの色調整</string>
     <string name="advanced_settings_kcal">ディスプレイの色調整</string>
     <string name="kcal_summary">画面の色温度、彩度、コントラスト、色相を調整します</string>
     <string name="cat_colormanagement">カラー設定</string>
     <string name="cat_calibration">画面キャリブレーション</string>
-
     <string name="set_on_boot">起動時に適用</string>
     <string name="color_red">赤</string>
     <string name="color_green">緑</string>
@@ -199,43 +118,16 @@
     <string name="contrast">コントラスト</string>
     <string name="hue">色相</string>
     <string name="grayscale">グレースケール表示</string>
-
     <string name="presets_dialog_title">プリセットを選択</string>
-
-    <!-- Presets -->
-    <string name="preset_default">Default</string>
-    <string name="preset_version_1">Version 1</string>
-    <string name="preset_version_2">Version 2</string>
-    <string name="preset_version_3">Version 3</string>
-    <string name="preset_triluminous">Triluminous</string>
-    <string name="preset_deep_black_white">Deep Black and White</string>
-    <string name="preset_deep_natural">Deep Natural</string>
-    <string name="preset_cool_amoled">Cool Amoled</string>
-    <string name="preset_extreme_amoled">Extreme Amoled</string>
-    <string name="preset_warm_amoled">Warm Amoled</string>
-    <string name="preset_hybrid_mamba">Hybrid Mamba</string>
-    <string name="preset_burn_in">Burn in Shit</string>
-    <string name="preset_retention">Retention Fix</string>
-    <string name="preset_gerard_extrem_cool">Gerard Extreme Cool</string>
-    <string name="preset_yoyoz808">Yoyoz808</string>
-    <string name="preset_purian">Purian</string>
-    <string name="preset_deep_black_colorful">Deep Black Colorful</string>
-    <string name="preset_vomer_deep_rich">Vomer Deep Rich</string>
-    <string name="preset_franco">Franco</string>
-    <string name="preset_wrinklefree_cool">WrinkleFree Cool</string>
-    <string name="preset_harley_tech">Harley-Tech</string>
-    <string name="preset_perfection">Perfection</string>
-    <string name="preset_banged_up">Banged up</string>
-    <string name="preset_sim_cooler">SimCooler</string>
-    <string name="preset_obsanity">Obsanity</string>
-    <string name="preset_obsanity_ips">Obsanity IPS</string>
-    <string name="preset_sir_banger">Sir Banger</string>
-
-    <!-- Kcal presets dialog -->
-    <string name="kcal_presets">@string/presets_dialog_title</string>
     <string name="kcal_reset">リセット</string>
-
-    <!-- Node is not supported -->
     <string name="sysfs_node_unavailable">このデバイスではサポートされていません</string>
-
+    <string name="charging_control_title">充電コントロール</string>
+    <string name="charging_control_summary">充電制限を設定し、充電動作をカスタマイズします</string>
+    <string name="charging_control_mode_title">充電オプション</string>
+    <string name="charging_control_mode_limit_summary">充電を指定したパーセントまで制限します</string>
+    <string name="charging_control_limit_title">充電制限</string>
+    <string name="charging_control_limit_summary">バッテリーが目標に達したら充電を停止します</string>
+    <string name="charging_control_advanced_title">詳細オプション</string>
+    <string name="charging_control_reset_limit_title">再開しきい値</string>
+    <string name="charging_control_reset_time_title">最大一時停止時間</string>
 </resources>

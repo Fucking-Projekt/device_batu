@@ -66,6 +66,17 @@
     <string name="fastcharge_bypass_warning">Warning: Bypass charging may cause unstable power delivery in some cases. Use at your own risk!</string>
     <string name="fastcharge_bypass_unavailable">Bypass charging not supported on this device</string>
 
+    <!-- Charging control -->
+    <string name="charging_control_title">Charging control</string>
+    <string name="charging_control_summary">Set charging limit and customize charging behavior</string>
+    <string name="charging_control_mode_title">Charging options</string>
+    <string name="charging_control_mode_limit_summary">Limit charging to a specified percentage</string>
+    <string name="charging_control_limit_title">Charging limit</string>
+    <string name="charging_control_limit_summary">Stop charging when battery reaches target</string>
+    <string name="charging_control_advanced_title">Advanced options</string>
+    <string name="charging_control_reset_limit_title">Resume threshold</string>
+    <string name="charging_control_reset_time_title">Maximum pause time</string>
+
     <!-- Kamis Stuff -->
     <string name="kamis_stuff_title">Kamis Stuff</string>
     <string name="kamis_stuff_summary">Bricking Time!</string>

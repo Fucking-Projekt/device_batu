@@ -1,7 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
-    <!-- Thermal profiles -->
     <string name="thermal_title">温控配置文件</string>
     <string name="thermal_summary">调整每个应用的温控文件以获得最佳性能</string>
     <string name="thermal_default">未优化</string>
@@ -13,24 +11,15 @@
     <string name="thermal_navigation">导航</string>
     <string name="thermal_streaming">流媒体</string>
     <string name="thermal_video">视频</string>
-
-    <!-- Per-app refresh rate -->
     <string name="refresh_title">单应用刷新率</string>
     <string name="refresh_summary">为特定应用设置最大刷新率</string>
     <string name="refresh_default">默认</string>
-    <string name="refresh_standard">60Hz</string>
-    <string name="refresh_extreme">120Hz</string>
     <string name="refresh_land">横屏时 60Hz</string>
-
-    <!-- Clear Speaker -->
     <string name="clear_speaker_title">清理扬声器</string>
     <string name="clear_speaker_summary">播放30秒音频以清理扬声器</string>
     <string name="clear_speaker_description">如果发现扬声器被微尘堵塞，请运行此功能一两次。将媒体音量调至最大。\n\n如果扬声器堵塞严重，请运行此功能 2-5 次，同时扬声器朝下轻轻晃动设备。</string>
-
-    <!-- HBM settings -->
     <string name="hbm_fragment_title">高亮度模式</string>
     <string name="hbm_fragment_summary">HBM 设置</string>
-    <string name="hbm_mode_title">HBM</string>
     <string name="hbm_mode_summary">启用峰值亮度</string>
     <string name="auto_hbm_title">自动 HBM</string>
     <string name="auto_hbm_summary">根据阳光强度启用峰值亮度</string>
@@ -39,23 +28,14 @@
     <string name="hbm_disable_time_title">停用延迟</string>
     <string name="hbm_disable_time_summary">停用延迟 (秒)</string>
     <string name="hbm_mode_warning">长时间使用高亮度模式可能会损坏显示屏</string>
-
-    <!-- DC dimming settings -->
     <string name="dc_dimming_enable_title">DC 调光</string>
     <string name="dc_dimming_enable_summary">在弱光条件下减少眼睛疲劳</string>
     <string name="dc_dimming_enable_summary_not_supported">当前内核不支持 DC 调光</string>
-
-    <!-- Fastcharge settings -->
     <string name="fastcharge_bypass_title">旁路充电</string>
     <string name="fastcharge_bypass_summary">直接从充电器为设备供电（可减少电池损耗）</string>
     <string name="fastcharge_bypass_warning">警告：在某些情况下，旁路充电可能会导致供电不稳定。使用风险自负！</string>
     <string name="fastcharge_bypass_unavailable">此设备不支持旁路充电</string>
-
-    <!-- Kamis Stuff -->
-    <string name="kamis_stuff_title">Kamis Stuff</string>
     <string name="kamis_stuff_summary">变砖时刻！</string>
-
-    <!-- Useless Mode -->
     <string name="useless_mode_title">无用模式</string>
     <string name="useless_mode_summary">毫无理由地开启这个开关</string>
     <string name="useless_mode_enabled_summary">无用模式已开启 - 尽情体验随机震动和屏幕闪烁吧！</string>
@@ -68,8 +48,6 @@
     <string name="useless_mode_accept">我接受无用</string>
     <string name="useless_mode_cancel">取消</string>
     <string name="useless_mode_amazing">太棒了！</string>
-
-    <!-- Kernel Manager -->
     <string name="kernel_manager_title">内核管理器</string>
     <string name="kernel_manager_summary">管理CPU频率和调度器</string>
     <string name="cpu_governor_title">CPU 调度器</string>
@@ -85,59 +63,23 @@
     <string name="reset_settings">恢复默认</string>
     <string name="settings_applied">设置应用成功</string>
     <string name="settings_reset">设置已恢复默认</string>
-
-    <!-- Dirac -->
     <string name="dirac_enable">启用 Dirac</string>
     <string name="dirac_title">Dirac™ 音效</string>
     <string name="dirac_summary">优化音频质量</string>
     <string name="dirac_headset_title">选择耳机类型</string>
     <string name="dirac_preset_title">选择预设</string>
     <string name="dirac_hifi_enable_title">启用 Hi-Fi</string>
-    <string name="dirac_hifi_title">Hi-Fi</string>
     <string name="dirac_hifi_summary">降低底噪与失真，提升音质</string>
-
-    <!-- Headset type -->
     <string name="dirac_headset_default">默认</string>
-    <string name="dirac_headset_earbuds">Mi Earbuds</string>
-    <string name="dirac_headset_in_ear_2013">Mi In-Ear (2013)</string>
-    <string name="dirac_headset_piston_1">Mi Piston-1</string>
     <string name="dirac_headset_general">通用</string>
     <string name="dirac_headset_general_inear">通用入耳式</string>
     <string name="dirac_headset_piston_basic">基础版</string>
-    <string name="dirac_headset_piston_2">Mi Piston-2</string>
     <string name="dirac_headset_piston_standard">标准版</string>
-    <string name="dirac_headset_headphone">Mi Headphones</string>
     <string name="dirac_headset_piston_youth">青春版</string>
     <string name="dirac_headset_piston_color">炫彩版</string>
-    <string name="dirac_headset_in_ear">Mi In-Ear</string>
-    <string name="dirac_headset_capsule">Mi Capsule</string>
-    <string name="dirac_headset_in_ear_pro">Mi In-Ear Pro</string>
-    <string name="dirac_headset_comfort">Mi Comfort</string>
-    <string name="dirac_headset_reduction_noise">Mi Noise Cancelling Type-C</string>
-    <string name="dirac_headset_cancelling">Mi Noise Cancelling 3.5mm</string>
-    <string name="dirac_headset_half_in_ear">Mi Half In-Ear</string>
-    <string name="dirac_headset_in_ear2">Mi In-Ear 2</string>
-    <string name="dirac_headset_earphone_basic">Mi Earphones Basic</string>
-    <string name="dirac_headset_earphone">Mi Earphones</string>
-    <string name="dirac_headset_ear_four">Mi Quadruple Driver Earphones</string>
-    <string name="dirac_headset_piston_typec">Mi In-Ear Headphones (Type-C)</string>
-    <string name="dirac_headset_bluetooth_collar">Mi Bluetooth Neckband</string>
-    <string name="dirac_headset_bluetooth_linefree">Mi Bluetooth Earphones</string>
-    <string name="dirac_headset_redmi_earphones">Redmi Earphones</string>
-    <string name="dirac_headset_dual_driver_in_ear">Mi Dual Driver In-ear Earphones</string>
-
-    <!-- Dirac preset -->
     <string name="dirac_preset_default">默认</string>
-    <string name="dirac_preset_rock">Rock</string>
-    <string name="dirac_preset_jazz">Jazz</string>
-    <string name="dirac_preset_pop">Pop</string>
     <string name="dirac_preset_classical">古典</string>
-    <string name="dirac_preset_hiphop">Hip Hop</string>
-    <string name="dirac_preset_blues">Blues</string>
     <string name="dirac_preset_electronic">电子</string>
-    <string name="dirac_preset_country">Country</string>
-    <string name="dirac_preset_dance">Dance</string>
-    <string name="dirac_preset_metal">Metal</string>
     <string name="dirac_preset_bass_booster">低音增强</string>
     <string name="dirac_preset_live">现场</string>
     <string name="dirac_preset_balanced">均衡</string>
@@ -145,51 +87,28 @@
     <string name="dirac_preset_treble_reduction">高音减弱</string>
     <string name="dirac_preset_soft_bass">柔和低音</string>
     <string name="dirac_preset_soft_treble">柔和高音</string>
-
-    <!-- Music Scenario -->
     <string name="music_headset_scenario_select">选择场景</string>
     <string name="music_headset_scenario_intelligent">智能</string>
     <string name="music_headset_scenario_music">音乐</string>
     <string name="music_headset_scenario_video">视频</string>
     <string name="music_headset_scenario_vocal">人声</string>
-
-    <!-- Per-app upscale -->
     <string name="upscale_title">单应用分辨率</string>
     <string name="upscale_summary">为特定应用设置分辨率</string>
     <string name="upscale_default">屏幕原生</string>
-    <string name="upscale_480p">480p</string>
-    <string name="upscale_540p">540p</string>
-    <string name="upscale_720p">720p</string>
-    <string name="upscale_1080p">1080p</string>
-    <string name="upscale_1_5k">1.5K</string>
-
-    <!-- FPS Info -->
     <string name="fps_info_title">帧率显示</string>
     <string name="fps_info_summary">在屏幕上覆盖显示当前每秒帧数</string>
-
-    <!-- High touch polling rate -->
     <string name="high_touch_polling_title">高触控采样率</string>
     <string name="high_touch_polling_summary">提高触摸屏采样率以获得更灵敏的响应</string>
-
-    <!-- System-wide resolution -->
     <string name="system_resolution_title">系统分辨率</string>
     <string name="system_resolution_summary">应用于系统的基准分辨率：%1$s</string>
     <string name="system_resolution_summary_setting">应用于系统的基准分辨率</string>
     <string name="system_resolution_note">当应用在前台运行时，单应用分辨率规则将覆盖系统基准分辨率</string>
-    <string name="resolution_default">1080p</string>
-    <string name="resolution_480p">480p</string>
-    <string name="resolution_540p">540p</string>
-    <string name="resolution_720p">720p</string>
-    <string name="resolution_1_5k">1.5K</string>
-
-    <!-- kcal -->
     <string name="device_kcal_title">屏幕色彩校准</string>
     <string name="device_kcal_summary">使用 KCAL 校准屏幕色彩</string>
     <string name="advanced_settings_kcal">屏幕色彩校准</string>
     <string name="kcal_summary">控制屏幕色温、饱和度、对比度和色调</string>
     <string name="cat_colormanagement">色彩设置</string>
     <string name="cat_calibration">屏幕校准</string>
-
     <string name="set_on_boot">开机应用</string>
     <string name="color_red">红</string>
     <string name="color_green">绿</string>
@@ -199,43 +118,16 @@
     <string name="contrast">对比度</string>
     <string name="hue">色相</string>
     <string name="grayscale">灰阶显示</string>
-
     <string name="presets_dialog_title">选择预设</string>
-
-    <!-- Presets -->
-    <string name="preset_default">Default</string>
-    <string name="preset_version_1">Version 1</string>
-    <string name="preset_version_2">Version 2</string>
-    <string name="preset_version_3">Version 3</string>
-    <string name="preset_triluminous">Triluminous</string>
-    <string name="preset_deep_black_white">Deep Black and White</string>
-    <string name="preset_deep_natural">Deep Natural</string>
-    <string name="preset_cool_amoled">Cool Amoled</string>
-    <string name="preset_extreme_amoled">Extreme Amoled</string>
-    <string name="preset_warm_amoled">Warm Amoled</string>
-    <string name="preset_hybrid_mamba">Hybrid Mamba</string>
-    <string name="preset_burn_in">Burn in Shit</string>
-    <string name="preset_retention">Retention Fix</string>
-    <string name="preset_gerard_extrem_cool">Gerard Extreme Cool</string>
-    <string name="preset_yoyoz808">Yoyoz808</string>
-    <string name="preset_purian">Purian</string>
-    <string name="preset_deep_black_colorful">Deep Black Colorful</string>
-    <string name="preset_vomer_deep_rich">Vomer Deep Rich</string>
-    <string name="preset_franco">Franco</string>
-    <string name="preset_wrinklefree_cool">WrinkleFree Cool</string>
-    <string name="preset_harley_tech">Harley-Tech</string>
-    <string name="preset_perfection">Perfection</string>
-    <string name="preset_banged_up">Banged up</string>
-    <string name="preset_sim_cooler">SimCooler</string>
-    <string name="preset_obsanity">Obsanity</string>
-    <string name="preset_obsanity_ips">Obsanity IPS</string>
-    <string name="preset_sir_banger">Sir Banger</string>
-
-    <!-- Kcal presets dialog -->
-    <string name="kcal_presets">@string/presets_dialog_title</string>
     <string name="kcal_reset">重置</string>
-
-    <!-- Node is not supported -->
     <string name="sysfs_node_unavailable">此设备不支持</string>
-
+    <string name="charging_control_title">充电控制</string>
+    <string name="charging_control_summary">设置充电限制并自定义充电行为</string>
+    <string name="charging_control_mode_title">充电选项</string>
+    <string name="charging_control_mode_limit_summary">将充电限制到指定百分比</string>
+    <string name="charging_control_limit_title">充电限制</string>
+    <string name="charging_control_limit_summary">电池达到目标时停止充电</string>
+    <string name="charging_control_advanced_title">高级选项</string>
+    <string name="charging_control_reset_limit_title">恢复充电阈值</string>
+    <string name="charging_control_reset_time_title">最大暂停时间</string>
 </resources>

@@ -211,4 +211,38 @@
         <item>210 210 210 258 255 255 0</item>
     </array>
 
+    <string-array name="charging_control_reset_limit_entries">
+        <item>1%</item>
+        <item>2%</item>
+        <item>5%</item>
+        <item>10%</item>
+        <item>15%</item>
+        <item>20%</item>
+    </string-array>
+
+    <string-array name="charging_control_reset_limit_values">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="charging_control_reset_time_entries">
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>4 hours</item>
+    </string-array>
+
+    <string-array name="charging_control_reset_time_values">
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>180</item>
+        <item>240</item>
+    </string-array>
+
 </resources>

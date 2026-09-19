@@ -13,3 +13,6 @@
 -keep class org.lineageos.settings.kcal.* {
   *;
 }
+-keep class org.lineageos.settings.charging.* {
+  *;
+}

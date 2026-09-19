@@ -38,6 +38,7 @@ import org.lineageos.settings.speaker.ClearSpeakerActivity;
 import org.lineageos.settings.refreshrate.RefreshActivity;
 import org.lineageos.settings.resolution.ResolutionActivity;
 import org.lineageos.settings.resolution.SystemResolutionActivity;
+import org.lineageos.settings.charging.SmartChargingSettingsActivity;
 import org.lineageos.settings.dirac.DiracActivity;
 import org.lineageos.settings.thermal.ThermalActivity;
 import org.lineageos.settings.useless.UselessActivity;
@@ -55,7 +56,7 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
     private static final String KEY_SYSTEM_RESOLUTION = "system_resolution";
     private static final String KEY_FPS_INFO = "fps_info";
     private static final String KEY_HIGH_TOUCH_POLLING = "high_touch_polling";
-    private static final String KEY_BYPASS_CHARGE = "bypass_charge";
+    private static final String KEY_SMART_CHARGING = "smart_charging";
     private static final String KEY_DC_DIMMING = "dc_dimming";
     private static final String KEY_HBM = "hbm";
 
@@ -74,11 +75,6 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
     @Override
     public void onResume() {
         super.onResume();
-        SysfsSwitchPreference bypassChargePref = findPreference(KEY_BYPASS_CHARGE);
-        if (bypassChargePref != null && bypassChargePref.isSupported()) {
-            bypassChargePref.readFromSysfs();
-        }
-
         SysfsSwitchPreference highTouchPref = findPreference(KEY_HIGH_TOUCH_POLLING);
         if (highTouchPref != null && highTouchPref.isSupported()) {
             highTouchPref.readFromSysfs();
@@ -181,26 +177,11 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
             });
         }
 
-        SysfsSwitchPreference bypassChargePref = findPreference(KEY_BYPASS_CHARGE);
-        if (bypassChargePref != null && bypassChargePref.isSupported()) {
-            bypassChargePref.setOnPreferenceChangeListener((preference, newValue) -> {
-                boolean enabled = (Boolean) newValue;
-                if (enabled) {
-                    new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.fastcharge_bypass_title)
-                        .setMessage(R.string.fastcharge_bypass_warning)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            bypassChargePref.writeToSysfs(true);
-                            bypassChargePref.setChecked(true);
-                        })
-                        .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                            bypassChargePref.setChecked(false);
-                        })
-                        .show();
-                    return false;
-                } else {
-                    return true;
-                }
+        Preference smartChargingPref = findPreference(KEY_SMART_CHARGING);
+        if (smartChargingPref != null) {
+            smartChargingPref.setOnPreferenceClickListener(preference -> {
+                startActivity(new Intent(getActivity(), SmartChargingSettingsActivity.class));
+                return true;
             });
         }
 

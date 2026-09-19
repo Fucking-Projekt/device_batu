@@ -65,12 +65,10 @@
             android:title="@string/thermal_title"
             android:summary="@string/thermal_summary" />
 
-        <org.lineageos.settings.preferences.SysfsSwitchPreference
-            android:key="bypass_charge"
-            android:title="@string/fastcharge_bypass_title"
-            android:summary="@string/fastcharge_bypass_summary"
-            sysfs:sysfsPath="@string/config_bypassChargeSysNode"
-            sysfs:invertValue="true" />
+        <Preference
+            android:key="smart_charging"
+            android:title="@string/charging_control_title"
+            android:summary="@string/charging_control_mode_limit_summary" />
 
         <Preference
             android:key="kernel_manager"

@@ -244,5 +244,15 @@
             </intent-filter>
         </service>
 
+        <!-- Charging Control -->
+        <activity
+            android:name=".charging.SmartChargingSettingsActivity"
+            android:label="@string/charging_control_title"
+            android:exported="false" />
+
+        <service
+            android:name=".charging.SmartChargingService"
+            android:exported="false" />
+
     </application>
 </manifest>
