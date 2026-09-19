@@ -52,6 +52,8 @@ public class TilePreferencesActivity extends Activity {
                 target = new Intent(this, org.lineageos.settings.display.DcDimmingSettingsActivity.class);
             } else if (className.contains("HBMModeTileService")) {
                 target = new Intent(this, org.lineageos.settings.hbm.HBMActivity.class);
+            } else if (className.contains("BypassChargeTileService")) {
+                target = new Intent(this, org.lineageos.settings.charging.SmartChargingSettingsActivity.class);
             } else {
                 target = new Intent(this, KamisStuffActivity.class);
             }

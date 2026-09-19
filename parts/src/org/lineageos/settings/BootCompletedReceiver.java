@@ -108,5 +108,8 @@ public class BootCompletedReceiver extends BroadcastReceiver implements KcalCont
         if (prefs.getBoolean("fps_info", false)) {
             context.startService(new Intent(context, FPSInfoService.class));
         }
+
+        // Charging Control
+        org.lineageos.settings.charging.ChargingUtils.checkService(context);
     }
 }

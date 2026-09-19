@@ -73,9 +73,14 @@ public class AutoHBMService extends Service {
     }
 
     private void enableHBM(boolean enable) {
+        if (!FileUtils.isFileWritable(HBMUtils.HBM_NODE)) {
+            return;
+        }
         if (enable) {
             FileUtils.writeLine(HBMUtils.HBM_NODE, "1");
-            FileUtils.writeLine(HBMUtils.BACKLIGHT_NODE, "2047");
+            if (FileUtils.isFileWritable(HBMUtils.BACKLIGHT_NODE)) {
+                FileUtils.writeLine(HBMUtils.BACKLIGHT_NODE, "2047");
+            }
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
         } else {
             FileUtils.writeLine(HBMUtils.HBM_NODE, "0");
@@ -106,7 +111,7 @@ public class AutoHBMService extends Service {
             }
             if (lux < luxThreshold) {
                 if (mAutoHBMActive) {
-                    mExecutorService.submit(() -> {
+                    submit(() -> {
                         try {
                             Thread.sleep(timeToDisableHBM * 1000);
                         } catch (InterruptedException ignored) {
@@ -152,6 +157,9 @@ public class AutoHBMService extends Service {
     }
 
     private Future<?> submit(Runnable runnable) {
+        if (mExecutorService == null || mExecutorService.isShutdown()) {
+            return null;
+        }
         return mExecutorService.submit(runnable);
     }
 

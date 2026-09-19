@@ -1,7 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
-    <!-- Thermal profiles -->
     <string name="thermal_title">Термопрофили</string>
     <string name="thermal_summary">Настройте профили производительности для отдельных приложений</string>
     <string name="thermal_default">Без оптимизации</string>
@@ -13,24 +11,15 @@
     <string name="thermal_navigation">Навигация</string>
     <string name="thermal_streaming">Стриминг</string>
     <string name="thermal_video">Видео</string>
-
-    <!-- Per-app refresh rate -->
     <string name="refresh_title">Частота обновления для приложений</string>
     <string name="refresh_summary">Установите максимальную частоту обновления для конкретного приложения</string>
     <string name="refresh_default">По умолчанию</string>
-    <string name="refresh_standard">60Hz</string>
-    <string name="refresh_extreme">120Hz</string>
     <string name="refresh_land">60 Гц в альбоме</string>
-
-    <!-- Clear Speaker -->
     <string name="clear_speaker_title">Очистка динамика</string>
     <string name="clear_speaker_summary">Воспроизвести 30-секундный звук для очистки динамика</string>
     <string name="clear_speaker_description">Запустите эту функцию один или два раза, если динамик слегка забит пылью. Установите громкость мультимедиа на максимум.\n\nЕсли динамик сильно забит, запустите эту функцию 2–5 раз, встряхивая устройство динамиком вниз.</string>
-
-    <!-- HBM settings -->
     <string name="hbm_fragment_title">Режим повышенной яркости</string>
     <string name="hbm_fragment_summary">Настройки HBM</string>
-    <string name="hbm_mode_title">HBM</string>
     <string name="hbm_mode_summary">Включить пиковую яркость</string>
     <string name="auto_hbm_title">Автоматический HBM</string>
     <string name="auto_hbm_summary">Включать пиковую яркость на солнце</string>
@@ -39,23 +28,13 @@
     <string name="hbm_disable_time_title">Задержка отключения</string>
     <string name="hbm_disable_time_summary">задержка отключения (секунды)</string>
     <string name="hbm_mode_warning">Длительное использование режима повышенной яркости может повредить дисплей</string>
-
-    <!-- DC dimming settings -->
-    <string name="dc_dimming_enable_title">DC Dimming</string>
     <string name="dc_dimming_enable_summary">Снижает нагрузку на глаза в условиях низкой освещенности</string>
     <string name="dc_dimming_enable_summary_not_supported">DC Dimming в настоящее время не поддерживается ядром</string>
-
-    <!-- Fastcharge settings -->
     <string name="fastcharge_bypass_title">Обходная зарядка (Bypass)</string>
     <string name="fastcharge_bypass_summary">Питание устройства напрямую от зарядного устройства (снижает износ аккумулятора)</string>
     <string name="fastcharge_bypass_warning">Предупреждение: обходная зарядка в некоторых случаях может вызвать нестабильную подачу питания. Используйте на свой страх и риск!</string>
     <string name="fastcharge_bypass_unavailable">Обходная зарядка не поддерживается на этом устройстве</string>
-
-    <!-- Kamis Stuff -->
-    <string name="kamis_stuff_title">Kamis Stuff</string>
     <string name="kamis_stuff_summary">Время окирпичивания!</string>
-
-    <!-- Useless Mode -->
     <string name="useless_mode_title">Бесполезный режим</string>
     <string name="useless_mode_summary">Включите это совершенно без причины</string>
     <string name="useless_mode_enabled_summary">Бесполезный режим ВКЛЮЧЕН — ждите случайных вибраций и мерцания!</string>
@@ -68,8 +47,6 @@
     <string name="useless_mode_accept">Я принимаю бесполезность</string>
     <string name="useless_mode_cancel">Отмена</string>
     <string name="useless_mode_amazing">Потрясающе!</string>
-
-    <!-- Kernel Manager -->
     <string name="kernel_manager_title">Менеджер ядра</string>
     <string name="kernel_manager_summary">Управление частотами CPU и регулятором</string>
     <string name="cpu_governor_title">Регулятор CPU</string>
@@ -85,59 +62,19 @@
     <string name="reset_settings">Сбросить по умолчанию</string>
     <string name="settings_applied">Настройки успешно применены</string>
     <string name="settings_reset">Настройки сброшены по умолчанию</string>
-
-    <!-- Dirac -->
     <string name="dirac_enable">Включить Dirac</string>
     <string name="dirac_title">Звук Dirac™</string>
     <string name="dirac_summary">Оптимизация качества звука</string>
     <string name="dirac_headset_title">Выберите тип наушников</string>
     <string name="dirac_preset_title">Выберите пресет</string>
     <string name="dirac_hifi_enable_title">Включить Hi-Fi</string>
-    <string name="dirac_hifi_title">Hi-Fi</string>
     <string name="dirac_hifi_summary">Снижение шума и искажений, улучшение качества звука</string>
-
-    <!-- Headset type -->
     <string name="dirac_headset_default">По умолчанию</string>
-    <string name="dirac_headset_earbuds">Mi Earbuds</string>
-    <string name="dirac_headset_in_ear_2013">Mi In-Ear (2013)</string>
-    <string name="dirac_headset_piston_1">Mi Piston-1</string>
     <string name="dirac_headset_general">Обычные</string>
     <string name="dirac_headset_general_inear">Обычные внутриканальные</string>
-    <string name="dirac_headset_piston_basic">Basic Edition</string>
-    <string name="dirac_headset_piston_2">Mi Piston-2</string>
-    <string name="dirac_headset_piston_standard">Standard Edition</string>
-    <string name="dirac_headset_headphone">Mi Headphones</string>
-    <string name="dirac_headset_piston_youth">Youth Edition</string>
-    <string name="dirac_headset_piston_color">Color Edition</string>
-    <string name="dirac_headset_in_ear">Mi In-Ear</string>
-    <string name="dirac_headset_capsule">Mi Capsule</string>
-    <string name="dirac_headset_in_ear_pro">Mi In-Ear Pro</string>
-    <string name="dirac_headset_comfort">Mi Comfort</string>
-    <string name="dirac_headset_reduction_noise">Mi Noise Cancelling Type-C</string>
-    <string name="dirac_headset_cancelling">Mi Noise Cancelling 3.5mm</string>
-    <string name="dirac_headset_half_in_ear">Mi Half In-Ear</string>
-    <string name="dirac_headset_in_ear2">Mi In-Ear 2</string>
-    <string name="dirac_headset_earphone_basic">Mi Earphones Basic</string>
-    <string name="dirac_headset_earphone">Mi Earphones</string>
-    <string name="dirac_headset_ear_four">Mi Quadruple Driver Earphones</string>
-    <string name="dirac_headset_piston_typec">Mi In-Ear Headphones (Type-C)</string>
-    <string name="dirac_headset_bluetooth_collar">Mi Bluetooth Neckband</string>
-    <string name="dirac_headset_bluetooth_linefree">Mi Bluetooth Earphones</string>
-    <string name="dirac_headset_redmi_earphones">Redmi Earphones</string>
-    <string name="dirac_headset_dual_driver_in_ear">Mi Dual Driver In-ear Earphones</string>
-
-    <!-- Dirac preset -->
     <string name="dirac_preset_default">По умолчанию</string>
-    <string name="dirac_preset_rock">Rock</string>
-    <string name="dirac_preset_jazz">Jazz</string>
-    <string name="dirac_preset_pop">Pop</string>
     <string name="dirac_preset_classical">Классика</string>
-    <string name="dirac_preset_hiphop">Hip Hop</string>
-    <string name="dirac_preset_blues">Blues</string>
     <string name="dirac_preset_electronic">Электронная</string>
-    <string name="dirac_preset_country">Country</string>
-    <string name="dirac_preset_dance">Dance</string>
-    <string name="dirac_preset_metal">Metal</string>
     <string name="dirac_preset_bass_booster">Усиление басов</string>
     <string name="dirac_preset_live">Концерт</string>
     <string name="dirac_preset_balanced">Сбалансированный</string>
@@ -145,51 +82,28 @@
     <string name="dirac_preset_treble_reduction">Уменьшение высоких</string>
     <string name="dirac_preset_soft_bass">Мягкий бас</string>
     <string name="dirac_preset_soft_treble">Мягкие высокие</string>
-
-    <!-- Music Scenario -->
     <string name="music_headset_scenario_select">Выберите сценарий</string>
     <string name="music_headset_scenario_intelligent">Умный</string>
     <string name="music_headset_scenario_music">Музыка</string>
     <string name="music_headset_scenario_video">Видео</string>
     <string name="music_headset_scenario_vocal">Голос</string>
-
-    <!-- Per-app upscale -->
     <string name="upscale_title">Разрешение для приложений</string>
     <string name="upscale_summary">Установить разрешение для конкретных приложений</string>
     <string name="upscale_default">Родное разрешение</string>
-    <string name="upscale_480p">480p</string>
-    <string name="upscale_540p">540p</string>
-    <string name="upscale_720p">720p</string>
-    <string name="upscale_1080p">1080p</string>
-    <string name="upscale_1_5k">1.5K</string>
-
-    <!-- FPS Info -->
     <string name="fps_info_title">Информация о FPS</string>
     <string name="fps_info_summary">Отображение текущего количества кадров в секунду поверх экрана</string>
-
-    <!-- High touch polling rate -->
     <string name="high_touch_polling_title">Высокая частота опроса сенсора</string>
     <string name="high_touch_polling_summary">Увеличение частоты опроса сенсора для более быстрого отклика</string>
-
-    <!-- System-wide resolution -->
     <string name="system_resolution_title">Разрешение системы</string>
     <string name="system_resolution_summary">Базовое значение для всей системы: %1$s</string>
     <string name="system_resolution_summary_setting">Базовое значение для всей системы</string>
     <string name="system_resolution_note">Правила разрешения для приложений имеют приоритет над базовым, пока эти приложения на переднем плане</string>
-    <string name="resolution_default">1080p</string>
-    <string name="resolution_480p">480p</string>
-    <string name="resolution_540p">540p</string>
-    <string name="resolution_720p">720p</string>
-    <string name="resolution_1_5k">1.5K</string>
-
-    <!-- kcal -->
     <string name="device_kcal_title">Калибровка дисплея</string>
     <string name="device_kcal_summary">Калибровка цветов дисплея с помощью KCAL</string>
     <string name="advanced_settings_kcal">Калибровка цветов экрана</string>
     <string name="kcal_summary">Настройка цветовой температуры, насыщенности, контрастности и тона</string>
     <string name="cat_colormanagement">Настройки цвета</string>
     <string name="cat_calibration">Калибровка дисплея</string>
-
     <string name="set_on_boot">Применять при загрузке</string>
     <string name="color_red">Красный</string>
     <string name="color_green">Зеленый</string>
@@ -199,43 +113,16 @@
     <string name="contrast">Контрастность</string>
     <string name="hue">Оттенок</string>
     <string name="grayscale">Монохромный дисплей</string>
-
     <string name="presets_dialog_title">Выберите пресет</string>
-
-    <!-- Presets -->
-    <string name="preset_default">Default</string>
-    <string name="preset_version_1">Version 1</string>
-    <string name="preset_version_2">Version 2</string>
-    <string name="preset_version_3">Version 3</string>
-    <string name="preset_triluminous">Triluminous</string>
-    <string name="preset_deep_black_white">Deep Black and White</string>
-    <string name="preset_deep_natural">Deep Natural</string>
-    <string name="preset_cool_amoled">Cool Amoled</string>
-    <string name="preset_extreme_amoled">Extreme Amoled</string>
-    <string name="preset_warm_amoled">Warm Amoled</string>
-    <string name="preset_hybrid_mamba">Hybrid Mamba</string>
-    <string name="preset_burn_in">Burn in Shit</string>
-    <string name="preset_retention">Retention Fix</string>
-    <string name="preset_gerard_extrem_cool">Gerard Extreme Cool</string>
-    <string name="preset_yoyoz808">Yoyoz808</string>
-    <string name="preset_purian">Purian</string>
-    <string name="preset_deep_black_colorful">Deep Black Colorful</string>
-    <string name="preset_vomer_deep_rich">Vomer Deep Rich</string>
-    <string name="preset_franco">Franco</string>
-    <string name="preset_wrinklefree_cool">WrinkleFree Cool</string>
-    <string name="preset_harley_tech">Harley-Tech</string>
-    <string name="preset_perfection">Perfection</string>
-    <string name="preset_banged_up">Banged up</string>
-    <string name="preset_sim_cooler">SimCooler</string>
-    <string name="preset_obsanity">Obsanity</string>
-    <string name="preset_obsanity_ips">Obsanity IPS</string>
-    <string name="preset_sir_banger">Sir Banger</string>
-
-    <!-- Kcal presets dialog -->
-    <string name="kcal_presets">@string/presets_dialog_title</string>
     <string name="kcal_reset">Сброс</string>
-
-    <!-- Node is not supported -->
     <string name="sysfs_node_unavailable">Не поддерживается на этом устройстве</string>
-
+    <string name="charging_control_title">Управление зарядкой</string>
+    <string name="charging_control_summary">Установите лимит зарядки и настройте поведение зарядки</string>
+    <string name="charging_control_mode_title">Параметры зарядки</string>
+    <string name="charging_control_mode_limit_summary">Ограничить зарядку до определённого процента</string>
+    <string name="charging_control_limit_title">Лимит зарядки</string>
+    <string name="charging_control_limit_summary">Остановить зарядку при достижении цели</string>
+    <string name="charging_control_advanced_title">Дополнительные параметры</string>
+    <string name="charging_control_reset_limit_title">Порог возобновления</string>
+    <string name="charging_control_reset_time_title">Максимальная пауза</string>
 </resources>

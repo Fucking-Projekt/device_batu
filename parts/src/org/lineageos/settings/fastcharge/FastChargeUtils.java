@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2025 KamiKaonashi
+ *               2026 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,39 +18,27 @@
 package org.lineageos.settings.fastcharge;
 
 import android.content.Context;
-import android.util.Log;
 
-import org.lineageos.settings.R;
-import org.lineageos.settings.utils.FileUtils;
+import org.lineageos.settings.charging.ChargingUtils;
 
 public class FastChargeUtils {
 
-    private static final String TAG = "FastChargeUtils";
-    private final String mBypassChargeNode;
+    private final ChargingUtils mChargingUtils;
 
     public FastChargeUtils(Context context) {
-        mBypassChargeNode = context.getString(R.string.config_bypassChargeSysNode);
+        mChargingUtils = ChargingUtils.getInstance(context);
     }
 
     public boolean isBypassChargeEnabled() {
-        try {
-            String value = FileUtils.readOneLine(mBypassChargeNode);
-            return value != null && value.equals("0");
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to read bypass charge status", e);
-            return false;
-        }
+        return mChargingUtils.isBypassChargingEnabled();
     }
 
     public void enableBypassCharge(boolean enable) {
-        try {
-            FileUtils.writeLine(mBypassChargeNode, enable ? "0" : "1");
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to write bypass charge status", e);
-        }
+        mChargingUtils.setBypassChargingEnabled(enable);
+        ChargingUtils.checkService(mChargingUtils.getContext());
     }
 
     public boolean isBypassChargeSupported() {
-        return mBypassChargeNode != null && FileUtils.isFileReadable(mBypassChargeNode);
+        return mChargingUtils.isSupported();
     }
 }
