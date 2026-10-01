@@ -575,3 +575,4 @@ PRODUCT_PACKAGES += \
 
 # Inherit from proprietary targets
 $(call inherit-product, vendor/xiaomi/stone/stone-vendor.mk)
+$(call inherit-product-if-exists, vendor/mivendor/holi/holi-vendor.mk)
