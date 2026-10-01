@@ -9,3 +9,4 @@ smart_clone https://github.com/swiitch-OFF-Lab/hardware_dolby hardware/dolby son
 smart_clone https://github.com/LineageOS/android_hardware_xiaomi hardware/xiaomi lineage-24.0
 smart_clone https://github.com/Fucking-Projekt/kernel_batu kernel/xiaomi/stone
 smart_clone https://github.com/Fucking-Projekt/vendor_batu vendor/xiaomi/stone
+snart_clone https://github.com/Fucking-Projekt/packages_apps_DolbyUI packages/apps/DolbyUI

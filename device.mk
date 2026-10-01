@@ -140,6 +140,11 @@ $(call soong_config_set_bool,stagefright,target_disable_thumbnail_block_model,tr
 # Dolby
 $(call inherit-product-if-exists, hardware/dolby/dolby.mk)
 
+TARGET_INCLUDES_DolbyVision := true
+
+PRODUCT_PACKAGES += \
+    LunarisDolby
+
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm-service.clearkey
