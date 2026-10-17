@@ -1017,4 +1017,28 @@
 
     <!-- The name of the system package that will hold the dependency installer role. -->
     <string name="config_systemDependencyInstaller" translatable="false">com.google.android.gms</string>
+
+<!-- List of biometric sensors on the device, in decreasing strength. Consumed by AuthService
+         when registering authenticators with BiometricService. Format must be ID:Modality:Strength,
+         where: IDs are unique per device, Modality as defined in BiometricAuthenticator.java,
+         and Strength as defined in Authenticators.java -->
+    <string-array name="config_biometric_sensors" translatable="false">
+        <item>0:2:15</item> <!-- ID0:Fingerprint:Strong -->
+    </string-array>
+
+    <!-- Indicates whether device has a power button fingerprint sensor. -->
+    <bool name="config_is_powerbutton_fps">true</bool>
+
+    <!-- An array of arrays of side fingerprint sensor properties relative to each display.
+         Note: this value is temporary and is expected to be queried directly
+         from the HAL in the future. -->
+    <array name="config_sfps_sensor_props">
+        <item>@array/config_sfps_sensor_props_0</item>
+    </array>
+    <array name="config_sfps_sensor_props_0">
+        <item>local:4630947218746568833</item> <!-- displayId       -->
+        <item>1080</item>                      <!-- sensorLocationX -->
+        <item>922</item>                       <!-- sensorLocationY -->
+        <item>0</item>                         <!-- sensorRadius    -->
+    </array>
 </resources>
