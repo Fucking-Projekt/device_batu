@@ -57,8 +57,11 @@ public class DcDimmingSettingsFragment extends SettingsBasePreferenceFragment im
         if (DcDimmingUtils.DC_DIMMING_ENABLE_KEY.equals(preference.getKey())) {
             boolean enabled = (boolean) newValue;
             FileUtils.writeLine(DcDimmingUtils.DC_DIMMING_NODE, enabled ? "1" : "0");
+            File hbmFile = new File(HBMUtils.getHbmNode());
             if (enabled) {
                 disableHBM();
+            } else {
+                hbmFile.setWritable(true);
             }
             updateHBMPreference(!enabled);
         }
@@ -66,8 +69,8 @@ public class DcDimmingSettingsFragment extends SettingsBasePreferenceFragment im
     }
 
     private void disableHBM() {
-        FileUtils.writeLine(DcDimmingUtils.HBM_NODE, "0");
-        File hbmFile = new File(DcDimmingUtils.HBM_NODE);
+        FileUtils.writeLine(HBMUtils.getHbmNode(), "0");
+        File hbmFile = new File(HBMUtils.getHbmNode());
         hbmFile.setReadOnly();
         updateHBMUI(false);
     }

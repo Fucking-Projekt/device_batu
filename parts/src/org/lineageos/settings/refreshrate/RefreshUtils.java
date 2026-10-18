@@ -26,6 +26,9 @@ import android.view.OrientationEventListener;
 import android.content.res.Configuration;
 import androidx.preference.PreferenceManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class RefreshUtils {
 
     private static final String REFRESH_CONTROL = "refresh_control";
@@ -36,6 +39,8 @@ public final class RefreshUtils {
     private static final String KEY_MIN_REFRESH_RATE = "min_refresh_rate";
     private static final String KEY_MIUI_REFRESH_RATE = "miui_refresh_rate";
     private static final String KEY_USER_REFRESH_RATE = "user_refresh_rate";
+    private static final String KEY_OPLUS_REFRESH_RATE = "oplus_customize_screen_refresh_rate";
+
     private Context mContext;
     protected boolean isAppInList = false;
 
@@ -80,15 +85,22 @@ public final class RefreshUtils {
         mSharedPrefs.edit().putString(REFRESH_CONTROL, profiles).apply();
     }
 
-    protected void getOldRate(){
+    protected void getOldRate() {
         defaultMaxRate = Settings.System.getFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, REFRESH_STATE_DEFAULT);
         defaultMinRate = Settings.System.getFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, REFRESH_STATE_DEFAULT);
         if (defaultMaxRate == 0.0f) {
-            int miuiRate = Settings.Secure.getInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, 0);
-            if (miuiRate > 0) {
-                defaultMaxRate = (float) miuiRate;
+            int oplusRate = Settings.Secure.getInt(mContext.getContentResolver(), KEY_OPLUS_REFRESH_RATE, 0);
+            if (oplusRate == 2) {
+                defaultMaxRate = REFRESH_STATE_STANDARD;
+            } else if (oplusRate == 3) {
+                defaultMaxRate = REFRESH_STATE_EXTREME;
             } else {
-                defaultMaxRate = REFRESH_STATE_DEFAULT;
+                int miuiRate = Settings.Secure.getInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, 0);
+                if (miuiRate > 0) {
+                    defaultMaxRate = (float) miuiRate;
+                } else {
+                    defaultMaxRate = REFRESH_STATE_DEFAULT;
+                }
             }
         }
         if (defaultMinRate == 0.0f) {
@@ -139,34 +151,26 @@ public final class RefreshUtils {
 
     private void adjustRefreshRateForOrientation(String packageName) {
         float minRate = defaultMinRate;
-        float maxRate = isLandscape && isAppInList ? REFRESH_STATE_LAND : REFRESH_STATE_EXTREME;
+        float maxRate = (isLandscape && isAppInList) ? REFRESH_STATE_LAND : REFRESH_STATE_EXTREME;
         setRefreshRate(minRate, maxRate);
     }
 
     protected void checkOrientationAndSetRate(String packageName) {
         int currentOrientation = mContext.getResources().getConfiguration().orientation;
-        boolean isCurrentlyLandscape = (currentOrientation == Configuration.ORIENTATION_LANDSCAPE);
-        float currentMaxRate = Settings.System.getFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, REFRESH_STATE_DEFAULT);
-
-        if (isCurrentlyLandscape && isAppInList) {
-            setLandscapeModeRefreshRate();
-        } else if (!isCurrentlyLandscape && isAppInList) {
-            setPortraitModeRefreshRate();
-        }
+        isLandscape = (currentOrientation == Configuration.ORIENTATION_LANDSCAPE);
+        adjustRefreshRateForOrientation(packageName);
     }
 
     private void setLandscapeModeRefreshRate() {
-        Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, REFRESH_STATE_LAND);
-        Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, REFRESH_STATE_LAND);
-        Settings.Secure.putInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, (int) REFRESH_STATE_LAND);
-        Settings.Secure.putInt(mContext.getContentResolver(), KEY_USER_REFRESH_RATE, (int) REFRESH_STATE_LAND);
+        setRefreshRate(REFRESH_STATE_LAND, REFRESH_STATE_LAND);
     }
 
     private void setPortraitModeRefreshRate() {
-        Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, REFRESH_STATE_EXTREME);
-        Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, REFRESH_STATE_EXTREME);
-        Settings.Secure.putInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, (int) REFRESH_STATE_EXTREME);
-        Settings.Secure.putInt(mContext.getContentResolver(), KEY_USER_REFRESH_RATE, (int) REFRESH_STATE_EXTREME);
+        setRefreshRate(REFRESH_STATE_EXTREME, REFRESH_STATE_EXTREME);
+    }
+
+    private int getOplusRefreshRateValue(float rate) {
+        return (rate <= REFRESH_STATE_STANDARD) ? 2 : 3;
     }
 
     private void setRefreshRate(float minRate, float maxRate) {
@@ -177,8 +181,8 @@ public final class RefreshUtils {
         Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, maxRate);
         Settings.Secure.putInt(mContext.getContentResolver(), KEY_USER_REFRESH_RATE, (int) maxRate);
         Settings.Secure.putInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, (int) maxRate);
+        Settings.Secure.putInt(mContext.getContentResolver(), KEY_OPLUS_REFRESH_RATE, getOplusRefreshRateValue(maxRate));
     }
-
 
     private String getValue() {
         String value = mSharedPrefs.getString(REFRESH_CONTROL, null);
@@ -188,7 +192,7 @@ public final class RefreshUtils {
             writeValue(value);
         }
 
-        String[] modes = value.split(":");
+        String[] modes = value.split(":", -1);
         if (modes.length < 3) {
             modes = new String[] {
                 modes.length > 0 ? modes[0] : REFRESH_STANDARD,
@@ -201,69 +205,101 @@ public final class RefreshUtils {
         return value;
     }
 
+    private List<String> parsePackages(String section) {
+        List<String> list = new ArrayList<>();
+        if (section == null || section.isEmpty()) {
+            return list;
+        }
+        int eqIndex = section.indexOf('=');
+        String content = (eqIndex >= 0) ? section.substring(eqIndex + 1) : section;
+        for (String pkg : content.split(",")) {
+            String trimmed = pkg.trim();
+            if (!trimmed.isEmpty()) {
+                list.add(trimmed);
+            }
+        }
+        return list;
+    }
+
     protected void writePackage(String packageName, int mode) {
+        if (packageName == null || packageName.isEmpty()) {
+            return;
+        }
         String value = getValue();
-        value = value.replace(packageName + ",", "");
-        String[] modes = value.split(":");
-        String finalString;
+        String[] modes = value.split(":", -1);
+        List<String> standardList = (modes.length > 0) ? parsePackages(modes[0]) : new ArrayList<>();
+        List<String> extremeList = (modes.length > 1) ? parsePackages(modes[1]) : new ArrayList<>();
+        List<String> landList = (modes.length > 2) ? parsePackages(modes[2]) : new ArrayList<>();
+
+        standardList.remove(packageName);
+        extremeList.remove(packageName);
+        landList.remove(packageName);
 
         switch (mode) {
             case STATE_STANDARD:
-                modes[0] = modes[0] + packageName + ",";
+                standardList.add(packageName);
                 break;
             case STATE_EXTREME:
-                modes[1] = modes[1] + packageName + ",";
+                extremeList.add(packageName);
                 break;
             case STATE_LAND:
-                modes[2] = modes[2] + packageName + ",";
+                landList.add(packageName);
                 break;
-
+            case STATE_DEFAULT:
+            default:
+                break;
         }
 
-        finalString = modes[0] + ":" + modes[1] + ":" + modes[2];
+        String newStandard = REFRESH_STANDARD + (standardList.isEmpty() ? "" : String.join(",", standardList) + ",");
+        String newExtreme = REFRESH_EXTREME + (extremeList.isEmpty() ? "" : String.join(",", extremeList) + ",");
+        String newLand = REFRESH_LAND + (landList.isEmpty() ? "" : String.join(",", landList) + ",");
 
+        String finalString = newStandard + ":" + newExtreme + ":" + newLand;
         writeValue(finalString);
     }
 
     protected int getStateForPackage(String packageName) {
-        String value = getValue();
-        String[] modes = value.split(":");
-        int state = STATE_DEFAULT;
-        if (modes[0].contains(packageName + ",")) {
-            state = STATE_STANDARD;
-        } else if (modes[1].contains(packageName + ",")) {
-            state = STATE_EXTREME;
-        } else if (modes[2].contains(packageName + ",")) {
-            state = STATE_LAND;
+        if (packageName == null || packageName.isEmpty()) {
+            return STATE_DEFAULT;
         }
-        return state;
+        String value = getValue();
+        String[] modes = value.split(":", -1);
+        if (modes.length > 0 && parsePackages(modes[0]).contains(packageName)) {
+            return STATE_STANDARD;
+        }
+        if (modes.length > 1 && parsePackages(modes[1]).contains(packageName)) {
+            return STATE_EXTREME;
+        }
+        if (modes.length > 2 && parsePackages(modes[2]).contains(packageName)) {
+            return STATE_LAND;
+        }
+        return STATE_DEFAULT;
     }
 
     protected void setRefreshRate(String packageName) {
-        String value = getValue();
-        String[] modes = value.split(":");
+        int state = getStateForPackage(packageName);
         float maxRate = defaultMaxRate;
         float minRate = defaultMinRate;
         isAppInList = false;
 
-        if (value != null) {
-            modes = value.split(":");
-
-            if (modes[0].contains(packageName + ",")) {
-                maxRate = REFRESH_STATE_STANDARD;
-                isAppInList = true;
-            } else if (modes[1].contains(packageName + ",")) {
-                maxRate = REFRESH_STATE_EXTREME;
-                isAppInList = true;
-            } else if (modes[2].contains(packageName + ",")) {
-                initializeOrientationListener(packageName);
-                isAppInList = true;
-                return;
-            }
+        if (state == STATE_STANDARD) {
+            cleanup();
+            maxRate = REFRESH_STATE_STANDARD;
+            isAppInList = true;
+        } else if (state == STATE_EXTREME) {
+            cleanup();
+            maxRate = REFRESH_STATE_EXTREME;
+            isAppInList = true;
+        } else if (state == STATE_LAND) {
+            isAppInList = true;
+            initializeOrientationListener(packageName);
+            checkOrientationAndSetRate(packageName);
+            return;
+        } else {
+            // STATE_DEFAULT: Not in list
+            cleanup();
         }
-        Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, minRate);
-        Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, maxRate);
-        Settings.Secure.putInt(mContext.getContentResolver(), KEY_USER_REFRESH_RATE, (int) maxRate);
-        Settings.Secure.putInt(mContext.getContentResolver(), KEY_MIUI_REFRESH_RATE, (int) maxRate);
+
+        setRefreshRate(minRate, maxRate);
     }
 }

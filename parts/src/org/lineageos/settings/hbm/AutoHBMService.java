@@ -73,22 +73,23 @@ public class AutoHBMService extends Service {
     }
 
     private void enableHBM(boolean enable) {
-        if (!FileUtils.isFileWritable(HBMUtils.HBM_NODE)) {
+        String node = HBMUtils.getHbmNode();
+        if (!FileUtils.isFileWritable(node)) {
             return;
         }
         if (enable) {
-            FileUtils.writeLine(HBMUtils.HBM_NODE, "1");
+            FileUtils.writeLine(node, "1");
             if (FileUtils.isFileWritable(HBMUtils.BACKLIGHT_NODE)) {
                 FileUtils.writeLine(HBMUtils.BACKLIGHT_NODE, "2047");
             }
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
         } else {
-            FileUtils.writeLine(HBMUtils.HBM_NODE, "0");
+            FileUtils.writeLine(node, "0");
         }
     }
 
     private boolean isCurrentlyEnabled() {
-        return FileUtils.getFileValueAsBoolean(HBMUtils.HBM_NODE, false);
+        return FileUtils.getFileValueAsBoolean(HBMUtils.getHbmNode(), false);
     }
 
     private SensorEventListener mSensorEventListener = new SensorEventListener() {

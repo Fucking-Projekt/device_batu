@@ -60,8 +60,8 @@ public class DcDimmingTileService extends TileService {
     }
 
     private void disableHBM() {
-        FileUtils.writeLine(DcDimmingUtils.HBM_NODE, "0");
-        File hbmFile = new File(DcDimmingUtils.HBM_NODE);
+        FileUtils.writeLine(HBMUtils.getHbmNode(), "0");
+        File hbmFile = new File(HBMUtils.getHbmNode());
         hbmFile.setReadOnly();
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         Editor editor = sharedPrefs.edit();
@@ -108,7 +108,7 @@ public class DcDimmingTileService extends TileService {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         final boolean enabled = !(sharedPrefs.getBoolean(DC_DIMMING_ENABLE_KEY, false));
         FileUtils.writeLine(DcDimmingUtils.DC_DIMMING_NODE, enabled ? "1" : "0");
-        File hbmFile = new File(DcDimmingUtils.HBM_NODE);
+        File hbmFile = new File(HBMUtils.getHbmNode());
         if (enabled) {
             disableHBM();
         } else {

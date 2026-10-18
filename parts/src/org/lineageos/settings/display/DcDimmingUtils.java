@@ -19,7 +19,7 @@ package org.lineageos.settings.display;
 public final class DcDimmingUtils {
     public static final String DC_DIMMING_ENABLE_KEY = "dc_dimming_enable";
     public static final String DC_DIMMING_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display-primary/dimlayer_exposure";
-    public static final String HBM_NODE = "/sys/devices/platform/soc/5e00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/hbm";
+    public static final String HBM_NODE = "/sys/class/drm/card0-DSI-1/hbm";
 
     private DcDimmingUtils() {
         // Utility class

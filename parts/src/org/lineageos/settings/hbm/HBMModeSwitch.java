@@ -41,7 +41,8 @@ public class HBMModeSwitch implements OnPreferenceChangeListener {
         if (dcDimmingEnabled) {
             return false;
         }
-        if (!FileUtils.writeLine(HBMUtils.HBM_NODE, enabled ? "1" : "0")) {
+        String node = HBMUtils.getHbmNode();
+        if (!FileUtils.writeLine(node, enabled ? "1" : "0")) {
             return false;
         }
         if (enabled) {

@@ -21,7 +21,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.UserHandle;
 
+import org.lineageos.settings.utils.FileUtils;
+
 public final class HBMUtils {
+    public static final String CLASS_HBM_NODE = "/sys/class/drm/card0-DSI-1/hbm";
     public static final String HBM_NODE = "/sys/devices/platform/soc/5e00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/hbm";
     public static final String BACKLIGHT_NODE = "/sys/class/backlight/panel0-backlight/brightness";
 
@@ -29,6 +32,13 @@ public final class HBMUtils {
     public static final String KEY_AUTO_HBM = "auto_hbm";
     public static final String KEY_AUTO_HBM_THRESHOLD = "auto_hbm_threshold";
     public static final String KEY_HBM_DISABLE_TIME = "hbm_disable_time";
+
+    public static String getHbmNode() {
+        if (FileUtils.fileExists(CLASS_HBM_NODE)) {
+            return CLASS_HBM_NODE;
+        }
+        return HBM_NODE;
+    }
 
     private static boolean sServiceEnabled = false;
 
