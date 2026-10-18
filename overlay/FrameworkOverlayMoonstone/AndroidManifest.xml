@@ -7,6 +7,6 @@
           package="com.android.overlay.moonstone">
     <overlay android:targetPackage="android"
              android:isStatic="true"
-             android:requiredSystemPropertyName="ro.product.device"
+             android:requiredSystemPropertyName="ro.product.board"
              android:requiredSystemPropertyValue="moonstone" />
 </manifest>

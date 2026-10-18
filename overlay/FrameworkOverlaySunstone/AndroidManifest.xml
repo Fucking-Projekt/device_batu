@@ -7,6 +7,6 @@
           package="com.android.overlay.sunstone">
     <overlay android:targetPackage="android"
              android:isStatic="true"
-             android:requiredSystemPropertyName="ro.product.device"
+             android:requiredSystemPropertyName="ro.product.board"
              android:requiredSystemPropertyValue="sunstone" />
 </manifest>
