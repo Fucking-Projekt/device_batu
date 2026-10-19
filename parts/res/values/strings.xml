@@ -265,4 +265,8 @@
     <!-- SysfsSwitchPreference -->
     <string name="sysfs_node_unavailable">Not supported on this device</string>
 
+    <!-- Double tap to wake -->
+    <string name="dt2w_enable_title">Double tap to wake</string>
+    <string name="dt2w_enable_summary">Double tap the screen to wake the device</string>
+
 </resources>

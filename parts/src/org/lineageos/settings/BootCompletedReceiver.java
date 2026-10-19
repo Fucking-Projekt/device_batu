@@ -33,6 +33,7 @@ import org.lineageos.settings.fps.FPSInfoService;
 import org.lineageos.settings.hbm.HBMUtils;
 import org.lineageos.settings.kcal.KcalController;
 import org.lineageos.settings.kcal.KcalService;
+import org.lineageos.settings.preferences.DT2WSwitchPreference;
 import org.lineageos.settings.refreshrate.RefreshUtils;
 import org.lineageos.settings.resolution.ResolutionUtils;
 import org.lineageos.settings.thermal.ThermalUtils;
@@ -111,5 +112,14 @@ public class BootCompletedReceiver extends BroadcastReceiver implements KcalCont
 
         // Charging Control
         org.lineageos.settings.charging.ChargingUtils.checkService(context);
+
+        // Double Tap To Wake
+        int dt2w = Settings.Secure.getInt(context.getContentResolver(),
+                Settings.Secure.DOUBLE_TAP_TO_WAKE, -1);
+        if (dt2w == -1) {
+            dt2w = Settings.Secure.getInt(context.getContentResolver(),
+                    DT2WSwitchPreference.SETTING_OPLUS_GESTURE, 0);
+        }
+        DT2WSwitchPreference.writeToSysfs(dt2w == 1);
     }
 }

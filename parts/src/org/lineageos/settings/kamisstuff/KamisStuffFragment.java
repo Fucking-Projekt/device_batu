@@ -33,6 +33,7 @@ import org.lineageos.settings.fps.FPSInfoService;
 import org.lineageos.settings.hbm.HBMActivity;
 import org.lineageos.settings.kernelmanager.KernelManagerActivity;
 import org.lineageos.settings.kcal.KcalSettingsActivity;
+import org.lineageos.settings.preferences.DT2WSwitchPreference;
 import org.lineageos.settings.preferences.SysfsSwitchPreference;
 import org.lineageos.settings.speaker.ClearSpeakerActivity;
 import org.lineageos.settings.refreshrate.RefreshActivity;
@@ -56,6 +57,7 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
     private static final String KEY_SYSTEM_RESOLUTION = "system_resolution";
     private static final String KEY_FPS_INFO = "fps_info";
     private static final String KEY_HIGH_TOUCH_POLLING = "high_touch_polling";
+    private static final String KEY_DT2W = "dt2w";
     private static final String KEY_SMART_CHARGING = "smart_charging";
     private static final String KEY_DC_DIMMING = "dc_dimming";
     private static final String KEY_HBM = "hbm";
@@ -78,6 +80,10 @@ public class KamisStuffFragment extends SettingsBasePreferenceFragment {
         SysfsSwitchPreference highTouchPref = findPreference(KEY_HIGH_TOUCH_POLLING);
         if (highTouchPref != null && highTouchPref.isSupported()) {
             highTouchPref.readFromSysfs();
+        }
+        DT2WSwitchPreference dt2wPref = findPreference(KEY_DT2W);
+        if (dt2wPref != null && DT2WSwitchPreference.isSupported()) {
+            dt2wPref.updateState();
         }
     }
 

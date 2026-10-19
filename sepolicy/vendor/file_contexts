@@ -73,6 +73,7 @@
 
 # Touch
 /sys/devices/virtual/touch/touch_dev/bump_sample_rate        u:object_r:vendor_sysfs_touch:s0
+/sys/devices/platform/soc/4c88000\.i2c/i2c-2/2-0038/fts_gesture_mode                                   u:object_r:vendor_sysfs_touch:s0
 /vendor/bin/hw/vendor\.lineage\.touch-service\.xiaomi                                               u:object_r:hal_lineage_touch_default_exec:s0
 
 # Vulkan SP-HAL dependencies

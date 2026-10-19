@@ -32,4 +32,7 @@
 
     <!-- High touch polling rate sysfs node -->
     <string name="config_touchPollingSysNode" translatable="false">/sys/devices/virtual/touch/touch_dev/bump_sample_rate</string>
+
+    <!-- Double tap to wake sysfs node -->
+    <string name="config_dt2wSysNode" translatable="false">/sys/devices/platform/soc/4c88000.i2c/i2c-2/2-0038/fts_gesture_mode</string>
 </resources>

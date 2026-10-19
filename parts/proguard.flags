@@ -16,3 +16,9 @@
 -keep class org.lineageos.settings.charging.* {
   *;
 }
+-keep class org.lineageos.settings.preferences.* {
+  *;
+}
+-keep class org.lineageos.settings.kamisstuff.* {
+  *;
+}

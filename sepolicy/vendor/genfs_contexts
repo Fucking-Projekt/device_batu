@@ -60,3 +60,4 @@ genfscon sysfs /module/msm_drm/parameters/kcal_val     u:object_r:vendor_sysfs_k
 
 # Touch
 genfscon sysfs /devices/virtual/touch/touch_dev/bump_sample_rate u:object_r:vendor_sysfs_touch:s0
+genfscon sysfs /devices/platform/soc/4c88000.i2c/i2c-2/2-0038/fts_gesture_mode u:object_r:vendor_sysfs_touch:s0
