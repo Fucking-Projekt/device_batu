@@ -43,6 +43,8 @@ lib_fixups: lib_fixups_user_type = {
     ): lib_fixup_vendor_suffix,
     (
         'vendor.qti.qspmhal@1.0',
+        'vendor.qti.qspmhal-V1-ndk',
+        'libqspm-mem-utils-vendor',
     ): lib_fixup_remove,
 }
 
