@@ -22,7 +22,7 @@
     <com.android.settingslib.widget.MainSwitchPreference
         android:key="charging_control_enabled"
         android:title="@string/charging_control_title"
-        android:defaultValue="true" />
+        android:defaultValue="false" />
 
     <PreferenceCategory
         android:key="charging_control_category_settings"

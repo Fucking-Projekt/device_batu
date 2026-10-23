@@ -105,14 +105,14 @@ public class SmartChargingService extends Service {
             return;
         }
 
-        if (!mChargingUtils.isEnabled()) {
-            mChargingUtils.setChargingEnabled(true);
-            return;
-        }
-
         // Bypass charging mode overrides limit
         if (mChargingUtils.isBypassChargingEnabled()) {
             mChargingUtils.setChargingEnabled(false);
+            return;
+        }
+
+        if (!mChargingUtils.isEnabled()) {
+            mChargingUtils.setChargingEnabled(true);
             return;
         }
 

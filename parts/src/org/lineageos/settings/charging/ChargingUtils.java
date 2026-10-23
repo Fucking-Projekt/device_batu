@@ -155,7 +155,7 @@ public class ChargingUtils {
     }
 
     public boolean isEnabled() {
-        return mSharedPrefs.getBoolean(KEY_CHARGING_CONTROL_ENABLED, true);
+        return mSharedPrefs.getBoolean(KEY_CHARGING_CONTROL_ENABLED, false);
     }
 
     public void setEnabled(boolean enabled) {
@@ -205,7 +205,8 @@ public class ChargingUtils {
     public static void checkService(Context context) {
         ChargingUtils utils = getInstance(context);
         Intent intent = new Intent(context, SmartChargingService.class);
-        if (utils.isEnabled()) {
+        if (utils.isEnabled() || utils.isBypassChargingEnabled()) {
+            intent.setAction(SmartChargingService.ACTION_RE_EVALUATE);
             context.startService(intent);
         } else {
             context.stopService(intent);
